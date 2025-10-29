@@ -21,6 +21,7 @@ defmodule ServicesWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
   end
 
   # Other scopes may use custom stacks.
@@ -54,6 +55,11 @@ defmodule ServicesWeb.Router do
       on_mount: [{ServicesWeb.UserAuth, :require_authenticated}] do
       live "/users/settings", UserLive.Settings, :edit
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
+
+    live "/categories", CategoryLive.Index, :index
+    live "/categories/new", CategoryLive.Form, :new
+    live "/categories/:id", CategoryLive.Show, :show
+    live "/categories/:id/edit", CategoryLive.Form, :edit
     end
 
     post "/users/update-password", UserSessionController, :update_password
