@@ -50,8 +50,8 @@ defmodule ServicesWeb.ServiceLive.Index do
 
     {:ok,
      socket
-     |> assign(:page_title, "Listing Services")
-     |> stream(:services, list_services(socket.assigns.current_scope))}
+      |> assign(:page_title, "Listing Services")
+      |> stream(:services, list_services(socket.assigns.current_scope))}
   end
 
   @impl true
