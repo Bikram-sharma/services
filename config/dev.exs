@@ -2,6 +2,7 @@ import Config
 
 # Configure your database
 config :services, Services.Repo,
+
   username: "dbuser",
   password: "dbpass",
   port: 2025,
