@@ -60,6 +60,11 @@ defmodule ServicesWeb.Router do
     live "/categories/new", CategoryLive.Form, :new
     live "/categories/:id", CategoryLive.Show, :show
     live "/categories/:id/edit", CategoryLive.Form, :edit
+
+    live "/services", ServiceLive.Index, :index
+    live "/services/new", ServiceLive.Form, :new
+    live "/services/:id", ServiceLive.Show, :show
+    live "/services/:id/edit", ServiceLive.Form, :edit
     end
 
     post "/users/update-password", UserSessionController, :update_password

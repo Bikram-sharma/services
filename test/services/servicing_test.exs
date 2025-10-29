@@ -90,4 +90,92 @@ defmodule Services.ServicingTest do
       assert %Ecto.Changeset{} = Servicing.change_category(scope, category)
     end
   end
+
+  describe "services" do
+    alias Services.Servicing.Service
+
+    import Services.AccountsFixtures, only: [user_scope_fixture: 0]
+    import Services.ServicingFixtures
+
+    @invalid_attrs %{name: nil, description: nil}
+
+    test "list_services/1 returns all scoped services" do
+      scope = user_scope_fixture()
+      other_scope = user_scope_fixture()
+      service = service_fixture(scope)
+      other_service = service_fixture(other_scope)
+      assert Servicing.list_services(scope) == [service]
+      assert Servicing.list_services(other_scope) == [other_service]
+    end
+
+    test "get_service!/2 returns the service with given id" do
+      scope = user_scope_fixture()
+      service = service_fixture(scope)
+      other_scope = user_scope_fixture()
+      assert Servicing.get_service!(scope, service.id) == service
+      assert_raise Ecto.NoResultsError, fn -> Servicing.get_service!(other_scope, service.id) end
+    end
+
+    test "create_service/2 with valid data creates a service" do
+      valid_attrs = %{name: "some name", description: "some description"}
+      scope = user_scope_fixture()
+
+      assert {:ok, %Service{} = service} = Servicing.create_service(scope, valid_attrs)
+      assert service.name == "some name"
+      assert service.description == "some description"
+      assert service.user_id == scope.user.id
+    end
+
+    test "create_service/2 with invalid data returns error changeset" do
+      scope = user_scope_fixture()
+      assert {:error, %Ecto.Changeset{}} = Servicing.create_service(scope, @invalid_attrs)
+    end
+
+    test "update_service/3 with valid data updates the service" do
+      scope = user_scope_fixture()
+      service = service_fixture(scope)
+      update_attrs = %{name: "some updated name", description: "some updated description"}
+
+      assert {:ok, %Service{} = service} = Servicing.update_service(scope, service, update_attrs)
+      assert service.name == "some updated name"
+      assert service.description == "some updated description"
+    end
+
+    test "update_service/3 with invalid scope raises" do
+      scope = user_scope_fixture()
+      other_scope = user_scope_fixture()
+      service = service_fixture(scope)
+
+      assert_raise MatchError, fn ->
+        Servicing.update_service(other_scope, service, %{})
+      end
+    end
+
+    test "update_service/3 with invalid data returns error changeset" do
+      scope = user_scope_fixture()
+      service = service_fixture(scope)
+      assert {:error, %Ecto.Changeset{}} = Servicing.update_service(scope, service, @invalid_attrs)
+      assert service == Servicing.get_service!(scope, service.id)
+    end
+
+    test "delete_service/2 deletes the service" do
+      scope = user_scope_fixture()
+      service = service_fixture(scope)
+      assert {:ok, %Service{}} = Servicing.delete_service(scope, service)
+      assert_raise Ecto.NoResultsError, fn -> Servicing.get_service!(scope, service.id) end
+    end
+
+    test "delete_service/2 with invalid scope raises" do
+      scope = user_scope_fixture()
+      other_scope = user_scope_fixture()
+      service = service_fixture(scope)
+      assert_raise MatchError, fn -> Servicing.delete_service(other_scope, service) end
+    end
+
+    test "change_service/2 returns a service changeset" do
+      scope = user_scope_fixture()
+      service = service_fixture(scope)
+      assert %Ecto.Changeset{} = Servicing.change_service(scope, service)
+    end
+  end
 end
