@@ -41,9 +41,6 @@ defmodule Services.Service_provider do
 
   """
   def list_provider(%Scope{} = scope) do
-    Provider
-    |> preload(:users)
-    |> IO.inspect()
     Repo.all_by(Provider, user_id: scope.user.id)
   end
 
