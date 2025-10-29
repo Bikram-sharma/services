@@ -17,46 +17,29 @@ defmodule Services.Service_provider do
     * {:created, %Provider{}}
     * {:updated, %Provider{}}
     * {:deleted, %Provider{}}
-
   """
   def subscribe_provider(%Scope{} = scope) do
     key = scope.user.id
-
     Phoenix.PubSub.subscribe(Services.PubSub, "user:#{key}:provider")
   end
 
   defp broadcast_provider(%Scope{} = scope, message) do
     key = scope.user.id
-
     Phoenix.PubSub.broadcast(Services.PubSub, "user:#{key}:provider", message)
   end
 
   @doc """
-  Returns the list of provider.
-
-  ## Examples
-
-      iex> list_provider(scope)
-      [%Provider{}, ...]
-
+  Returns the list of provider scoped to the given scope.
   """
   def list_provider(%Scope{} = scope) do
-    Repo.all_by(Provider, user_id: scope.user.id)
+    from(p in Provider, where: p.user_id == ^scope.user.id)
+    |> Repo.all()
   end
 
   @doc """
   Gets a single provider.
 
   Raises `Ecto.NoResultsError` if the Provider does not exist.
-
-  ## Examples
-
-      iex> get_provider!(scope, 123)
-      %Provider{}
-
-      iex> get_provider!(scope, 456)
-      ** (Ecto.NoResultsError)
-
   """
   def get_provider!(%Scope{} = scope, id) do
     Repo.get_by!(Provider, id: id, user_id: scope.user.id)
@@ -64,15 +47,6 @@ defmodule Services.Service_provider do
 
   @doc """
   Creates a provider.
-
-  ## Examples
-
-      iex> create_provider(scope, %{field: value})
-      {:ok, %Provider{}}
-
-      iex> create_provider(scope, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
   """
   def create_provider(%Scope{} = scope, attrs) do
     with {:ok, provider = %Provider{}} <-
@@ -86,15 +60,6 @@ defmodule Services.Service_provider do
 
   @doc """
   Updates a provider.
-
-  ## Examples
-
-      iex> update_provider(scope, provider, %{field: new_value})
-      {:ok, %Provider{}}
-
-      iex> update_provider(scope, provider, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
   """
   def update_provider(%Scope{} = scope, %Provider{} = provider, attrs) do
     true = provider.user_id == scope.user.id
@@ -110,21 +75,11 @@ defmodule Services.Service_provider do
 
   @doc """
   Deletes a provider.
-
-  ## Examples
-
-      iex> delete_provider(scope, provider)
-      {:ok, %Provider{}}
-
-      iex> delete_provider(scope, provider)
-      {:error, %Ecto.Changeset{}}
-
   """
   def delete_provider(%Scope{} = scope, %Provider{} = provider) do
     true = provider.user_id == scope.user.id
 
-    with {:ok, provider = %Provider{}} <-
-           Repo.delete(provider) do
+    with {:ok, provider = %Provider{}} <- Repo.delete(provider) do
       broadcast_provider(scope, {:deleted, provider})
       {:ok, provider}
     end
@@ -132,16 +87,9 @@ defmodule Services.Service_provider do
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking provider changes.
-
-  ## Examples
-
-      iex> change_provider(scope, provider)
-      %Ecto.Changeset{data: %Provider{}}
-
   """
   def change_provider(%Scope{} = scope, %Provider{} = provider, attrs \\ %{}) do
     true = provider.user_id == scope.user.id
-
     Provider.changeset(provider, attrs, scope)
   end
 end
