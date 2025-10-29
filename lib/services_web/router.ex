@@ -54,6 +54,12 @@ defmodule ServicesWeb.Router do
       on_mount: [{ServicesWeb.UserAuth, :require_authenticated}] do
       live "/users/settings", UserLive.Settings, :edit
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
+
+      live "/provider", ProviderLive.Index, :index
+      live "/provider/new", ProviderLive.Form, :new
+      live "/provider/:id", ProviderLive.Show, :show
+      live "/provider/:id/edit", ProviderLive.Form, :edit
+
     end
 
     post "/users/update-password", UserSessionController, :update_password

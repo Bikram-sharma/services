@@ -2,8 +2,9 @@ import Config
 
 # Configure your database
 config :services, Services.Repo,
-  username: "bikram",
-  password: "1234",
+  username: "dbuser",
+  password: "dbpass",
+  port: 2025,
   hostname: "localhost",
   database: "services_dev",
   stacktrace: true,
