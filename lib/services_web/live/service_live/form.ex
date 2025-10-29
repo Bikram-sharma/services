@@ -16,6 +16,13 @@ defmodule ServicesWeb.ServiceLive.Form do
       <.form for={@form} id="service-form" phx-change="validate" phx-submit="save">
         <.input field={@form[:name]} type="text" label="Name" />
         <.input field={@form[:description]} type="text" label="Description" />
+        <.input
+        field={@form[:category_id]}
+        type="select"
+        prompt="select a category"
+        label="category"
+        options={@categories}
+        />
         <footer>
           <.button phx-disable-with="Saving..." variant="primary">Save Service</.button>
           <.button navigate={return_path(@current_scope, @return_to, @service)}>Cancel</.button>
@@ -27,10 +34,18 @@ defmodule ServicesWeb.ServiceLive.Form do
 
   @impl true
   def mount(params, _session, socket) do
+    categories =
+      Servicing.list_categories(socket.assigns.current_scope)
+      |>Enum.map(fn category ->
+        {category.name, category.id}
+
+      end)
+
     {:ok,
      socket
      |> assign(:return_to, return_to(params["return_to"]))
-     |> apply_action(socket.assigns.live_action, params)}
+     |> apply_action(socket.assigns.live_action, params)
+     |> assign(:categories, categories)}
   end
 
   defp return_to("show"), do: "show"
