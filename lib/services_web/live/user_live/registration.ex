@@ -40,6 +40,14 @@ defmodule ServicesWeb.UserLive.Registration do
             phx-mounted={JS.focus()}
           />
 
+          <.input
+            field={@form[:password]}
+            type="password"
+            label="Password"
+            required
+            phx-mounted={JS.focus()}
+          />
+
           <.button phx-disable-with="Creating account..." class="btn btn-primary w-full">
             Create an account
           </.button>
