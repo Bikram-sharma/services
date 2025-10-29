@@ -2,7 +2,6 @@ defmodule Services.Service_provider do
   @moduledoc """
   The Service_provider context.
   """
-
   import Ecto.Query, warn: false
   alias Services.Repo
 
