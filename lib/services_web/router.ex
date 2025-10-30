@@ -70,6 +70,11 @@ defmodule ServicesWeb.Router do
     live "/service_providers/new", ProviderLive.Form, :new
     live "/service_providers/:id", ProviderLive.Show, :show
     live "/service_providers/:id/edit", ProviderLive.Form, :edit
+
+    live "/providers_service", ProvidersServiceLive.Index, :index
+    live "/providers_service/new", ProvidersServiceLive.Form, :new
+    live "/providers_service/:id", ProvidersServiceLive.Show, :show
+    live "/providers_service/:id/edit", ProvidersServiceLive.Form, :edit
     end
 
     post "/users/update-password", UserSessionController, :update_password
