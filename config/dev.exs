@@ -2,10 +2,10 @@ import Config
 
 # Configure your database
 config :services, Services.Repo,
-  username: "phuntsho",
+  username: "bikram",
   password: "1234",
   hostname: "localhost",
-  database: "services_dev",
+  database: "postgres",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
