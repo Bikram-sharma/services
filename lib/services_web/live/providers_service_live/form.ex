@@ -4,6 +4,7 @@ defmodule ServicesWeb.ProvidersServiceLive.Form do
   alias Services.ProviderService
   alias Services.ProviderService.ProvidersService
   alias Services.ServiceProvider
+  alias Services.Servicing
 
   @impl true
   def render(assigns) do
@@ -15,11 +16,18 @@ defmodule ServicesWeb.ProvidersServiceLive.Form do
       </.header>
 
       <.form for={@form} id="providers_service-form" phx-change="validate" phx-submit="save">
-
-        <.input field={@form[:service_provider_id]} type="text" label="Service Provider" value={@service_provider.id} class="hidden" step="any" />
+        <label>{@service_provider.users.username}</label>
+        <.input field={@form[:service_provider_id]} type="text" value={@service_provider.id} step="any" hidden />
         <.input field={@form[:service_id]} type="text" label="Service" step="any" />
         <.input field={@form[:custom_price]} type="number" label="Custom price" step="any" />
         <.input field={@form[:is_available]} type="checkbox" label="Is available" />
+        <.input
+        field={@form[:category_id]}
+        type="select"
+        prompt="select a service"
+        label="service"
+        options={@services}
+        />
         <footer>
           <.button phx-disable-with="Saving..." variant="primary">Save Providers service</.button>
           <.button navigate={return_path(@current_scope, @return_to, @providers_service)}>Cancel</.button>
@@ -32,18 +40,22 @@ defmodule ServicesWeb.ProvidersServiceLive.Form do
   @impl true
   def mount(params, _session, socket) do
     service_provider = ServiceProvider.get_provider_by_user_id(socket.assigns.current_scope.user.id)
-    IO.inspect(service_provider.users.username)
+    services = Servicing.list_services(socket.assigns.current_scope)
+    |> Enum.map(fn services ->
+      {services.name, services.id}
+    end)
     {:ok,
      socket
      |> assign(:return_to, return_to(params["return_to"]))
      |> assign(:service_provider, service_provider)
+     |> assign(:services, services)
      |> apply_action(socket.assigns.live_action, params)}
   end
 
   defp return_to("show"), do: "show"
   defp return_to(_), do: "index"
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
+  defp apply_action(socket, :edit, %{"id" => _id}) do
     providers_service = (socket.assigns.current_scope.user.id)
     socket
     |> assign(:page_title, "Edit Providers service")
