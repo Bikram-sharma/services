@@ -40,8 +40,8 @@ defmodule Services.ProviderService do
       [%ProvidersService{}, ...]
 
   """
-  def list_providers_service(%Scope{} = scope) do
-    Repo.all_by(ProvidersService, user_id: scope.user.id)
+  def list_providers_service(%Scope{} = _scope) do
+    Repo.all(ProvidersService)
   end
 
   @doc """
@@ -58,8 +58,8 @@ defmodule Services.ProviderService do
       ** (Ecto.NoResultsError)
 
   """
-  def get_providers_service!(%Scope{} = scope, id) do
-    Repo.get_by!(ProvidersService, id: id, user_id: scope.user.id)
+  def get_providers_service!(%Scope{} = _scope, id) do
+    Repo.get!(ProvidersService, id)
   end
 
   @doc """
@@ -77,7 +77,7 @@ defmodule Services.ProviderService do
   def create_providers_service(%Scope{} = scope, attrs) do
     with {:ok, providers_service = %ProvidersService{}} <-
            %ProvidersService{}
-           |> ProvidersService.changeset(attrs, scope)
+           |> ProvidersService.changeset(attrs)
            |> Repo.insert() do
       broadcast_providers_service(scope, {:created, providers_service})
       {:ok, providers_service}
@@ -97,11 +97,9 @@ defmodule Services.ProviderService do
 
   """
   def update_providers_service(%Scope{} = scope, %ProvidersService{} = providers_service, attrs) do
-    true = providers_service.user_id == scope.user.id
-
     with {:ok, providers_service = %ProvidersService{}} <-
            providers_service
-           |> ProvidersService.changeset(attrs, scope)
+           |> ProvidersService.changeset(attrs)
            |> Repo.update() do
       broadcast_providers_service(scope, {:updated, providers_service})
       {:ok, providers_service}
@@ -121,8 +119,6 @@ defmodule Services.ProviderService do
 
   """
   def delete_providers_service(%Scope{} = scope, %ProvidersService{} = providers_service) do
-    true = providers_service.user_id == scope.user.id
-
     with {:ok, providers_service = %ProvidersService{}} <-
            Repo.delete(providers_service) do
       broadcast_providers_service(scope, {:deleted, providers_service})
@@ -139,9 +135,7 @@ defmodule Services.ProviderService do
       %Ecto.Changeset{data: %ProvidersService{}}
 
   """
-  def change_providers_service(%Scope{} = scope, %ProvidersService{} = providers_service, attrs \\ %{}) do
-    true = providers_service.user_id == scope.user.id
-
-    ProvidersService.changeset(providers_service, attrs, scope)
+  def change_providers_service(%Scope{} = _scope, %ProvidersService{} = providers_service, attrs \\ %{}) do
+    ProvidersService.changeset(providers_service, attrs)
   end
 end

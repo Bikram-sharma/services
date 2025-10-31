@@ -8,7 +8,6 @@ defmodule Services.ProviderService.ProvidersService do
     field :custom_price, :decimal
     field :is_available, :boolean, default: false
 
-
     belongs_to :service_providers ,Services.ServiceProvider.Provider,
       foreign_key: :service_provider_id,
       type: :binary_id
@@ -21,10 +20,9 @@ defmodule Services.ProviderService.ProvidersService do
   end
 
   @doc false
-  def changeset(providers_service, attrs, user_scope) do
+  def changeset(providers_service, attrs) do
     providers_service
-    |> cast(attrs, [:custom_price, :is_available])
+    |> cast(attrs, [:custom_price, :is_available, :service_provider_id, :service_id])
     |> validate_required([:custom_price, :is_available])
-
   end
 end

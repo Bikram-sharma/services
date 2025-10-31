@@ -49,7 +49,7 @@ defmodule ServicesWeb.ProvidersServiceLive.Form do
   end
 
   defp apply_action(socket, :new, _params) do
-    providers_service = %ProvidersService{user_id: socket.assigns.current_scope.user.id}
+    providers_service = %ProvidersService{}
 
     socket
     |> assign(:page_title, "New Providers service")
