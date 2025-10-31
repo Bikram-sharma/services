@@ -62,6 +62,12 @@ defmodule Services.ServiceProvider do
     Repo.get_by!(Provider, id: id, user_id: scope.user.id)
   end
 
+  def get_provider_by_user_id(user_id) do
+    Provider
+    |> preload(:users)
+    |> Repo.get_by(user_id: user_id)
+  end
+
   @doc """
   Creates a provider.
 
