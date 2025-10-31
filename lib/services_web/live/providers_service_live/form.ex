@@ -3,6 +3,7 @@ defmodule ServicesWeb.ProvidersServiceLive.Form do
 
   alias Services.ProviderService
   alias Services.ProviderService.ProvidersService
+  alias Services.ServiceProvider
 
   @impl true
   def render(assigns) do
@@ -14,7 +15,8 @@ defmodule ServicesWeb.ProvidersServiceLive.Form do
       </.header>
 
       <.form for={@form} id="providers_service-form" phx-change="validate" phx-submit="save">
-        <.input field={@form[:service_provider_id]} type="text" label="Service Provider" step="any" />
+
+        <.input field={@form[:service_provider_id]} type="text" label="Service Provider" value={@service_provider.id} class="hidden" step="any" />
         <.input field={@form[:service_id]} type="text" label="Service" step="any" />
         <.input field={@form[:custom_price]} type="number" label="Custom price" step="any" />
         <.input field={@form[:is_available]} type="checkbox" label="Is available" />
@@ -29,10 +31,12 @@ defmodule ServicesWeb.ProvidersServiceLive.Form do
 
   @impl true
   def mount(params, _session, socket) do
-    IO.inspect(socket)
+    service_provider = ServiceProvider.get_provider_by_user_id(socket.assigns.current_scope.user.id)
+    IO.inspect(service_provider.users.username)
     {:ok,
      socket
      |> assign(:return_to, return_to(params["return_to"]))
+     |> assign(:service_provider, service_provider)
      |> apply_action(socket.assigns.live_action, params)}
   end
 
@@ -40,8 +44,7 @@ defmodule ServicesWeb.ProvidersServiceLive.Form do
   defp return_to(_), do: "index"
 
   defp apply_action(socket, :edit, %{"id" => id}) do
-    providers_service = ProviderService.get_providers_service!(socket.assigns.current_scope, id)
-
+    providers_service = (socket.assigns.current_scope.user.id)
     socket
     |> assign(:page_title, "Edit Providers service")
     |> assign(:providers_service, providers_service)
