@@ -7,7 +7,7 @@ defmodule Services.ProviderService.ProvidersService do
   schema "providers_service" do
     field :custom_price, :decimal
     field :is_available, :boolean, default: false
-    field :user_id, :binary_id
+
 
     belongs_to :service_providers ,Services.ServiceProvider.Provider,
       foreign_key: :service_provider_id,
@@ -25,6 +25,6 @@ defmodule Services.ProviderService.ProvidersService do
     providers_service
     |> cast(attrs, [:custom_price, :is_available])
     |> validate_required([:custom_price, :is_available])
-    |> put_change(:user_id, user_scope.user.id)
+
   end
 end
