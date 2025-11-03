@@ -10,7 +10,7 @@ defmodule ServicesWeb.ProvidersServiceLive.Index do
       <.header>
         Listing Providers service
         <:actions>
-          <.button variant="primary" navigate={~p"/providers_service/new"}>
+          <.button variant="dark-blue-gray" navigate={~p"/providers_service/new"}>
             <.icon name="hero-plus" /> New Providers service
           </.button>
         </:actions>

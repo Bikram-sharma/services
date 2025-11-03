@@ -11,10 +11,10 @@ defmodule ServicesWeb.BookingLive.Show do
         Booking {@booking.id}
         <:subtitle>This is a booking record from your database.</:subtitle>
         <:actions>
-          <.button navigate={~p"/bookings"}>
+          <.button navigate={~p"/bookings"} variant="blue-gray">
             <.icon name="hero-arrow-left" />
           </.button>
-          <.button variant="primary" navigate={~p"/bookings/#{@booking}/edit?return_to=show"}>
+          <.button variant="dark-blue-gray" navigate={~p"/bookings/#{@booking}/edit?return_to=show"}>
             <.icon name="hero-pencil-square" /> Edit booking
           </.button>
         </:actions>

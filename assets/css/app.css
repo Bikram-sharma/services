@@ -103,3 +103,10 @@
 [data-phx-session], [data-phx-teleported-src] { display: contents }
 
 /* This file is for your main application CSS */
+.btn-blue-gray {
+  @apply bg-[#656e7c] text-white hover:bg-[#121e30];
+}
+
+.btn-dark-blue-gray {
+  @apply bg-[#121e30] text-white;
+}

@@ -10,7 +10,7 @@ defmodule ServicesWeb.BookingLive.Index do
       <.header>
         Listing Bookings
         <:actions>
-          <.button variant="primary" navigate={~p"/bookings/new"}>
+          <.button variant="dark-blue-gray" navigate={~p"/bookings/new"}>
             <.icon name="hero-plus" /> New Booking
           </.button>
         </:actions>
