@@ -56,10 +56,7 @@ defmodule ServicesWeb.Router do
       live "/users/settings", UserLive.Settings, :edit
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
 
-    live "/categories", CategoryLive.Index, :index
-    live "/categories/new", CategoryLive.Form, :new
-    live "/categories/:id", CategoryLive.Show, :show
-    live "/categories/:id/edit", CategoryLive.Form, :edit
+
 
     live "/services", ServiceLive.Index, :index
     live "/services/new", ServiceLive.Form, :new
@@ -98,4 +95,18 @@ defmodule ServicesWeb.Router do
     post "/users/log-in", UserSessionController, :create
     delete "/users/log-out", UserSessionController, :delete
   end
+
+  scope "/", ServicesWeb do
+    pipe_through [:browser, :require_admin_authentication]
+
+    live_session :require_admin_authentication,
+      on_mount: [{ServicesWeb.UserAuth, :require_admin_authentication}] do
+    live "/categories", CategoryLive.Index, :index
+    live "/categories/new", CategoryLive.Form, :new
+    live "/categories/:id", CategoryLive.Show, :show
+    live "/categories/:id/edit", CategoryLive.Form, :edit
+    end
+
+  end
+
 end
