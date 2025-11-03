@@ -2,8 +2,10 @@ defmodule Services.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @roles ~w(admin client service_provider)
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
+
   schema "users" do
     field :username, :string
     field :email, :string
@@ -11,6 +13,7 @@ defmodule Services.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :utc_datetime
     field :authenticated_at, :utc_datetime, virtual: true
+    field :role, :string, default: "client"
 
     timestamps(type: :utc_datetime)
   end
@@ -36,6 +39,18 @@ defmodule Services.Accounts.User do
     |> validate_required([:username])
     |> validate_length(:username, min: 2, max: 100)
   end
+
+    def role_changeset(user, attrs, opts \\ []) do
+    user
+    |> cast(attrs, [:role])
+    |> validate_role(opts)
+  end
+  defp validate_role(changeset, _opts) do
+    changeset
+    |> validate_required([:role])
+    |> validate_inclusion(:role, @roles)
+ end
+
 
 
   @spec email_changeset(

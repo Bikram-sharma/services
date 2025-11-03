@@ -1,14 +1,14 @@
 import Config
 
 # Configure your database
-config :services, Services.Repo,
-  username: "phuntsho",
-  password: "1234",
-  hostname: "localhost",
-  database: "services_dev",
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+# config :services, Services.Repo,
+#   username: "bikram",
+#   password: "1234",
+#   hostname: "localhost",
+#   database: "postgres",
+#   stacktrace: true,
+#   show_sensitive_data_on_connection_error: true,
+#   pool_size: 10
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
