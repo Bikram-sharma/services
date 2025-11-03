@@ -18,16 +18,17 @@ defmodule ServicesWeb.ProvidersServiceLive.Form do
       <.form for={@form} id="providers_service-form" phx-change="validate" phx-submit="save">
         <label>{@service_provider.users.username}</label>
         <.input field={@form[:service_provider_id]} type="text" value={@service_provider.id} step="any" hidden />
-        <.input field={@form[:service_id]} type="text" label="Service" step="any" />
-        <.input field={@form[:custom_price]} type="number" label="Custom price" step="any" />
-        <.input field={@form[:is_available]} type="checkbox" label="Is available" />
-        <.input
-        field={@form[:category_id]}
+        <%!-- <.input field={@form[:service_id]} type="text" label="Service" step="any" /> --%>
+         <.input
+        field={@form[:service_id]}
         type="select"
         prompt="select a service"
         label="service"
         options={@services}
         />
+        <.input field={@form[:custom_price]} type="number" label="Custom price" step="any" />
+        <.input field={@form[:is_available]} type="checkbox" checked label="Is available"  />
+
         <footer>
           <.button phx-disable-with="Saving..." variant="primary">Save Providers service</.button>
           <.button navigate={return_path(@current_scope, @return_to, @providers_service)}>Cancel</.button>

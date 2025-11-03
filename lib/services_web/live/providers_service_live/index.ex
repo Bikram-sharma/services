@@ -21,6 +21,7 @@ defmodule ServicesWeb.ProvidersServiceLive.Index do
         rows={@streams.providers_service_collection}
         row_click={fn {_id, providers_service} -> JS.navigate(~p"/providers_service/#{providers_service}") end}
       >
+        <:col :let={{_id, providers_service}} label="Service">{providers_service.services.name}</:col>
         <:col :let={{_id, providers_service}} label="Custom price">{providers_service.custom_price}</:col>
         <:col :let={{_id, providers_service}} label="Is available">{providers_service.is_available}</:col>
         <:action :let={{_id, providers_service}}>
