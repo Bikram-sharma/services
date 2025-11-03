@@ -75,6 +75,11 @@ defmodule ServicesWeb.Router do
     live "/providers_service/new", ProvidersServiceLive.Form, :new
     live "/providers_service/:id", ProvidersServiceLive.Show, :show
     live "/providers_service/:id/edit", ProvidersServiceLive.Form, :edit
+
+    live "/bookings", BookingLive.Index, :index
+    live "/bookings/new", BookingLive.Form, :new
+    live "/bookings/:id", BookingLive.Show, :show
+    live "/bookings/:id/edit", BookingLive.Form, :edit
     end
 
     post "/users/update-password", UserSessionController, :update_password
