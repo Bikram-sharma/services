@@ -90,11 +90,11 @@ defmodule ServicesWeb.CoreComponents do
   """
   attr :rest, :global, include: ~w(href navigate patch method download name value disabled)
   attr :class, :string
-  attr :variant, :string, values: ~w(primary)
+  attr :variant, :string, values: ~w(primary blue-gray dark-blue-gray)
   slot :inner_block, required: true
 
   def button(%{rest: rest} = assigns) do
-    variants = %{"primary" => "btn-primary", nil => "btn-primary btn-soft"}
+    variants = %{"primary" => "btn-primary", "blue-gray" => "btn-blue-gray", "dark-blue-gray" => "btn-dark-blue-gray", nil => "btn-primary btn-soft"}
 
     assigns =
       assign_new(assigns, :class, fn ->
@@ -258,7 +258,7 @@ defmodule ServicesWeb.CoreComponents do
           id={@id}
           value={Phoenix.HTML.Form.normalize_value(@type, @value)}
           class={[
-            @class || "w-full input",
+            @class || "w-full input focus:outline-none focus:border-gray-300",
             @errors != [] && (@error_class || "input-error")
           ]}
           {@rest}
@@ -334,8 +334,8 @@ defmodule ServicesWeb.CoreComponents do
       end
 
     ~H"""
-    <table class="table table-zebra">
-      <thead>
+    <table class="table table-zebra border border-[#121e30]">
+      <thead class="bg-[#121e30] text-white">
         <tr>
           <th :for={col <- @col}>{col[:label]}</th>
           <th :if={@action != []}>
@@ -469,4 +469,25 @@ defmodule ServicesWeb.CoreComponents do
   def translate_errors(errors, field) when is_list(errors) do
     for {^field, {msg, opts}} <- errors, do: translate_error({msg, opts})
   end
+
+  # Custom UI Form Wrapper
+  attr :for, :any, required: true
+  attr :id, :string, default: nil
+  attr :class, :string, default: ""
+  attr :rest, :global
+  slot :inner_block, required: true
+
+  def custom_form(assigns) do
+    ~H"""
+    <.form
+      for={@for}
+      id={@id}
+      class={"bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-300 dark:border-gray-700 shadow space-y-5 #{@class}"}
+      {@rest}
+    >
+      <%= render_slot(@inner_block) %>
+    </.form>
+    """
+  end
+
 end

@@ -13,7 +13,7 @@ defmodule ServicesWeb.ServiceLive.Form do
         <:subtitle>Use this form to manage service records in your database.</:subtitle>
       </.header>
 
-      <.form for={@form} id="service-form" phx-change="validate" phx-submit="save">
+      <.custom_form for={@form} id="service-form" phx-change="validate" phx-submit="save">
         <.input field={@form[:name]} type="text" label="Name" />
         <.input field={@form[:description]} type="text" label="Description" />
         <.input
@@ -24,10 +24,10 @@ defmodule ServicesWeb.ServiceLive.Form do
         options={@categories}
         />
         <footer>
-          <.button phx-disable-with="Saving..." variant="primary">Save Service</.button>
-          <.button navigate={return_path(@current_scope, @return_to, @service)}>Cancel</.button>
+          <.button phx-disable-with="Saving..." variant="dark-blue-gray">Save Service</.button>
+          <.button navigate={return_path(@current_scope, @return_to, @service)} variant="blue-gray">Cancel</.button>
         </footer>
-      </.form>
+      </.custom_form>
     </Layouts.app>
     """
   end

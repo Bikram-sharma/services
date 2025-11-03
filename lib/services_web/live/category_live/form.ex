@@ -13,14 +13,14 @@ defmodule ServicesWeb.CategoryLive.Form do
         <:subtitle>Use this form to manage category records in your database.</:subtitle>
       </.header>
 
-      <.form for={@form} id="category-form" phx-change="validate" phx-submit="save">
+      <.custom_form for={@form} id="category-form" phx-change="validate" phx-submit="save">
         <.input field={@form[:name]} type="text" label="Name" />
         <.input field={@form[:description]} type="text" label="Description" />
         <footer>
-          <.button phx-disable-with="Saving..." variant="primary">Save Category</.button>
-          <.button navigate={return_path(@current_scope, @return_to, @category)}>Cancel</.button>
+          <.button phx-disable-with="Saving..." variant="dark-blue-gray">Save Category</.button>
+          <.button navigate={return_path(@current_scope, @return_to, @category)}  variant="blue-gray">Cancel</.button>
         </footer>
-      </.form>
+      </.custom_form>
     </Layouts.app>
     """
   end

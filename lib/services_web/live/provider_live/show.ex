@@ -11,10 +11,10 @@ defmodule ServicesWeb.ProviderLive.Show do
         Provider {@provider.id}
         <:subtitle>This is a provider record from your database.</:subtitle>
         <:actions>
-          <.button navigate={~p"/service_providers"}>
+          <.button navigate={~p"/service_providers"} variant="blue-gray">
             <.icon name="hero-arrow-left" />
           </.button>
-          <.button variant="primary" navigate={~p"/service_providers/#{@provider}/edit?return_to=show"}>
+          <.button variant="dark-blue-gray" navigate={~p"/service_providers/#{@provider}/edit?return_to=show"}>
             <.icon name="hero-pencil-square" /> Edit provider
           </.button>
         </:actions>

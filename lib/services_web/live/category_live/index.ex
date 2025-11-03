@@ -10,7 +10,7 @@ defmodule ServicesWeb.CategoryLive.Index do
       <.header>
         Listing Categories
         <:actions>
-          <.button variant="primary" navigate={~p"/categories/new"}>
+          <.button variant="dark-blue-gray" navigate={~p"/categories/new"}>
             <.icon name="hero-plus" /> New Category
           </.button>
         </:actions>

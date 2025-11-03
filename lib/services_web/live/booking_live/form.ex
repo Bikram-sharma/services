@@ -13,7 +13,7 @@ defmodule ServicesWeb.BookingLive.Form do
         <:subtitle>Use this form to manage booking records in your database.</:subtitle>
       </.header>
 
-      <.form for={@form} id="booking-form" phx-change="validate" phx-submit="save">
+      <.custom_form for={@form} id="booking-form" phx-change="validate" phx-submit="save">
         <.input field={@form[:schedule_date_time]} type="datetime-local" label="Schedule date time" />
         <.input field={@form[:booked_at]} type="datetime-local" label="Booked at" />
         <.input field={@form[:cancelled_at]} type="datetime-local" label="Cancelled at" />
@@ -21,10 +21,10 @@ defmodule ServicesWeb.BookingLive.Form do
         <.input field={@form[:actual_total_price]} type="number" label="Actual total price" step="any" />
         <.input field={@form[:user_address]} type="text" label="User address" />
         <footer>
-          <.button phx-disable-with="Saving..." variant="primary">Save Booking</.button>
-          <.button navigate={return_path(@current_scope, @return_to, @booking)}>Cancel</.button>
+          <.button phx-disable-with="Saving..." variant="dark-blue-gray">Save Booking</.button>
+          <.button navigate={return_path(@current_scope, @return_to, @booking)} variant="blue-gray">Cancel</.button>
         </footer>
-      </.form>
+      </.custom_form>
     </Layouts.app>
     """
   end

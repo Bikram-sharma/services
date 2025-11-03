@@ -13,16 +13,16 @@ defmodule ServicesWeb.ProviderLive.Form do
         <:subtitle>Use this form to manage provider records in your database.</:subtitle>
       </.header>
 
-      <.form for={@form} id="provider-form" phx-change="validate" phx-submit="save">
+      <.custom_form for={@form} id="provider-form" phx-change="validate" phx-submit="save">
         <.input field={@form[:user_id]} type="text" label="Service Provider" value={@user_name} />
         <.input field={@form[:bio]} type="textarea" label="Bio" />
         <.input field={@form[:years_of_experience]} type="number" label="Years of experience" />
         <.input field={@form[:is_verified]} type="checkbox" label="Is verified" />
         <footer>
-          <.button phx-disable-with="Saving..." variant="primary">Save Provider</.button>
-          <.button navigate={return_path(@current_scope, @return_to, @provider)}>Cancel</.button>
+          <.button phx-disable-with="Saving..." variant="dark-blue-gray">Save Provider</.button>
+          <.button navigate={return_path(@current_scope, @return_to, @provider)} variant="blue-gray">Cancel</.button>
         </footer>
-      </.form>
+      </.custom_form>
     </Layouts.app>
     """
   end

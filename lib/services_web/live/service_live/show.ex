@@ -11,10 +11,10 @@ defmodule ServicesWeb.ServiceLive.Show do
         Service {@service.id}
         <:subtitle>This is a service record from your database.</:subtitle>
         <:actions>
-          <.button navigate={~p"/services"}>
+          <.button navigate={~p"/services"} variant="blue-gray">
             <.icon name="hero-arrow-left" />
           </.button>
-          <.button variant="primary" navigate={~p"/services/#{@service}/edit?return_to=show"}>
+          <.button variant="dark-blue-gray" navigate={~p"/services/#{@service}/edit?return_to=show"}>
             <.icon name="hero-pencil-square" /> Edit service
           </.button>
         </:actions>
