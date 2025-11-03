@@ -4,6 +4,8 @@ defmodule Services.ProviderService do
   """
 
   import Ecto.Query, warn: false
+
+  alias Services.ProviderService
   alias Services.Repo
 
   alias Services.ProviderService.ProvidersService
@@ -41,7 +43,9 @@ defmodule Services.ProviderService do
 
   """
   def list_providers_service(%Scope{} = _scope) do
-    Repo.all(ProvidersService)
+    ProvidersService
+    |> preload([:service_providers, :services])
+    |> Repo.all()
   end
 
   @doc """

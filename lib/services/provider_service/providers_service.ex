@@ -12,7 +12,7 @@ defmodule Services.ProviderService.ProvidersService do
       foreign_key: :service_provider_id,
       type: :binary_id
 
-    belongs_to :services ,Services.ServiceProvider.Provider,
+    belongs_to :services ,Services.Servicing.Service,
       foreign_key: :service_id,
       type: :binary_id
 
