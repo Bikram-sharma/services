@@ -29,10 +29,12 @@ defmodule ServicesWeb.ProviderLive.Form do
 
   @impl true
   def mount(params, _session, socket) do
+    is_hidden = Services.Servicing.is_hidden(socket.assigns.current_scope)
     {:ok,
      socket
      |> assign(:return_to, return_to(params["return_to"]))
      |> assign(:user_name, socket.assigns.current_scope.user.username)
+     |> assign(:is_hidden, is_hidden)
      |> apply_action(socket.assigns.live_action, params)}
   end
 

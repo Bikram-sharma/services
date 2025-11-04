@@ -48,6 +48,7 @@ defmodule ServicesWeb.BookingLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    is_hidden = Services.Servicing.is_hidden(socket.assigns.current_scope)
     if connected?(socket) do
       Bookings.subscribe_bookings(socket.assigns.current_scope)
     end
@@ -55,6 +56,7 @@ defmodule ServicesWeb.BookingLive.Index do
     {:ok,
      socket
      |> assign(:page_title, "Listing Bookings")
+     |> assign(:is_hidden, is_hidden)
      |> stream(:bookings, list_bookings(socket.assigns.current_scope))}
   end
 
