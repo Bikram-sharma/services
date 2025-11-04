@@ -207,13 +207,13 @@ defmodule ServicesWeb.CoreComponents do
 
   def input(%{type: "select"} = assigns) do
     ~H"""
-    <div class="fieldset mb-2">
+    <div class="fieldset mb-2 dark:text-[#121e30]">
       <label>
         <span :if={@label} class="label mb-1">{@label}</span>
         <select
           id={@id}
           name={@name}
-          class={[@class || "w-full select", @errors != [] && (@error_class || "select-error")]}
+          class={[@class || "w-full select focus:outline-none focus:border-gray-300 dark:bg-gray-200 dark:text-[#121e30]", @errors != [] && (@error_class || "select-error")]}
           multiple={@multiple}
           {@rest}
         >
@@ -251,14 +251,14 @@ defmodule ServicesWeb.CoreComponents do
     ~H"""
     <div class="fieldset mb-2">
       <label>
-        <span :if={@label} class="label mb-1">{@label}</span>
+        <span :if={@label} class="label mb-1 dark:text-[#121e30]">{@label}</span>
         <input
           type={@type}
           name={@name}
           id={@id}
           value={Phoenix.HTML.Form.normalize_value(@type, @value)}
           class={[
-            @class || "w-full input focus:outline-none focus:border-gray-300",
+            @class || "w-full input focus:outline-none focus:border-gray-300 dark:bg-gray-200 dark:text-[#121e30]",
             @errors != [] && (@error_class || "input-error")
           ]}
           {@rest}
@@ -334,8 +334,8 @@ defmodule ServicesWeb.CoreComponents do
       end
 
     ~H"""
-    <table class="table table-zebra border border-[#121e30]">
-      <thead class="bg-[#121e30] text-white">
+    <table class="table table-zebra border dark:border-gray-300 border-[#121e30]">
+      <thead class="dark:bg-gray-300 bg-[#121e30] dark:text-[#121e30] text-white">
         <tr>
           <th :for={col <- @col}>{col[:label]}</th>
           <th :if={@action != []}>
@@ -482,7 +482,7 @@ defmodule ServicesWeb.CoreComponents do
     <.form
       for={@for}
       id={@id}
-      class={"bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-300 dark:border-gray-700 shadow space-y-5 #{@class}"}
+      class={"bg-white dark:bg-gray-300 p-6 rounded-lg border border-gray-300 shadow space-y-5 #{@class}"}
       {@rest}
     >
       <%= render_slot(@inner_block) %>
