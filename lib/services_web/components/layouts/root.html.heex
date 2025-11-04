@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title default="Services" suffix=" · Phoenix Framework">
+    <.live_title default="Services">
       {assigns[:page_title]}
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/css/app.css"} />
@@ -32,20 +32,20 @@
   </head>
   <body>
     <header class="shadow-lg flex items-center justify-between px-12">
-      <nav class="py-[1.5rem] font-bold">
+      <nav class="py-[1.5rem] font-bold flex items-center">
         <a href={~p"/"} class="mr-[1rem]">Home</a>
         <div hidden={@is_hidden}>
-        <a href={~p"/categories"} class="mr-[1rem]" >Categories</a>
-        <a href={~p"/service_providers"} class="mr-[1rem]">Service Providers</a>
-        <a href={~p"/providers_service"} class="mr-[1rem]">Providers Service</a>
-        <a href={~p"/services"} class="mr-[1rem]">Services</a>
-        <a href={~p"/bookings"}>Bookings</a>
+          <a href={~p"/categories"} class="mr-[1rem]">Categories</a>
+          <a href={~p"/service_providers"} class="mr-[1rem]">Service Providers</a>
+          <a href={~p"/providers_service"} class="mr-[1rem]">Providers Service</a>
+          <a href={~p"/services"} class="mr-[1rem]">Services</a>
+          <a href={~p"/bookings"}>Bookings</a>
         </div>
       </nav>
       <ul class="menu menu-horizontal relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
         <%= if @current_scope do %>
           <li>
-            {@current_scope.user.email}
+            {@current_scope.user.username}
           </li>
           <li>
             <.link href={~p"/users/settings"}>Settings</.link>
