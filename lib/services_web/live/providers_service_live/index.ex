@@ -48,10 +48,11 @@ defmodule ServicesWeb.ProvidersServiceLive.Index do
     if connected?(socket) do
       ProviderService.subscribe_providers_service(socket.assigns.current_scope)
     end
-    IO.inspect("this  page is loading")
+    is_hidden = Services.Servicing.is_hidden(socket.assigns.current_scope)
 
     {:ok,
      socket
+     |> assign(:is_hidden, is_hidden)
      |> assign(:page_title, "Listing Providers service")
      |> stream(:providers_service_collection, list_providers_service(socket.assigns.current_scope))}
   end

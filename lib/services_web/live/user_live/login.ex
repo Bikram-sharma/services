@@ -75,13 +75,15 @@ defmodule ServicesWeb.UserLive.Login do
 
   @impl true
   def mount(_params, _session, socket) do
+
+    is_hidden = Services.Servicing.is_hidden(socket.assigns.current_scope)
     email =
       Phoenix.Flash.get(socket.assigns.flash, :email) ||
         get_in(socket.assigns, [:current_scope, Access.key(:user), Access.key(:email)])
 
     form = to_form(%{"email" => email}, as: "user")
 
-    {:ok, assign(socket, form: form, trigger_submit: false)}
+    {:ok, assign(socket, form: form, trigger_submit: false, is_hidden: is_hidden)}
   end
 
   @impl true

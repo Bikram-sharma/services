@@ -181,6 +181,13 @@ defmodule Services.Servicing do
     Repo.all_by(Service, user_id: scope.user.id)
   end
 
+  def is_hidden(%Scope{} = scope) do
+    !scope.user
+  end
+  def is_hidden(nil) do
+    true
+  end
+
   @doc """
   Gets a single service.
 
