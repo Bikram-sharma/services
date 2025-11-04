@@ -5,7 +5,6 @@ defmodule Services.ProviderService do
 
   import Ecto.Query, warn: false
 
-  alias Services.ProviderService
   alias Services.Repo
 
   alias Services.ProviderService.ProvidersService

@@ -104,9 +104,9 @@
 
 /* This file is for your main application CSS */
 .btn-blue-gray {
-  @apply bg-[#656e7c] text-white hover:bg-[#121e30];
+  @apply bg-[#656e7c] dark:border-none text-white hover:bg-[#121e30];
 }
 
 .btn-dark-blue-gray {
-  @apply bg-[#121e30] text-white;
+  @apply bg-[#121e30] dark:border-none text-white;
 }
