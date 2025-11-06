@@ -46,6 +46,13 @@ defmodule ServicesWeb.UserLive.Settings do
           value={@current_email}
         />
         <.input
+        field={@password_form[:current_password]}
+        type="password"
+        label="current password"
+        autocomplete="current-password"
+        required
+        />
+        <.input
           field={@password_form[:password]}
           type="password"
           label="New password"
@@ -84,14 +91,12 @@ defmodule ServicesWeb.UserLive.Settings do
     user = socket.assigns.current_scope.user
     email_changeset = Accounts.change_user_email(user, %{}, validate_unique: false)
     password_changeset = Accounts.change_user_password(user, %{}, hash_password: false)
-    is_hidden = Services.Servicing.is_hidden(socket.assigns.current_scope)
 
     socket =
       socket
       |> assign(:current_email, user.email)
       |> assign(:email_form, to_form(email_changeset))
       |> assign(:password_form, to_form(password_changeset))
-      |> assign(:is_hidden, is_hidden)
       |> assign(:trigger_submit, false)
 
     {:ok, socket}

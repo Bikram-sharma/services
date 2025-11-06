@@ -80,7 +80,7 @@ defmodule ServicesWeb.Router do
     live "/bookings/:id/edit", BookingLive.Form, :edit
     end
 
-    post "/users/update-password", UserSessionController, :update_password
+    post "/users/update-password", UserSessionController, :update_password_with_current_password
   end
 
   scope "/", ServicesWeb do

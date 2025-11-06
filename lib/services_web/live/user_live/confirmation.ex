@@ -74,7 +74,6 @@ defmodule ServicesWeb.UserLive.Confirmation do
 
   @impl true
   def mount(%{"token" => token}, _session, socket) do
-    is_hidden = Services.Servicing.is_hidden(socket.assigns.current_scope)
     if user = Accounts.get_user_by_magic_link_token(token) do
       form = to_form(%{"token" => token}, as: "user")
 
@@ -84,10 +83,10 @@ defmodule ServicesWeb.UserLive.Confirmation do
       {:ok,
        socket
        |> put_flash(:error, "Magic link is invalid or it has expired.")
-       |> assign(:is_hidden, is_hidden)
        |> push_navigate(to: ~p"/users/log-in")}
     end
   end
+
 
   @impl true
   def handle_event("submit", %{"user" => params}, socket) do

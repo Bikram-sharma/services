@@ -94,6 +94,7 @@ defmodule Services.Accounts do
     |> User.email_changeset(attrs)
     |> User.password_changeset(attrs)
     |> User.username_changeset(attrs)
+    |> User.confirm_changeset()
     |> Ecto.Changeset.change(role: role)
     |> Repo.insert()
   end
@@ -185,6 +186,14 @@ defmodule Services.Accounts do
     |> update_user_and_delete_all_tokens()
   end
 
+  def update_user_password_with_current_password(user, current_password, attrs) do
+    if User.valid_password?(user, current_password) do
+      update_user_password(user, attrs)
+    else
+      {:error, :invalid_current_password}
+    end
+  end
+
   ## Session
 
   @doc """
@@ -214,7 +223,7 @@ defmodule Services.Accounts do
          {user, _token} <- Repo.one(query) do
       user
     else
-      _ -> nil
+      _ -> true
     end
   end
 

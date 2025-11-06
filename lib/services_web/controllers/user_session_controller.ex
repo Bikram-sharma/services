@@ -59,6 +59,26 @@ defmodule ServicesWeb.UserSessionController do
     |> create(params, "Password updated successfully!")
   end
 
+  def update_password_with_current_password(conn, %{"user" => user_params} = params) do
+  current_password = user_params["current_password"]
+  user = conn.assigns.current_scope.user
+  true = Accounts.sudo_mode?(user)
+  case Accounts.update_user_password_with_current_password(user, current_password, user_params) do
+  {:ok, {_user, expired_tokens}} ->
+
+    UserAuth.disconnect_sessions(expired_tokens)
+    conn
+    |> put_flash(:info, "password updated successfully!")
+    |> create(params, "Password updated successfully!")
+
+    {:error, :invalid_current_password} ->
+    conn
+    |> put_flash(:error, "Current password is incorrect.")
+    |> redirect(to: ~p"/users/settings")
+
+  end
+end
+
   def delete(conn, _params) do
     conn
     |> put_flash(:info, "Logged out successfully.")

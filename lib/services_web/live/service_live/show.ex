@@ -33,12 +33,11 @@ defmodule ServicesWeb.ServiceLive.Show do
     if connected?(socket) do
       Servicing.subscribe_services(socket.assigns.current_scope)
     end
-    is_hidden = Services.Servicing.is_hidden(socket.assigns.current_scope)
+
 
     {:ok,
      socket
      |> assign(:page_title, "Show Service")
-     |> assign(:is_hidden, is_hidden)
      |> assign(:service, Servicing.get_service!(socket.assigns.current_scope, id))}
   end
 

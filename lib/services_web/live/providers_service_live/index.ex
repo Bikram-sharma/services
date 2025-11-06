@@ -48,16 +48,18 @@ defmodule ServicesWeb.ProvidersServiceLive.Index do
     if connected?(socket) do
       ProviderService.subscribe_providers_service(socket.assigns.current_scope)
     end
-    is_hidden = Services.Servicing.is_hidden(socket.assigns.current_scope)
+
 
     {:ok,
      socket
-     |> assign(:is_hidden, is_hidden)
+
      |> assign(:page_title, "Listing Providers service")
      |> stream(:providers_service_collection, list_providers_service(socket.assigns.current_scope))}
   end
 
   @impl true
+  @spec handle_event(<<_::48>>, map(), Phoenix.LiveView.Socket.t()) ::
+          {:noreply, Phoenix.LiveView.Socket.t()}
   def handle_event("delete", %{"id" => id}, socket) do
     providers_service = ProviderService.get_providers_service!(socket.assigns.current_scope, id)
     {:ok, _} = ProviderService.delete_providers_service(socket.assigns.current_scope, providers_service)

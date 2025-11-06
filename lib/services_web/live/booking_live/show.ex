@@ -34,7 +34,6 @@ defmodule ServicesWeb.BookingLive.Show do
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do
-    is_hidden = Services.Servicing.is_hidden(socket.assigns.current_scope)
     if connected?(socket) do
       Bookings.subscribe_bookings(socket.assigns.current_scope)
     end
@@ -42,7 +41,6 @@ defmodule ServicesWeb.BookingLive.Show do
     {:ok,
      socket
      |> assign(:page_title, "Show Booking")
-     |> assign(:is_hidden, is_hidden)
      |> assign(:booking, Bookings.get_booking!(socket.assigns.current_scope, id))}
   end
 
