@@ -23,6 +23,8 @@ defmodule ServicesWeb.Router do
 
     get "/", PageController, :home
 
+    get "/dash", DashController, :dash
+
   end
 
   # Other scopes may use custom stacks.
@@ -56,8 +58,6 @@ defmodule ServicesWeb.Router do
       on_mount: [{ServicesWeb.UserAuth, :require_authenticated}] do
       live "/users/settings", UserLive.Settings, :edit
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
-
-
 
     live "/services", ServiceLive.Index, :index
     live "/services/new", ServiceLive.Form, :new

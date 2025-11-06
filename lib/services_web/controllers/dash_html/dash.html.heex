@@ -1,0 +1,49 @@
+<section class="sm:p-5 md:p-10 lg:p-20">
+    <div class="bg-[#121e30] rounded-lg p-4 flex justify-between">
+        <h2 class="text-white">Filter by Category</h2>
+        <select name="" id="" class="text-white focus:outline-none">
+            <option value="" class="text-black">Select Category</option>
+            <%= for category <- @categories do %>
+                <option value={category.id} class="text-black"><%= category.name %></option>
+            <% end %>
+        </select>
+    </div>
+    <div class="mt-10 p-4 border border-gray-200 rounded-lg shadow-md">
+        <div class="flex justify-between">
+            <h2 class="font-semibold">List of Service Providers</h2>
+            <button class="font-semibold cursor-pointer py-1 px-2 rounded hover:bg-gray-200">Show All</button>
+        </div>
+        <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <%= for user <- @users do %>
+                <div class="bg-white border border-gray-200 rounded-lg shadow mt-4">
+                    <div class="relative">
+                        <img src={user.cover_photo} alt="" class="w-full h-30 object-cover rounded-t-lg">
+                        <div class="absolute bottom-3 left-4 translate-y-1/2 h-25 w-25 rounded-full border-4 border-white overflow-hidden shadow-md">
+                            <img src={user.profile_picture} alt="" class="h-full w-full object-cover mix-blend-multiply">
+                        </div>
+                    </div>
+                    <div class="mt-10 p-4">
+                        <p class="font-semibold"><%= user.name %></p>
+                        <p class="font-normal text-gray-600"><%= user.bio %></p>
+                        <div class="mt-2">
+                            <div class="flex justify-between items-center">
+                                <p class="font-semibold"> <%= user.service %></p>
+                                <p class="bg-[#121e30] rounded text-white font-semibold px-2"> Nu.<%= user.custom_price %> /-</p>
+                            </div>
+                        <p class="font-normal text-gray-600 mt-2"> <%= user.description %></p>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+        <div class="mt-10 mb-5">
+            <ul class="flex justify-center items-center gap-2">
+                <li><a href="#" class="border rounded-md py-2 px-4">&laquo;</a></li>
+                <li><a href="#" class="border rounded-md py-2 px-4">1</a></li>
+                <li><a href="#" class="border rounded-md py-2 px-4">2</a></li>
+                <li><a href="#" class="border rounded-md py-2 px-4">3</a></li>
+                <li><a href="#" class="border rounded-md py-2 px-4">&raquo;</a></li>
+              </ul>
+        </div>
+    </div>
+</section>
