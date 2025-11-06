@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title default="Services" suffix=" · Phoenix Framework">
+    <.live_title default="Services">
       {assigns[:page_title]}
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/css/app.css"} />
@@ -31,6 +31,7 @@
     </script>
   </head>
   <body>
+
     <header class="shadow-lg flex items-center justify-between sticky top-0 bg-white dark:bg-gray-900 z-50">
       <nav class="bg-white shadow-md sticky top-0 z-50 w-full">
         <div class=" mx-auto px-2 sm:px-4 lg:px-6">
@@ -55,9 +56,10 @@
                     <a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">About</a>
                     <a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Contact</a>
           <ul class="flex items-center space-x-15">
+
         <%= if @current_scope do %>
           <li>
-            {@current_scope.user.email}
+            {@current_scope.user.username}
           </li>
           <li>
             <.link href={~p"/users/settings"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Settings</.link>
