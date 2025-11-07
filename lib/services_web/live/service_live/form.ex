@@ -35,17 +35,14 @@ defmodule ServicesWeb.ServiceLive.Form do
   @impl true
   def mount(params, _session, socket) do
     categories =
-      Servicing.list_categories(socket.assigns.current_scope)
+      Servicing.list_categories()
       |>Enum.map(fn category ->
         {category.name, category.id}
 
       end)
-      is_hidden = Services.Servicing.is_hidden(socket.assigns.current_scope)
-
     {:ok,
      socket
      |> assign(:return_to, return_to(params["return_to"]))
-     |> assign(:is_hidden, is_hidden)
      |> apply_action(socket.assigns.live_action, params)
      |> assign(:categories, categories)}
   end
