@@ -52,7 +52,7 @@ defmodule ServicesWeb.DashController do
 
     is_hidden = Servicing.is_hidden(conn.assigns.current_scope)
 
-    categories = Servicing.list_categories(conn.assigns.current_scope)
+    categories = Servicing.list_categories()
 
     render(conn, :dash, is_hidden: is_hidden, users: users, categories: categories)
   end

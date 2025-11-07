@@ -41,8 +41,8 @@ defmodule Services.Servicing do
       [%Category{}, ...]
 
   """
-  def list_categories(%Scope{} = scope) do
-    Repo.all_by(Category, user_id: scope.user.id)
+  def list_categories() do
+    Repo.all(Category)
   end
 
   @doc """
