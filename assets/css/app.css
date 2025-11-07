@@ -110,3 +110,14 @@
 .btn-dark-blue-gray {
   @apply bg-[#121e30] dark:border-none text-white;
 }
+
+@layer components {
+  .heading {
+    @apply text-2xl font-bold text-gray-900 mb-2 dark:text-white;
+  }
+
+  .paragraph {
+    @apply text-md text-gray-700 mb-2 dark:text-gray-200;
+  }
+
+}
