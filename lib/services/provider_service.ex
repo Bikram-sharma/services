@@ -9,6 +9,7 @@ defmodule Services.ProviderService do
 
   alias Services.ProviderService.ProvidersService
   alias Services.Accounts.Scope
+  alias Services.Servicing.Service
 
   @doc """
   Subscribes to scoped notifications about any providers_service changes.
@@ -41,10 +42,28 @@ defmodule Services.ProviderService do
       [%ProvidersService{}, ...]
 
   """
-  def list_providers_service(%Scope{} = _scope) do
+  def list_providers_service() do
     ProvidersService
     |> preload([:service_providers, :services])
+    |> preload(service_providers: :users)
     |> Repo.all()
+  end
+
+  def list_providers_service_by_category() do
+    ProvidersService
+    |> preload([:service_providers, :services])
+    |> preload(service_providers: :users)
+    |> Repo.all()
+  end
+
+  def list_providers_service_by_category(category_id) do
+    ProvidersService
+    |> join(:inner, [ps], s in Service, on: ps.service_id == s.id)
+    |> where([ps, s], s.category_id == ^category_id)
+    |> preload([:service_providers, :services])
+    |> preload(service_providers: :users)
+    |> Repo.all()
+
   end
 
   @doc """

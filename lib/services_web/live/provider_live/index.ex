@@ -49,12 +49,10 @@ defmodule ServicesWeb.ProviderLive.Index do
       ServiceProvider.subscribe_service_providers(socket.assigns.current_scope)
     end
     IO.inspect("this is providers page")
-    is_hidden = Services.Servicing.is_hidden(socket.assigns.current_scope)
 
     {:ok,
      socket
      |> assign(:page_title, "Listing Service providers")
-     |> assign(:is_hidden, is_hidden)
      |> stream(:service_providers, list_service_providers(socket.assigns.current_scope))}
   end
 
