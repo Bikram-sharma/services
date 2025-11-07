@@ -64,9 +64,7 @@ defmodule ServicesWeb.UserLive.Registration do
   end
 
   def mount(_params, _session, socket) do
-    is_hidden = Services.Servicing.is_hidden(socket.assigns.current_scope)
     changeset = Accounts.change_user_email(%User{}, %{}, validate_unique: false)
-    socket = assign(socket, :is_hidden, is_hidden)
 
     {:ok, assign_form(socket, changeset), temporary_assigns: [form: nil]}
   end
