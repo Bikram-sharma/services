@@ -103,13 +103,13 @@ defmodule ServicesWeb.CoreComponents do
 
     if rest[:href] || rest[:navigate] || rest[:patch] do
       ~H"""
-      <.link class={@class} {@rest}>
+      <.link class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-all duration-200 shadow-lg cursor-pointer my-4" {@rest}>
         {render_slot(@inner_block)}
       </.link>
       """
     else
       ~H"""
-      <button class={@class} {@rest}>
+      <button class = "w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-all duration-200 shadow-lg cursor-pointer my-4" {@rest}>
         {render_slot(@inner_block)}
       </button>
       """
@@ -162,6 +162,7 @@ defmodule ServicesWeb.CoreComponents do
   attr :multiple, :boolean, default: false, doc: "the multiple flag for select inputs"
   attr :class, :string, default: nil, doc: "the input class to use over defaults"
   attr :error_class, :string, default: nil, doc: "the input error class to use over defaults"
+  attr :lable_class, :string, default: nil, doc: "the label class to use over defaults"
 
   attr :rest, :global,
     include: ~w(accept autocomplete capture cols disabled form list max maxlength min minlength
@@ -209,7 +210,7 @@ defmodule ServicesWeb.CoreComponents do
     ~H"""
     <div class="fieldset mb-2 dark:text-[#121e30]">
       <label>
-        <span :if={@label} class="label mb-1">{@label}</span>
+        <span :if={@label} class="label mb-1 ">{@label}</span>
         <select
           id={@id}
           name={@name}
@@ -251,14 +252,14 @@ defmodule ServicesWeb.CoreComponents do
     ~H"""
     <div class="fieldset mb-2">
       <label>
-        <span :if={@label} class="label mb-1 dark:text-[#121e30]">{@label}</span>
+        <span :if={@label} class="label mb-1 text-gray-900 dark:text-[#121e30] text-sm">{@label}</span>
         <input
           type={@type}
           name={@name}
           id={@id}
           value={Phoenix.HTML.Form.normalize_value(@type, @value)}
           class={[
-            @class || "w-full input focus:outline-none focus:border-gray-300 dark:bg-gray-200 dark:text-[#121e30]",
+            @class ||"text-sm w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all duration-200",
             @errors != [] && (@error_class || "input-error")
           ]}
           {@rest}
@@ -290,10 +291,10 @@ defmodule ServicesWeb.CoreComponents do
     ~H"""
     <header class={[@actions != [] && "flex items-center justify-between gap-6", "pb-4"]}>
       <div>
-        <h1 class="text-lg font-semibold leading-8">
+        <h1 class="text-2xl font-semibold leading-8">
           {render_slot(@inner_block)}
         </h1>
-        <p :if={@subtitle != []} class="text-sm text-base-content/70">
+        <p :if={@subtitle != []} class="text-lg text-base-content/70">
           {render_slot(@subtitle)}
         </p>
       </div>
