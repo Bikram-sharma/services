@@ -94,6 +94,7 @@ defmodule Services.Accounts do
     |> User.email_changeset(attrs)
     |> User.password_changeset(attrs)
     |> User.username_changeset(attrs)
+    |> User.confirm_changeset()
     |> Ecto.Changeset.change(role: role)
     |> Repo.insert()
   end

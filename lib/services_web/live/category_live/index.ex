@@ -51,7 +51,7 @@ defmodule ServicesWeb.CategoryLive.Index do
     {:ok,
      socket
      |> assign(:page_title, "Listing Categories")
-     |> stream(:categories, list_categories(socket.assigns.current_scope))}
+     |> stream(:categories, list_categories())}
   end
 
   @impl true
@@ -65,10 +65,10 @@ defmodule ServicesWeb.CategoryLive.Index do
   @impl true
   def handle_info({type, %Services.Servicing.Category{}}, socket)
       when type in [:created, :updated, :deleted] do
-    {:noreply, stream(socket, :categories, list_categories(socket.assigns.current_scope), reset: true)}
+    {:noreply, stream(socket, :categories, list_categories(), reset: true)}
   end
 
-  defp list_categories(current_scope) do
-    Servicing.list_categories(current_scope)
+  defp list_categories() do
+    Servicing.list_categories()
   end
 end

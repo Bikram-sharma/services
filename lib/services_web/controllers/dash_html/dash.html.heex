@@ -1,12 +1,10 @@
-<section class="sm:p-5 md:p-10 lg:p-20">
+<section>
     <div class="bg-[#121e30] rounded-lg p-4 flex justify-between">
         <h2 class="text-white">Filter by Category</h2>
-        <select name="" id="" class="text-white focus:outline-none">
-            <option value="" class="text-black">Select Category</option>
-            <%= for category <- @categories do %>
-                <option value={category.id} class="text-black"><%= category.name %></option>
-            <% end %>
-        </select>
+        <.form for={%{}} action={~p"/dash"} method="get" id="category_filter">
+        <.input type="select" id="category_id" name="category_id" options={Enum.map(@categories, &{&1.name, &1.id})} value={@selected_category} class="rounded-md px-2 py-1"/>
+  <button type="submit">Filter</button>
+</.form>
     </div>
     <div class="mt-10 p-4 border border-gray-200 rounded-lg shadow-md">
         <div class="flex justify-between">
@@ -14,23 +12,21 @@
             <button class="font-semibold cursor-pointer py-1 px-2 rounded hover:bg-gray-200">Show All</button>
         </div>
         <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            <%= for user <- @users do %>
+            <%= for services <- @providers_service do %>
                 <div class="bg-white border border-gray-200 rounded-lg shadow mt-4">
                     <div class="relative">
-                        <img src={user.cover_photo} alt="" class="w-full h-30 object-cover rounded-t-lg">
-                        <div class="absolute bottom-3 left-4 translate-y-1/2 h-25 w-25 rounded-full border-4 border-white overflow-hidden shadow-md">
-                            <img src={user.profile_picture} alt="" class="h-full w-full object-cover mix-blend-multiply">
-                        </div>
+                        
+                        
                     </div>
                     <div class="mt-10 p-4">
-                        <p class="font-semibold"><%= user.name %></p>
-                        <p class="font-normal text-gray-600"><%= user.bio %></p>
+                        <p class="font-semibold"><%= services.services.name %></p>
+                        <p class="font-normal text-gray-600"><%= services.services.description %></p>
                         <div class="mt-2">
                             <div class="flex justify-between items-center">
-                                <p class="font-semibold"> <%= user.service %></p>
-                                <p class="bg-[#121e30] rounded text-white font-semibold px-2"> Nu.<%= user.custom_price %> /-</p>
+                                <p class="font-semibold"> <%= services.service_providers.users.username %></p>
+                                <p class="bg-[#121e30] rounded text-white font-semibold px-2"> Nu.<%= services.custom_price %> /-</p>
                             </div>
-                        <p class="font-normal text-gray-600 mt-2"> <%= user.description %></p>
+                        <p class="font-normal text-gray-600 mt-2"> <%= services.service_providers.bio %></p>
                         </div>
                     </div>
                 </div>
@@ -46,4 +42,20 @@
               </ul>
         </div>
     </div>
-</section>
+
+
+
+
+    
+</section> 
+    <script>
+
+ 
+    document.addEventListener("DOMContentLoaded", ()=>{
+
+        const category_id = document.getElementById("category_id")
+        category_id.addEventListener("change", () =>{
+       document.getElementById("category_filter").submit()
+        })
+    })
+    </script>
