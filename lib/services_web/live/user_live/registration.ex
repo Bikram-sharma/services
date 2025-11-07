@@ -26,7 +26,7 @@ defmodule ServicesWeb.UserLive.Registration do
          <.input
             field={@form[:username]}
             type="text"
-            label="Username"
+            label="Full Name"
             autocomplete="username"
             required
             phx-mounted={JS.focus()}
@@ -48,7 +48,7 @@ defmodule ServicesWeb.UserLive.Registration do
             phx-mounted={JS.focus()}
           />
 
-          <.button phx-disable-with="Creating account..." class="btn btn-primary w-full">
+          <.button phx-disable-with="Creating account...">
             Create an account
           </.button>
         </.form>
