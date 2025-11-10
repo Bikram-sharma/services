@@ -14,7 +14,6 @@ defmodule ServicesWeb.DashController do
       category_id ->
         ProviderService.list_providers_service_by_category(category_id)
     end
-    dbg(providers_service)
     conn
     |> assign(:providers_service, providers_service)
     |> assign(:selected_category, params["category_id"] || "")
