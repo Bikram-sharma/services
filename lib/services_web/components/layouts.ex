@@ -152,13 +152,14 @@ defmodule ServicesWeb.Layouts do
     """
   end
 
+  @spec main_header(any()) :: Phoenix.LiveView.Rendered.t()
   @doc """
-    Renders the application footer.
+    Renders the application header.
     The header is displayed at the top of every page and includes navigation bar.
   """
   def main_header(assigns) do
     ~H"""
-    <header class="shadow-lg flex items-center justify-between sticky top-0 bg-white dark:bg-gray-900 z-50">
+    <header class="shadow-lg flex items-center justify-evenly sticky top-0 bg-white dark:bg-gray-900 z-50">
         <nav class="bg-white shadow-md sticky top-0 z-50 w-full">
             <div class="mx-auto px-2 sm:px-4 lg:px-6">
                 <div class="flex justify-between items-center h-16">
@@ -173,24 +174,23 @@ defmodule ServicesWeb.Layouts do
                         </a>
                     </div>
 
-                    <div class="hidden md:flex items-center space-x-8 w-[60vw] justify-between">
+                    <div class="hidden md:flex items-center justify-center space-x-8 w-[60vw]">
                         <a href="/" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Home</a>
                         <a href="/dash" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Services</a>
                         <a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">How It Works</a>
                         <a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">About</a>
                         <a href="#contact-info" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Contact</a>
+                    </div>
 
-                        <ul class="flex items-center space-x-15">
+                    <ul class="flex items-center space-x-8">
                         <%= if @current_scope do %>
-                            <li>{@current_scope.user.username}</li>
-                            <li><.link href={~p"/users/settings"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Settings</.link></li>
-                            <li><.link href={~p"/users/log-out"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors" method="delete">Log out</.link></li>
+                            <li><.link href={~p"/users/settings"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors"><svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="25px" fill="#0066ffff"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/></svg></.link></li>
+                            <li><div id="profile-avatar" class="bg-blue-500 w-12 h-12 rounded-full border-3 hover:border-blue-200 text-center text-white font-bold flex flex-col justify-center cursor-pointer" phx-click={JS.toggle(to: "#profile-card")}>{String.slice(@current_scope.user.username,0,1) |> String.upcase()}</div></li>
                         <% else %>
                             <li><.link href={~p"/users/register"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Register</.link></li>
                             <li><.link href={~p"/users/log-in"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Log in</.link></li>
                         <% end %>
-                        </ul>
-                    </div>
+                    </ul>
 
                     <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-blue-600">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -221,6 +221,46 @@ defmodule ServicesWeb.Layouts do
             </div>
         </nav>
     </header>
+    """
+  end
+
+  @doc """
+    Renders the user avatar in the navigation bar with an interactive dropdown.
+
+    ## Features
+    - Displays the user's profile picture (or initials) in a circular avatar.
+    - On click, expands a dropdown menu showing:
+      - User details (name, email, etc.)
+      - Logout option to sign out of the application
+  """
+  def avatar(assigns) do
+    ~H"""
+    <div id={@id} class="hidden bg-[#eff6fe] w-3/12 border border-gray-200 rounded-lg shadow mt-2 absolute right-2 z-10">
+        <div class="relative">
+            <div class="relative">
+                <img src="https://img.freepik.com/free-vector/background_53876-57973.jpg" alt="" class="w-full h-20 object-cover rounded-t-lg">
+                <div class="bg-blue-500 absolute bottom-0 left-4 translate-y-1/2 h-15 w-15 rounded-full flex flex-col justify-center">
+                <%= if @current_scope do %>
+                    <p class="text-white text-center font-bold">{String.slice(@current_scope.user.username,0,1) |> String.upcase()}</p>
+                    <% else %>
+                        <.link href={~p"/users/register"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Register</.link>
+                        <.link href={~p"/users/log-in"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Log in</.link>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+        <div class="mt-10 px-4 py-2">
+            <%= if @current_scope do %>
+                <p class="font-semibold">{@current_scope.user.username}</p>
+                <p class="font-normal text-gray-600">{@current_scope.user.email}</p>
+                <br><hr><br>
+                <.link href={~p"/users/log-out"} class="text-red-500 hover:text-blue-700 font-medium transition-colors" method="delete">Log out</.link>
+            <% else %>
+                <.link href={~p"/users/register"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Register</.link>
+                <.link href={~p"/users/log-in"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Log in</.link>
+            <% end %>
+        </div>
+    </div>
     """
   end
 
@@ -330,6 +370,14 @@ defmodule ServicesWeb.Layouts do
             </div>
         </div>
     </footer>
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
     """
   end
 
