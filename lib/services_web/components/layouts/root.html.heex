@@ -32,15 +32,8 @@
   </head>
   <body>
     <.main_header current_scope={@current_scope} />
+    <.avatar current_scope={@current_scope} id="profile-card" />
     {@inner_content}
     <.footer />
   </body>
-  <script>
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    </script>
 </html>
