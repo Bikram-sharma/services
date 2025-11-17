@@ -22,15 +22,19 @@
                     </div>
                 </div> -->
                 <div class="mt-10 p-4">
-                    <p class="font-semibold"><%= services.services.name %></p>
-                    <p class="font-normal text-gray-600"><%= services.services.description %></p>
+                    <p class="font-semibold"> Service: <%= services.services.name %></p>
+                    <p class="font-normal text-gray-600"> Description: <%= services.services.description %></p>
+                    <p class="font-normal text-gray-600"> Category: <%= services.services.category.name%> </p>
+
+              
                     <div class="mt-2">
-                        <div class="flex justify-between items-center">
-                            <p class="font-semibold"> <%= services.service_providers.users.username %></p>
-                            <p class="bg-[#121e30] rounded text-white font-semibold px-2"> Nu.<%= services.custom_price %> /-</p>
-                        </div>
-                    <p class="font-normal text-gray-600 mt-2"> <%= services.service_providers.bio %></p>
+                     <p class="font-semibold">Provider: <%= services.service_providers.users.username %></p> 
+                     <p class="font-normal text-gray-600">Bio: <%= services.service_providers.bio %></p>
+                     <p>Rate:  Nu.<%= services.custom_price %> /-</p>
+
                     </div>
+                    <button class="bg-[#121e30] rounded text-white font-semibold px-2 mt-2 inline-block">Book</button>
+
                 </div>
             </div>
         <% end %>
