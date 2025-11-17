@@ -25,7 +25,7 @@ defmodule ServicesWeb.ProvidersServiceLive.Form do
 
         <footer>
           <.button phx-disable-with="Saving..." variant="primary">Save Providers service</.button>
-          <.button navigate={return_path(@current_scope, @return_to, @providers_service)}>Cancel</.button>
+          <.button> <a href="/providers_service">Cancel</a></.button>
         </footer>
       </.form>
     </Layouts.app>

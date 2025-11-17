@@ -177,8 +177,8 @@ defmodule Services.Servicing do
       [%Service{}, ...]
 
   """
-  def list_services(%Scope{} = scope) do
-    Repo.all_by(Service, user_id: scope.user.id)
+  def list_services(_scope) do
+    Repo.all(Service)
   end
 
   def is_hidden(%Scope{} = scope) do

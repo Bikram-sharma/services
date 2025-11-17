@@ -48,7 +48,7 @@ defmodule ServicesWeb.ProviderLive.Index do
     if connected?(socket) do
       ServiceProvider.subscribe_service_providers(socket.assigns.current_scope)
     end
-    IO.inspect("this is providers page")
+
 
     {:ok,
      socket
