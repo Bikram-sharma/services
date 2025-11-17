@@ -8,10 +8,10 @@ defmodule ServicesWeb.ProvidersServiceLive.Index do
     ~H"""
     <Layouts.app flash={@flash} current_scope={@current_scope}>
       <.header>
-        Listing Providers service
+        Listing Your Services
         <:actions>
           <.button variant="dark-blue-gray" navigate={~p"/providers_service/new"}>
-            <.icon name="hero-plus" /> New Providers service
+            <.icon name="hero-plus" /> add your service
           </.button>
         </:actions>
       </.header>
@@ -52,7 +52,7 @@ defmodule ServicesWeb.ProvidersServiceLive.Index do
     {:ok,
      socket
      |> assign(:page_title, "Listing Providers service")
-     |> stream(:providers_service_collection, list_providers_service())}
+     |> stream(:providers_service_collection, list_providers_service_by_id(socket.assigns.current_scope.user.id))}
   end
 
   @impl true
@@ -66,10 +66,11 @@ defmodule ServicesWeb.ProvidersServiceLive.Index do
   @impl true
   def handle_info({type, %Services.ProviderService.ProvidersService{}}, socket)
       when type in [:created, :updated, :deleted] do
-    {:noreply, stream(socket, :providers_service_collection, list_providers_service(), reset: true)}
+    {:noreply, stream(socket, :providers_service_collection, list_providers_service_by_id(socket.assigns.current_scope.user.id), reset: true)}
   end
 
-  defp list_providers_service() do
-    ProviderService.list_providers_service()
+  defp list_providers_service_by_id(id) do
+
+    ProviderService.list_providers_service_by_id(id)
   end
 end

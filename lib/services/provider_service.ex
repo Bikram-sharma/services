@@ -69,6 +69,16 @@ defmodule Services.ProviderService do
 
   end
 
+  def list_providers_service_by_id(user_id) do
+  ProvidersService
+  |> join(:inner, [ps], sp in assoc(ps, :service_providers))
+  |> where([ps, sp], sp.user_id == ^user_id)
+  |> preload([:service_providers, :services])
+  |> preload(service_providers: :users)
+  |> preload(services: :category)
+  |> Repo.all()
+end
+
   @doc """
   Gets a single providers_service.
 
