@@ -33,7 +33,9 @@
                      <p>Rate:  Nu.<%= services.custom_price %> /-</p>
 
                     </div>
-                    <button class="bg-[#121e30] rounded text-white font-semibold px-2 mt-2 inline-block">Book</button>
+                    <button class="bg-[#121e30] rounded text-white font-semibold px-2 mt-2 inline-block">
+                        <a href={~p"/dash/#{services.services.name}/book"}>Book</a>
+                    </button>
 
                 </div>
             </div>
