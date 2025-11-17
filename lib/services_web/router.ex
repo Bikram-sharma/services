@@ -24,6 +24,7 @@ defmodule ServicesWeb.Router do
     get "/", PageController, :home
 
     get "/dash", DashController, :dash
+    get "/dash/:id/book", DashController, :book
 
   end
 

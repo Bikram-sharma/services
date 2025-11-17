@@ -19,4 +19,8 @@ defmodule ServicesWeb.DashController do
     |> assign(:selected_category, params["category_id"] || "")
     |> render(:dash, is_hidden: is_hidden, categories: categories)
   end
+
+  def book(conn, %{"id" => id}) do
+    render(conn, :book, id: id)
+  end
 end
