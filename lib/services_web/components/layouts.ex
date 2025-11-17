@@ -177,12 +177,11 @@ defmodule ServicesWeb.Layouts do
                     <div class="hidden md:flex items-center justify-center space-x-8 w-[60vw]">
                         <a href="/" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Home</a>
                         <a href="/dash" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Services</a>
-                        <a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">How It Works</a>
-                        <a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">About</a>
+                        <a href="/#about" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">About</a>
                         <a href="#contact-info" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Contact</a>
                     </div>
 
-                    <ul class="flex items-center space-x-8">
+                    <ul class="hidden md:flex items-center space-x-8">
                         <%= if @current_scope do %>
                             <li><.link href={~p"/users/settings"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors"><svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="25px" fill="#0066ffff"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/></svg></.link></li>
                             <li><div id="profile-avatar" class="bg-blue-500 w-12 h-12 rounded-full border-3 hover:border-blue-200 text-center text-white font-bold flex flex-col justify-center cursor-pointer" phx-click={JS.toggle(to: "#profile-card")}>{String.slice(@current_scope.user.username,0,1) |> String.upcase()}</div></li>
@@ -201,16 +200,15 @@ defmodule ServicesWeb.Layouts do
 
                 <div id="mobile-menu" class="hidden md:hidden pb-4">
                     <div class="flex flex-col space-y-3">
-                        <a href="#" class="text-gray-700 hover:text-blue-600 font-medium py-2">Home</a>
-                        <a href="#" class="text-gray-700 hover:text-blue-600 font-medium py-2">Services</a>
-                        <a href="#" class="text-gray-700 hover:text-blue-600 font-medium py-2">How It Works</a>
-                        <a href="#" class="text-gray-700 hover:text-blue-600 font-medium py-2">About</a>
+                        <a href="/" class="text-gray-700 hover:text-blue-600 font-medium py-2">Home</a>
+                        <a href="/dash" class="text-gray-700 hover:text-blue-600 font-medium py-2">Services</a>
+                        <a href="/#about" class="text-gray-700 hover:text-blue-600 font-medium py-2">About</a>
                         <a href="#" class="text-gray-700 hover:text-blue-600 font-medium py-2">Contact</a>
-                        <ul>
+                        <ul class="border-t pt-4">
                         <%= if @current_scope do %>
                             <li>{@current_scope.user.email}</li>
                             <li><.link href={~p"/users/settings"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Settings</.link></li>
-                            <li><.link href={~p"/users/log-out"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors" method="delete">Log out</.link></li>
+                            <li><.link href={~p"/users/log-out"} class="text-gray-700 text-red-600 font-medium transition-colors" method="delete">Log out</.link></li>
                         <% else %>
                             <li><.link href={~p"/users/register"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Register</.link></li>
                             <li><.link href={~p"/users/log-in"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Log in</.link></li>
@@ -221,6 +219,14 @@ defmodule ServicesWeb.Layouts do
             </div>
         </nav>
     </header>
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
     """
   end
 
@@ -370,14 +376,6 @@ defmodule ServicesWeb.Layouts do
             </div>
         </div>
     </footer>
-    <script>
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    </script>
     """
   end
 
