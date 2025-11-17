@@ -46,6 +46,7 @@ defmodule Services.ProviderService do
     ProvidersService
     |> preload([:service_providers, :services])
     |> preload(service_providers: :users)
+    |> preload(services: :category)
     |> Repo.all()
   end
 
@@ -53,6 +54,7 @@ defmodule Services.ProviderService do
     ProvidersService
     |> preload([:service_providers, :services])
     |> preload(service_providers: :users)
+    |> preload(services: :category)
     |> Repo.all()
   end
 
@@ -62,6 +64,7 @@ defmodule Services.ProviderService do
     |> where([ps, s], s.category_id == ^category_id)
     |> preload([:service_providers, :services])
     |> preload(service_providers: :users)
+    |> preload(services: :category)
     |> Repo.all()
 
   end
