@@ -62,7 +62,6 @@ defmodule ServicesWeb.UserLive.Manage do
      socket
      |> assign(:page_title, "Listing Users")
      |> assign(:roles, roles)
-     |> assign(:layout, {ServicesWeb.Layouts, :root_no_nav})
      |> stream(:users, list_all_users())}
   end
 
