@@ -35,9 +35,17 @@ defmodule ServicesWeb.UserAuth do
   def log_in_user(conn, user, params \\ %{}) do
     user_return_to = get_session(conn, :user_return_to)
 
-    conn
+    conn = conn
     |> create_or_extend_session(user, params)
-    |> redirect(to: user_return_to || signed_in_path(conn))
+
+
+    if user.role == "super_admin" do
+      conn
+      |> redirect(to: "/manage")
+    else
+      conn
+      |> redirect(to: user_return_to || signed_in_path(conn))
+    end
   end
 
   @doc """
@@ -234,6 +242,7 @@ defmodule ServicesWeb.UserAuth do
   def on_mount(:require_super_admin_authentication, _params, session, socket) do
     socket = mount_current_scope(socket, session)
     if socket.assigns.current_scope && socket.assigns.current_scope.user && socket.assigns.current_scope.user.role == "super_admin" do
+
       {:cont, socket}
     else
 
