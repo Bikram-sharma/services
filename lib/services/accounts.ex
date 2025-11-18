@@ -139,7 +139,7 @@ defmodule Services.Accounts do
 
 
 def list_all_users() do
-  Repo.all(User)
+  Repo.all(from u in User, where: u.role != "super_admin")
   end
 
   def list_all_users(nil) do
