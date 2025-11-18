@@ -21,6 +21,7 @@ defmodule ServicesWeb.Router do
   scope "/", ServicesWeb do
     pipe_through :browser
 
+
     get "/", PageController, :home
 
     get "/dash", DashController, :dash
@@ -55,10 +56,14 @@ defmodule ServicesWeb.Router do
   scope "/", ServicesWeb do
     pipe_through [:browser, :require_authenticated_user]
 
+
     live_session :require_authenticated_user,
+
       on_mount: [{ServicesWeb.UserAuth, :require_authenticated}] do
       live "/users/settings", UserLive.Settings, :edit
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
+
+
 
     live "/services", ServiceLive.Index, :index
     live "/services/new", ServiceLive.Form, :new
@@ -85,6 +90,18 @@ defmodule ServicesWeb.Router do
   end
 
   scope "/", ServicesWeb do
+    pipe_through [:browser, :require_super_admin_authentication]
+
+    live_session :require_super_admin_authentication,
+      on_mount: [{ServicesWeb.UserAuth, :require_super_admin_authentication}] do
+    live "/manage", UserLive.Manage, :manage
+    end
+
+  end
+
+
+
+  scope "/", ServicesWeb do
     pipe_through [:browser]
 
     live_session :current_user,
@@ -93,6 +110,7 @@ defmodule ServicesWeb.Router do
       live "/users/log-in", UserLive.Login, :new
       live "/users/log-in/:token", UserLive.Confirmation, :new
     end
+
 
     post "/users/log-in", UserSessionController, :create
     delete "/users/log-out", UserSessionController, :delete
