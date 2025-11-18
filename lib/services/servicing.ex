@@ -182,8 +182,14 @@ defmodule Services.Servicing do
   end
 
   def is_hidden(%Scope{} = scope) do
-    !scope.user
+    if scope.user.role == "super_admin" do
+      true
+    else
+      !scope.user
+    end
+
   end
+
   def is_hidden(nil) do
     true
   end
