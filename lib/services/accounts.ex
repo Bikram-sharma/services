@@ -88,14 +88,18 @@ defmodule Services.Accounts do
   ]
 
     role =
-    if Map.get(attrs, "email") in admin_emails or Map.get(attrs, :email) in admin_emails do
-      "admin"
-    else
-      "client"
-    end
-    %User{}
-    |> User.email_changeset(attrs)
-    |> User.password_changeset(attrs)
+      if attrs.role do
+        attrs.role
+      else
+        if Map.get(attrs, "email") in admin_emails or Map.get(attrs, :email) in admin_emails do
+          "admin"
+        else
+          "client"
+        end
+      end
+        %User{}
+        |> User.email_changeset(attrs)
+        |> User.password_changeset(attrs)
     |> User.username_changeset(attrs)
     |> User.confirm_changeset()
     |> Ecto.Changeset.change(role: role)
