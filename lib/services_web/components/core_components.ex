@@ -103,13 +103,13 @@ defmodule ServicesWeb.CoreComponents do
 
     if rest[:href] || rest[:navigate] || rest[:patch] do
       ~H"""
-      <.link class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transform hover:scale-101 transition-all duration-100 shadow-lg cursor-pointer my-4" {@rest}>
+      <.link class="w-full bg-[#111E30] text-white font-semibold py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transform hover:scale-101 transition-all duration-100 shadow-lg cursor-pointer my-4" {@rest}>
         {render_slot(@inner_block)}
       </.link>
       """
     else
       ~H"""
-      <button class = "w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transform hover:scale-101 transition-all duration-100 shadow-lg cursor-pointer my-4" {@rest}>
+      <button class = "w-full bg-[#111E30] text-white font-semibold py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transform hover:scale-101 transition-all duration-100 shadow-lg cursor-pointer my-4" {@rest}>
         {render_slot(@inner_block)}
       </button>
       """
@@ -259,7 +259,7 @@ defmodule ServicesWeb.CoreComponents do
           id={@id}
           value={Phoenix.HTML.Form.normalize_value(@type, @value)}
           class={[
-            @class ||"text-sm w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all duration-200",
+            @class ||"text-sm w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none transition-all duration-200",
             @errors != [] && (@error_class || "input-error")
           ]}
           {@rest}
