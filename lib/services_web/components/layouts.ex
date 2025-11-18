@@ -191,20 +191,38 @@ defmodule ServicesWeb.Layouts do
                         <% end %>
                     </ul>
 
-                    <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-blue-600">
+                    <button id="mobile-menu-btn" class="md:hidden">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                         </svg>
                     </button>
+
                 </div>
 
-                <div id="mobile-menu" class="hidden md:hidden pb-4">
-                    <div class="flex flex-col space-y-3">
-                        <a href="/" class="text-gray-700 hover:text-blue-600 font-medium py-2">Home</a>
-                        <a href="/dash" class="text-gray-700 hover:text-blue-600 font-medium py-2">Services</a>
-                        <a href="/#about" class="text-gray-700 hover:text-blue-600 font-medium py-2">About</a>
-                        <a href="#" class="text-gray-700 hover:text-blue-600 font-medium py-2">Contact</a>
-                        <ul class="border-t pt-4">
+                <div id="mobile-menu" class="fixed top-0 -left-1 h-full w-[90%] bg-[#e6edfe] -translate-x-full duration-300 p-4 z-50">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <span class="text-xl font-bold text-gray-900 ml-2">ServiceHub</span>
+                        </div>
+                        <button id="mobile-close-btn" class="hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
+                            <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+                        </button>
+                    </div>
+
+                    <div>
+                        <div class="flex flex-col space-y-3 mt-10 ">
+                            <a href="/" class="text-gray-700 hover:text-blue-600 font-medium w-fit">Home</a>
+                            <a href="/dash" class="text-gray-700 hover:text-blue-600 font-medium w-fit">Services</a>
+                            <a href="/#about" class="text-gray-700 hover:text-blue-600 font-medium w-fit">About</a>
+                            <a href="#" class="text-gray-700 hover:text-blue-600 font-medium w-fit">Contact</a>
+                        </div>
+                        <ul class="border-t absolute bottom-0 w-[90%] py-4">
                         <%= if @current_scope do %>
                             <li>{@current_scope.user.email}</li>
                             <li><.link href={~p"/users/settings"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Settings</.link></li>
@@ -221,10 +239,23 @@ defmodule ServicesWeb.Layouts do
     </header>
     <script>
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileCloseBtn = document.getElementById('mobile-close-btn');
         const mobileMenu = document.getElementById('mobile-menu');
 
         mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.remove('-translate-x-full');
+            mobileMenu.classList.add('translate-x-0');
+
+            mobileMenuBtn.classList.add('hidden');
+            mobileCloseBtn.classList.remove('hidden');
+        });
+
+        mobileCloseBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            mobileMenu.classList.remove('translate-x-0');
+
+            mobileCloseBtn.classList.add('hidden');
+            mobileMenuBtn.classList.remove('hidden');
         });
     </script>
     """
