@@ -180,6 +180,9 @@ defmodule ServicesWeb.Layouts do
                         <a href="/#about" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">About</a>
                         <a href="#contact-info" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Contact</a>
                     </div>
+                    <%= if @current_scope && @current_scope.user.role in ["admin", "super_admin"] do %>
+                     <.link href={~p"/manage"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Manage users</.link>
+                    <%end%>
 
                     <ul class="hidden md:flex items-center space-x-8">
                         <%= if @current_scope do %>
