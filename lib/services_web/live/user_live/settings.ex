@@ -62,6 +62,18 @@ defmodule ServicesWeb.UserLive.Settings do
           Save Password
         </.button>
       </.form>
+
+      <div class="divider" />
+
+      <div>
+        <p class="text-sm font-semibold">Click the button below to <span class="text-lg text-red-700">deactivate</span> your account;</p>
+        <.form for={%{}} action={~p"/users/deactivate"} method="delete">
+          <.button type="submit">
+            Deactivate Account
+          </.button>
+        </.form>
+      </div>
+
     </Layouts.app>
     """
   end

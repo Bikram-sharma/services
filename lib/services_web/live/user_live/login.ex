@@ -35,10 +35,6 @@ defmodule ServicesWeb.UserLive.Login do
           </div>
         </div>
 
-
-
-
-
         <.form
           :let={f}
           for={@form}
@@ -55,19 +51,23 @@ defmodule ServicesWeb.UserLive.Login do
             autocomplete="username"
             required
           />
+
           <.input
             field={@form[:password]}
             type="password"
             label="Password"
             autocomplete="current-password"
           />
+
           <.button  name={@form[:remember_me].name} value="true">
             Log in and stay logged in <span aria-hidden="true">→</span>
           </.button>
+
           <.button >
             Log in only this time
           </.button>
         </.form>
+
       </div>
     </Layouts.app>
     """
@@ -92,10 +92,11 @@ defmodule ServicesWeb.UserLive.Login do
 
   def handle_event("submit_magic", %{"user" => %{"email" => email}}, socket) do
     if user = Accounts.get_user_by_email(email) do
-      Accounts.deliver_login_instructions(
-        user,
-        &url(~p"/users/log-in/#{&1}")
-      )
+      if is_nil(user.deactivated_at) do
+        Accounts.deliver_login_instructions(user, &url(~p"/users/log-in/#{&1}"))
+      else
+        IO.puts("User #{user.username} is deactivated. Cannot send login link.")
+      end
     end
 
     info =
