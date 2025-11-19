@@ -158,8 +158,10 @@ defmodule ServicesWeb.Layouts do
     The header is displayed at the top of every page and includes navigation bar.
   """
   def main_header(assigns) do
+
     ~H"""
     <header class="shadow-lg flex items-center justify-evenly sticky top-0 bg-white dark:bg-gray-900 z-50">
+
         <nav class="bg-white shadow-md sticky top-0 z-50 w-full">
             <div class="mx-auto px-2 sm:px-4 lg:px-6">
                 <div class="flex justify-between items-center h-16">
@@ -180,6 +182,10 @@ defmodule ServicesWeb.Layouts do
                         <a href="/#about" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">About</a>
                         <a href="#contact-info" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Contact</a>
                     </div>
+                    <%= if @current_scope && @current_scope.user.role in ["admin", "super_admin"] do %>
+                     <.link href={~p"/manage"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Manage users</.link>
+                    <%end%>
+
 
                     <ul class="hidden md:flex items-center space-x-8">
                         <%= if @current_scope do %>
