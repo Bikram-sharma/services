@@ -20,17 +20,12 @@ defmodule ServicesWeb.DashController do
     |> render(:dash, is_hidden: is_hidden, categories: categories)
   end
 
-  def book(conn, %{"id" => id} = params) do
-    categories = Servicing.list_categories()
-    providers_service = case params["category_id"] do
-      nil ->
-        ProviderService.list_providers_service()
-      category_id ->
-        ProviderService.list_providers_service_by_category(category_id)
-    end
+    def book(conn, %{"id" => id}) do
+    provider_service =
+      ProviderService.get_providers_service_by_id(id)
+
     conn
-    |> assign(:providers_service, providers_service)
-    |> assign(:selected_category, params["category_id"] || "")
-    |> render(:book, id: id, categories: categories)
+    |> assign(:provider_service, provider_service)
+    |> render(:book)
   end
 end
