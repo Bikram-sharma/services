@@ -158,10 +158,8 @@ defmodule ServicesWeb.Layouts do
     The header is displayed at the top of every page and includes navigation bar.
   """
   def main_header(assigns) do
-
     ~H"""
     <header class="shadow-lg flex items-center justify-evenly sticky top-0 bg-white dark:bg-gray-900 z-50">
-
         <nav class="bg-white shadow-md sticky top-0 z-50 w-full">
             <div class="mx-auto px-2 sm:px-4 lg:px-6">
                 <div class="flex justify-between items-center h-16">
@@ -182,10 +180,6 @@ defmodule ServicesWeb.Layouts do
                         <a href="/#about" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">About</a>
                         <a href="#contact-info" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Contact</a>
                     </div>
-                    <%= if @current_scope && @current_scope.user.role in ["admin", "super_admin"] do %>
-                     <.link href={~p"/manage"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Manage users</.link>
-                    <%end%>
-
 
                     <ul class="hidden md:flex items-center space-x-8">
                         <%= if @current_scope do %>
@@ -278,7 +272,7 @@ defmodule ServicesWeb.Layouts do
   """
   def avatar(assigns) do
     ~H"""
-    <div id={@id} class="hidden bg-[#eff6fe] w-3/12 border border-gray-200 rounded-lg shadow mt-2 absolute right-2 z-10">
+    <div id={@id} class="hidden bg-[#eff6fe] w-3/12 border border-gray-200 rounded-lg shadow mt-2 fixed top-16 right-2 z-10">
         <div class="relative">
             <div class="relative">
                 <img src="https://img.freepik.com/free-vector/background_53876-57973.jpg" alt="" class="w-full h-20 object-cover rounded-t-lg">
