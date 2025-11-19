@@ -62,6 +62,11 @@ defmodule ServicesWeb.UserLive.Settings do
           Save Password
         </.button>
       </.form>
+
+      <.button phx-click="deactivate_account">
+        Deactivate Account
+      </.button>
+
     </Layouts.app>
     """
   end
@@ -156,4 +161,22 @@ defmodule ServicesWeb.UserLive.Settings do
         {:noreply, assign(socket, password_form: to_form(changeset, action: :insert))}
     end
   end
+
+  def handle_event("deactivate_account", params, socket) do
+
+    user = socket.assigns.current_scope.user
+
+    case Services.Accounts.deactivate_user(user) do
+      {:ok, _user} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Account deactivated successfully.")}
+
+      {:error, _changeset} ->
+        {:noreply,
+         socket
+         |> put_flash(:error, "Failed to deactivate account.")}
+    end
+  end
+
 end

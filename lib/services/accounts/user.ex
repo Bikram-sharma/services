@@ -14,6 +14,7 @@ defmodule Services.Accounts.User do
     field :confirmed_at, :utc_datetime
     field :authenticated_at, :utc_datetime, virtual: true
     field :role, :string, default: "client"
+    field :deactivated_at, :utc_datetime
 
     timestamps(type: :utc_datetime)
   end
@@ -50,8 +51,6 @@ defmodule Services.Accounts.User do
     |> validate_required([:role])
     |> validate_inclusion(:role, @roles)
  end
-
-
 
   @spec email_changeset(
           {map(),

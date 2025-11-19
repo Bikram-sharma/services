@@ -29,6 +29,7 @@ defmodule Services.Accounts do
 
   @doc """
   Gets a user by email and password.
+  Block login if user is deactivated.
 
   ## Examples
 
@@ -39,10 +40,23 @@ defmodule Services.Accounts do
       nil
 
   """
-  def get_user_by_email_and_password(email, password)
-      when is_binary(email) and is_binary(password) do
-    user = Repo.get_by(User, email: email)
-    if User.valid_password?(user, password), do: user
+  # def get_user_by_email_and_password(email, password)
+  #     when is_binary(email) and is_binary(password) do
+  #   user = Repo.get_by(User, email: email)
+  #   if User.valid_password?(user, password), do: user
+  # end
+
+  def get_user_by_email_and_password(email, password) when is_binary(email) and is_binary(password) do
+    case Repo.get_by(User, email: email) do
+      %User{deactivated_at: nil} = user ->
+        if User.valid_password?(user, password), do: user
+
+      %User{deactivated_at: _} ->
+        nil
+
+      nil ->
+        nil
+    end
   end
 
   @doc """
@@ -77,7 +91,6 @@ defmodule Services.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-
 
   def register_user(attrs) do
     admin_emails = [
@@ -308,8 +321,13 @@ end
         |> update_user_and_delete_all_tokens()
 
       {user, token} ->
-        Repo.delete!(token)
-        {:ok, {user, []}}
+        # Block deactivated users
+        if not is_nil(user.deactivated_at) do
+          {:error, :deactivated}
+        else
+          Repo.delete!(token)
+          {:ok, {user, []}}
+        end
 
       nil ->
         {:error, :not_found}
@@ -365,5 +383,23 @@ end
         {:ok, {user, tokens_to_expire}}
       end
     end)
+  end
+
+  @doc """
+    Deactivate user.
+  """
+  def deactivate_user(user) do
+  user
+  |> Ecto.Changeset.change(deactivated_at: DateTime.truncate(DateTime.utc_now(), :second))
+  |> Repo.update()
+end
+
+  @doc """
+    Reactivate user.
+  """
+  def reactivate_user(user) do
+    user
+    |> Ecto.Changeset.change(deactivated_at: nil)
+    |> Repo.update()
   end
 end
