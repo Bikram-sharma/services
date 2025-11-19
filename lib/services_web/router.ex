@@ -114,6 +114,7 @@ defmodule ServicesWeb.Router do
 
     post "/users/log-in", UserSessionController, :create
     delete "/users/log-out", UserSessionController, :delete
+    delete "/users/deactivate", UserSessionController, :log_out_deactivated
   end
 
   scope "/", ServicesWeb do
@@ -126,7 +127,6 @@ defmodule ServicesWeb.Router do
     live "/categories/:id", CategoryLive.Show, :show
     live "/categories/:id/edit", CategoryLive.Form, :edit
     end
-
   end
 
 end
