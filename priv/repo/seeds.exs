@@ -9,3 +9,15 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias Services.Accounts
+
+
+IO.puts("creating user")
+
+ Accounts.register_user(%{
+  email: "kami@gmail.com",
+  username: "Kami",
+  password: "123456789012",
+  role: "super_admin",
+})

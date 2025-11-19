@@ -2,7 +2,7 @@ defmodule Services.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @roles ~w(admin client service_provider)
+  @roles ~w(admin client service_provider super_admin)
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 

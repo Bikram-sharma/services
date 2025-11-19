@@ -38,6 +38,7 @@ defmodule ServicesWeb.UserAuth do
     conn
     |> create_or_extend_session(user, params)
     |> redirect(to: user_return_to || signed_in_path(conn))
+
   end
 
   @doc """
@@ -226,9 +227,27 @@ defmodule ServicesWeb.UserAuth do
         |> Phoenix.LiveView.put_flash(:error, "You must log in to access this page.")
         |> Phoenix.LiveView.redirect(to: ~p"/users/log-in")
 
+
       {:halt, socket}
     end
   end
+
+  def on_mount(:require_super_admin_authentication, _params, session, socket) do
+    socket = mount_current_scope(socket, session)
+    if socket.assigns.current_scope && socket.assigns.current_scope.user && socket.assigns.current_scope.user.role == "super_admin" do
+
+      {:cont, socket}
+    else
+
+       socket =
+        socket
+        |> Phoenix.LiveView.put_flash(:error, "You be super admin.")
+        |> Phoenix.LiveView.redirect(to: ~p"/")
+
+        {:halt, socket}
+
+  end
+end
 
 
   def on_mount(:require_admin_authentication, _params, session, socket) do
@@ -307,6 +326,18 @@ defmodule ServicesWeb.UserAuth do
     else
       conn
       |> put_flash(:error, "You must be an admin to access this page.")
+      |> maybe_store_return_to()
+      |> redirect(to: ~p"/")
+      |> halt()
+    end
+  end
+
+  def require_super_admin_authentication(conn, _opts) do
+    if conn.assigns.current_scope && conn.assigns.current_scope.user && conn.assigns.current_scope.user.role == "super_admin" do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You should be super admin to access that page.")
       |> maybe_store_return_to()
       |> redirect(to: ~p"/")
       |> halt()

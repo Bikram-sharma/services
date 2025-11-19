@@ -6,6 +6,7 @@ defmodule Services.Accounts do
   import Ecto.Query, warn: false
   alias Services.Repo
 
+
   alias Services.Accounts.{User, UserToken, UserNotifier}
 
   ## Database getters
@@ -62,6 +63,8 @@ defmodule Services.Accounts do
 
   ## User registration
 
+
+
   @doc """
   Registers a user.
 
@@ -85,14 +88,18 @@ defmodule Services.Accounts do
   ]
 
     role =
-    if Map.get(attrs, "email") in admin_emails or Map.get(attrs, :email) in admin_emails do
-      "admin"
-    else
-      "client"
-    end
-    %User{}
-    |> User.email_changeset(attrs)
-    |> User.password_changeset(attrs)
+      if attrs.role do
+        attrs.role
+      else
+        if Map.get(attrs, "email") in admin_emails or Map.get(attrs, :email) in admin_emails do
+          "admin"
+        else
+          "client"
+        end
+      end
+        %User{}
+        |> User.email_changeset(attrs)
+        |> User.password_changeset(attrs)
     |> User.username_changeset(attrs)
     |> User.confirm_changeset()
     |> Ecto.Changeset.change(role: role)
@@ -130,6 +137,15 @@ defmodule Services.Accounts do
     User.email_changeset(user, attrs, opts)
   end
 
+
+def list_all_users() do
+  Repo.all(from u in User, where: u.role != "super_admin")
+  end
+
+  def list_all_users(nil) do
+  raise("Only admin could view the list of users")
+  end
+
   @doc """
   Updates the user email using the given token.
 
@@ -165,6 +181,41 @@ defmodule Services.Accounts do
   def change_user_password(user, attrs \\ %{}, opts \\ []) do
     User.password_changeset(user, attrs, opts)
   end
+
+  def change_user_role(user, attrs \\ %{}, opts \\ []) do
+    User.role_changeset(user, attrs, opts)
+  end
+def update_user_role(user_id, new_role) do
+user = Repo.get(User, user_id)
+if user do
+user
+|> User.role_changeset(%{role: new_role})
+|> Repo.update()
+else
+{:error, "User not found"}
+end
+end
+
+# Fallback for unauthorized scopes so the call doesn't raise a FunctionClauseError
+def update_user_role(_, _user_id, _new_role) do
+  {:error, :unauthorized}
+end
+def delete_user(user_id) do
+  case Repo.get(User, user_id) do
+    nil ->
+      {:error, "User not found"}
+
+    user ->
+      Repo.delete(user)
+    end
+
+end
+
+def delete_user(_, _) do
+  {:error, "Invalid scope"}
+end
+
+
 
   @doc """
   Updates the user password.
@@ -264,6 +315,8 @@ defmodule Services.Accounts do
         {:error, :not_found}
     end
   end
+
+
 
   @doc ~S"""
   Delivers the update email instructions to the given user.
