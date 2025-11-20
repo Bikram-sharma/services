@@ -63,13 +63,6 @@ defmodule ServicesWeb.Router do
       live "/users/settings", UserLive.Settings, :edit
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
 
-
-
-    live "/services", ServiceLive.Index, :index
-    live "/services/new", ServiceLive.Form, :new
-    live "/services/:id", ServiceLive.Show, :show
-    live "/services/:id/edit", ServiceLive.Form, :edit
-
     live "/service_providers", ProviderLive.Index, :index
     live "/service_providers/new", ProviderLive.Form, :new
     live "/service_providers/:id", ProviderLive.Show, :show
@@ -87,16 +80,6 @@ defmodule ServicesWeb.Router do
     end
 
     post "/users/update-password", UserSessionController, :update_password
-  end
-
-  scope "/", ServicesWeb do
-    pipe_through [:browser, :require_super_admin_authentication]
-
-    live_session :require_super_admin_authentication,
-      on_mount: [{ServicesWeb.UserAuth, :require_super_admin_authentication}] do
-    live "/manage", UserLive.Manage, :manage
-    end
-
   end
 
 
@@ -118,14 +101,19 @@ defmodule ServicesWeb.Router do
   end
 
   scope "/", ServicesWeb do
-    pipe_through [:browser, :require_admin_authentication]
+    pipe_through [:browser, :require_admin_or_super_admin_authentication]
 
-    live_session :require_admin_authentication,
-      on_mount: [{ServicesWeb.UserAuth, :require_admin_authentication}] do
+    live_session :require_admin_or_super_admin_authentication,
+      on_mount: [{ServicesWeb.UserAuth, :require_admin_or_super_admin_authentication}] do
+    live "/manage", UserLive.Manage, :manage
     live "/categories", CategoryLive.Index, :index
     live "/categories/new", CategoryLive.Form, :new
     live "/categories/:id", CategoryLive.Show, :show
     live "/categories/:id/edit", CategoryLive.Form, :edit
+    live "/services", ServiceLive.Index, :index
+    live "/services/new", ServiceLive.Form, :new
+    live "/services/:id", ServiceLive.Show, :show
+    live "/services/:id/edit", ServiceLive.Form, :edit
     end
   end
 
