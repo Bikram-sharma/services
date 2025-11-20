@@ -387,11 +387,11 @@ end
   end
 
   @doc """
-
   Reactivates a deactivated user.
 
   This function sets the `deactivated_at` field of the given `user` to `nil`
   and updates the record in the database, effectively marking the user as active again.
+
   """
   def reactivate_user(user) do
     user

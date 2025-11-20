@@ -73,6 +73,7 @@ defmodule ServicesWeb.UserSessionController do
     1. Sets an informational flash message to inform the user that their account has been deactivated:
     2. Calls `Services.Accounts.deactivate_user/1` to handle backend deactivation logic.
     3. Logs out the user using `UserAuth.log_out_user/1`.
+
   """
   def log_out_deactivated(conn, _params) do
     conn = put_flash(conn, :info, "Your account has been successfully deactivated. We're sorry to see you go.")
