@@ -2,7 +2,7 @@ defmodule Services.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @roles ~w(admin client service_provider super_admin)
+  @roles ~w(user admin super_admin)
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 
@@ -13,7 +13,7 @@ defmodule Services.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :utc_datetime
     field :authenticated_at, :utc_datetime, virtual: true
-    field :role, :string, default: "client"
+    field :role, :string, default: "user"
 
     timestamps(type: :utc_datetime)
   end

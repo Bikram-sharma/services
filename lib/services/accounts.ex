@@ -80,30 +80,13 @@ defmodule Services.Accounts do
 
 
   def register_user(attrs) do
-    admin_emails = [
-    "sharmabikram061@gmail.com",
-    "admin2@example.com",
-    "admin3@example.com",
-    "admin4@example.com"
-  ]
 
-    role =
-      if attrs.role do
-        attrs.role
-      else
-        if Map.get(attrs, "email") in admin_emails or Map.get(attrs, :email) in admin_emails do
-          "admin"
-        else
-          "client"
-        end
-      end
-        %User{}
+    %User{}
         |> User.email_changeset(attrs)
         |> User.password_changeset(attrs)
-    |> User.username_changeset(attrs)
-    |> User.confirm_changeset()
-    |> Ecto.Changeset.change(role: role)
-    |> Repo.insert()
+        |> User.username_changeset(attrs)
+        |> User.confirm_changeset()
+        |> Repo.insert()
   end
 
   ## Settings
