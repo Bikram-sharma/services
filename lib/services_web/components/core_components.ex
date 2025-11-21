@@ -103,7 +103,7 @@ defmodule ServicesWeb.CoreComponents do
 
     if rest[:href] || rest[:navigate] || rest[:patch] do
       ~H"""
-      <.link class="w-full bg-[#111E30] text-white font-semibold py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transform hover:scale-101 transition-all duration-100 shadow-lg cursor-pointer my-4" {@rest}>
+      <.link class="w-full bg-[#111E30] text-white font-semibold py-3 rounded-lg transform hover:scale-101 transition-all duration-100 shadow-lg cursor-pointer my-4  px-4" {@rest}>
         {render_slot(@inner_block)}
       </.link>
       """
@@ -483,7 +483,7 @@ defmodule ServicesWeb.CoreComponents do
     <.form
       for={@for}
       id={@id}
-      class={"bg-white dark:bg-gray-300 p-6 rounded-lg border border-gray-300 shadow space-y-5 #{@class}"}
+      class={"bg-white dark:bg-gray-300 p-6 rounded-lg border border-gray-300 shadow space-y-5#{@class}"}
       {@rest}
     >
       <%= render_slot(@inner_block) %>
