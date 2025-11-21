@@ -268,7 +268,7 @@ end
   def on_mount(:require_sudo_mode, _params, session, socket) do
     socket = mount_current_scope(socket, session)
 
-    if Accounts.sudo_mode?(socket.assigns.current_scope.user, -10) do
+    if Accounts.sudo_mode?(socket.assigns.current_scope.user, -1440) do
       {:cont, socket}
     else
       socket =
