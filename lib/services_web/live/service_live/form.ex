@@ -23,7 +23,7 @@ defmodule ServicesWeb.ServiceLive.Form do
         label="category"
         options={@categories}
         />
-        <footer>
+        <footer class="flex flex-col gap-4 w-full text-center">
           <.button phx-disable-with="Saving..." variant="dark-blue-gray">Save Service</.button>
           <.button navigate={return_path(@current_scope, @return_to, @service)} variant="blue-gray">Cancel</.button>
         </footer>

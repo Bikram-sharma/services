@@ -16,7 +16,7 @@ defmodule ServicesWeb.CategoryLive.Form do
       <.custom_form for={@form} id="category-form" phx-change="validate" phx-submit="save">
         <.input field={@form[:name]} type="text" label="Name" />
         <.input field={@form[:description]} type="text" label="Description" />
-        <footer>
+        <footer class="flex flex-col gap-4 w-full text-center">
           <.button phx-disable-with="Saving..." variant="dark-blue-gray">Save Category</.button>
           <.button navigate={return_path(@current_scope, @return_to, @category)}  variant="blue-gray">Cancel</.button>
         </footer>
