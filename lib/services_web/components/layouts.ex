@@ -123,18 +123,10 @@ defmodule ServicesWeb.Layouts do
   def theme_toggle(assigns) do
     ~H"""
     <div class="card relative flex flex-row items-center border-2 border-base-300 bg-base-300 rounded-full">
-      <div class="absolute w-1/3 h-full rounded-full border-1 border-base-200 bg-base-100 brightness-200 left-0 [[data-theme=light]_&]:left-1/3 [[data-theme=dark]_&]:left-2/3 transition-[left]" />
+      <div class="absolute w-1/2 h-full rounded-full border-1 border-base-200 bg-base-100 brightness-200 left-0 [[data-theme=light]_&]:left-0 [[data-theme=dark]_&]:left-1/2 transition-[left]" />
 
       <button
-        class="flex p-2 cursor-pointer w-1/3"
-        phx-click={JS.dispatch("phx:set-theme")}
-        data-phx-theme="system"
-      >
-        <.icon name="hero-computer-desktop-micro" class="size-4 opacity-75 hover:opacity-100" />
-      </button>
-
-      <button
-        class="flex p-2 cursor-pointer w-1/3"
+        class="flex p-2 cursor-pointer w-1/2"
         phx-click={JS.dispatch("phx:set-theme")}
         data-phx-theme="light"
       >
@@ -142,7 +134,7 @@ defmodule ServicesWeb.Layouts do
       </button>
 
       <button
-        class="flex p-2 cursor-pointer w-1/3"
+        class="flex p-2 cursor-pointer w-1/2"
         phx-click={JS.dispatch("phx:set-theme")}
         data-phx-theme="dark"
       >
@@ -175,32 +167,36 @@ defmodule ServicesWeb.Layouts do
                     </div>
 
                     <div class="hidden md:flex items-center justify-center space-x-8 w-[60vw]">
-                        <a href="/" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Home</a>
-                        <a href="/dash" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Services</a>
-                        <a href="/#about" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">About</a>
-                        <a href="#contact-info" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Contact</a>
+                        <a href="/" class="relative text-gray-700 font-medium after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0.5 after:bg-[#121e30] after:duration-300 hover:after:w-full">Home</a>
+                        <a href="/dash" class="relative text-gray-700 font-medium after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#121e30] after:duration-300 hover:after:w-full">Services</a>
+                        <a href="/#about" class="relative text-gray-700 font-medium after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#121e30] after:duration-300 hover:after:w-full">About</a>
+                        <a href="#contact-info" class="relative text-gray-700 font-medium after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#121e30] after:duration-300 hover:after:w-full">Contact</a>
                     </div>
 
-                    <%= if @current_scope && @current_scope.user.role in ["admin", "super_admin"] do %>
-                    <details class="dropdown">
-                      <summary class="btn m-1">Manage</summary>
-                       <ul class="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-                        <li><.link href={~p"/manage"}>users</.link></li>
-                        <li><.link href={~p"/categories"}>categories</.link></li>
-                         <li><.link href={~p"/services"}>services</.link></li>
-                       </ul>
-                      </details>
-                    <%end%>
+                    <div class="flex items-center space-x-8">
+                      <%= if @current_scope && @current_scope.user.role in ["admin", "super_admin"] do %>
+                      <details class="dropdown">
+                        <summary class="btn m-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000" class="dark:fill-white"><path d="M240-160q-33 0-56.5-23.5T160-240q0-33 23.5-56.5T240-320q33 0 56.5 23.5T320-240q0 33-23.5 56.5T240-160Zm240 0q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm240 0q-33 0-56.5-23.5T640-240q0-33 23.5-56.5T720-320q33 0 56.5 23.5T800-240q0 33-23.5 56.5T720-160ZM240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400ZM240-640q-33 0-56.5-23.5T160-720q0-33 23.5-56.5T240-800q33 0 56.5 23.5T320-720q0 33-23.5 56.5T240-640Zm240 0q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Zm240 0q-33 0-56.5-23.5T640-720q0-33 23.5-56.5T720-800q33 0 56.5 23.5T800-720q0 33-23.5 56.5T720-640Z"/></svg>Manage
+                        </summary>
+                        <ul class="menu dropdown-content bg-base-100 font-semibold border border-gray-300 rounded-box z-1 w-52 p-2 mt-1 shadow-sm">
+                            <li><.link href={~p"/manage"}>users</.link></li>
+                            <li><.link href={~p"/categories"}>categories</.link></li>
+                            <li><.link href={~p"/services"}>services</.link></li>
+                        </ul>
+                        </details>
+                      <%end%>
 
-                    <ul class="hidden md:flex items-center space-x-8">
-                        <%= if @current_scope do %>
-                            <li><.link href={~p"/users/settings"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors"><svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="25px" fill="#0066ffff"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/></svg></.link></li>
-                            <li><div id="profile-avatar" class="bg-blue-500 w-12 h-12 rounded-full border-3 hover:border-blue-200 text-center text-white font-bold flex flex-col justify-center cursor-pointer" phx-click={JS.toggle(to: "#profile-card")}>{String.slice(@current_scope.user.username,0,1) |> String.upcase()}</div></li>
-                        <% else %>
-                            <li><.link href={~p"/users/register"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Register</.link></li>
-                            <li><.link href={~p"/users/log-in"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Log in</.link></li>
-                        <% end %>
-                    </ul>
+                      <ul class="hidden md:flex items-center space-x-8">
+                          <%= if @current_scope do %>
+                              <li><.theme_toggle /></li>
+                              <li><div id="profile-avatar" class="bg-[#121e30] w-12 h-12 rounded-full border-3 hover:border-[#121e30] text-center text-white font-bold flex flex-col justify-center cursor-pointer" phx-click={JS.toggle(to: "#profile-card")}>{String.slice(@current_scope.user.username,0,1) |> String.upcase()}</div></li>
+                          <% else %>
+                              <li><.link href={~p"/users/register"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Register</.link></li>
+                              <li><.link href={~p"/users/log-in"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Log in</.link></li>
+                          <% end %>
+                      </ul>
+                    </div>
 
                     <button id="mobile-menu-btn" class="md:hidden">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -287,7 +283,7 @@ defmodule ServicesWeb.Layouts do
         <div class="relative">
             <div class="relative">
                 <img src="https://img.freepik.com/free-vector/background_53876-57973.jpg" alt="" class="w-full h-20 object-cover rounded-t-lg">
-                <div class="bg-blue-500 absolute bottom-0 left-4 translate-y-1/2 h-15 w-15 rounded-full flex flex-col justify-center">
+                <div class="bg-[#121e30] absolute bottom-0 left-4 translate-y-1/2 h-15 w-15 rounded-full flex flex-col justify-center">
                 <%= if @current_scope do %>
                     <p class="text-white text-center font-bold">{String.slice(@current_scope.user.username,0,1) |> String.upcase()}</p>
                     <% else %>
@@ -298,15 +294,24 @@ defmodule ServicesWeb.Layouts do
             </div>
         </div>
         <div class="mt-10 px-4 py-2">
+            <ul class="flex flex-col">
             <%= if @current_scope do %>
                 <p class="font-semibold">{@current_scope.user.username}</p>
                 <p class="font-normal text-gray-600">{@current_scope.user.email}</p>
-                <br><hr><br>
-                <.link href={~p"/users/log-out"} class="text-red-500 hover:text-blue-700 font-medium transition-colors" method="delete">Log out</.link>
+                <div class="divider" />
+                <div class="flex items-center space-x-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/></svg>
+                  <.link href={~p"/users/settings"} class="text-gray-700 font-medium transition-colors">Account Setting</.link>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
+                  <.link href={~p"/users/log-out"} class="text-red-500 font-medium transition-colors" method="delete">Log out</.link>
+                </div>
             <% else %>
                 <.link href={~p"/users/register"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Register</.link>
                 <.link href={~p"/users/log-in"} class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Log in</.link>
             <% end %>
+            </ul>
         </div>
     </div>
     """
