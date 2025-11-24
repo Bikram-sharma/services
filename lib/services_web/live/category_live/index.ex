@@ -10,7 +10,7 @@ defmodule ServicesWeb.CategoryLive.Index do
       <.header>
         Listing Categories
         <:actions>
-          <.button variant="dark-blue-gray" navigate={~p"/categories/new"}>
+          <.button variant="dark-blue-gray" navigate={~p"/manage/categories/new"}>
             <.icon name="hero-plus" /> New Category
           </.button>
         </:actions>
@@ -19,15 +19,15 @@ defmodule ServicesWeb.CategoryLive.Index do
       <.table
         id="categories"
         rows={@streams.categories}
-        row_click={fn {_id, category} -> JS.navigate(~p"/categories/#{category}") end}
+        row_click={fn {_id, category} -> JS.navigate(~p"/manage/categories/#{category}") end}
       >
         <:col :let={{_id, category}} label="Name">{category.name}</:col>
         <:col :let={{_id, category}} label="Description">{category.description}</:col>
         <:action :let={{_id, category}}>
           <div class="sr-only">
-            <.link navigate={~p"/categories/#{category}"}>Show</.link>
+            <.link navigate={~p"/manage/categories/#{category}"}>Show</.link>
           </div>
-          <.link navigate={~p"/categories/#{category}/edit"}>Edit</.link>
+          <.link navigate={~p"/manage/categories/#{category}/edit"}>Edit</.link>
         </:action>
         <:action :let={{id, category}}>
           <.link

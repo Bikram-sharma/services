@@ -3,7 +3,7 @@ defmodule ServicesWeb.DashController do
   alias Services.Servicing
   alias Services.ProviderService
 
-  def dash(conn, params) do
+  def list_services(conn, params) do
 
     is_hidden = Servicing.is_hidden(conn.assigns.current_scope)
 
@@ -17,7 +17,7 @@ defmodule ServicesWeb.DashController do
     conn
     |> assign(:providers_service, providers_service)
     |> assign(:selected_category, params["category_id"] || "")
-    |> render(:dash, is_hidden: is_hidden, categories: categories)
+    |> render(:list_services, is_hidden: is_hidden, categories: categories)
   end
 
     def book(conn, %{"id" => id}) do
