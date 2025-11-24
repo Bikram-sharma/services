@@ -18,11 +18,18 @@ defmodule ServicesWeb.BookingLive.Form do
         <.input field={@form[:booked_at]} type="datetime-local" label="Booked at" />
         <.input field={@form[:cancelled_at]} type="datetime-local" label="Cancelled at" />
         <.input field={@form[:cancelled_by]} type="text" label="Cancelled by" />
-        <.input field={@form[:actual_total_price]} type="number" label="Actual total price" step="any" />
+        <.input
+          field={@form[:actual_total_price]}
+          type="number"
+          label="Actual total price"
+          step="any"
+        />
         <.input field={@form[:user_address]} type="text" label="User address" />
         <footer>
           <.button phx-disable-with="Saving..." variant="dark-blue-gray">Save Booking</.button>
-          <.button navigate={return_path(@current_scope, @return_to, @booking)} variant="blue-gray">Cancel</.button>
+          <.button navigate={return_path(@current_scope, @return_to, @booking)} variant="blue-gray">
+            Cancel
+          </.button>
         </footer>
       </.custom_form>
     </Layouts.app>
@@ -32,6 +39,7 @@ defmodule ServicesWeb.BookingLive.Form do
   @impl true
   def mount(params, _session, socket) do
     is_hidden = Services.Servicing.is_hidden(socket.assigns.current_scope)
+
     {:ok,
      socket
      |> assign(:return_to, return_to(params["return_to"]))
@@ -62,7 +70,13 @@ defmodule ServicesWeb.BookingLive.Form do
 
   @impl true
   def handle_event("validate", %{"booking" => booking_params}, socket) do
-    changeset = Bookings.change_booking(socket.assigns.current_scope, socket.assigns.booking, booking_params)
+    changeset =
+      Bookings.change_booking(
+        socket.assigns.current_scope,
+        socket.assigns.booking,
+        booking_params
+      )
+
     {:noreply, assign(socket, form: to_form(changeset, action: :validate))}
   end
 
@@ -71,7 +85,11 @@ defmodule ServicesWeb.BookingLive.Form do
   end
 
   defp save_booking(socket, :edit, booking_params) do
-    case Bookings.update_booking(socket.assigns.current_scope, socket.assigns.booking, booking_params) do
+    case Bookings.update_booking(
+           socket.assigns.current_scope,
+           socket.assigns.booking,
+           booking_params
+         ) do
       {:ok, booking} ->
         {:noreply,
          socket

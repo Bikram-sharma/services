@@ -73,8 +73,8 @@ defmodule Services.ProviderService do
     |> preload(service_providers: :users)
     |> preload(services: :category)
     |> Repo.all()
-
   end
+
   def get_providers_service_by_id(id) do
    ProvidersService
   |> Repo.get!(id)

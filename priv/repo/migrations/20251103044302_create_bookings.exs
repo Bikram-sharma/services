@@ -10,7 +10,10 @@ defmodule Services.Repo.Migrations.CreateBookings do
       add :cancelled_by, :string
       add :actual_total_price, :decimal
       add :user_address, :string
-      add :provider_service_id, references(:providers_service, on_delete: :nothing, type: :binary_id)
+
+      add :provider_service_id,
+          references(:providers_service, on_delete: :nothing, type: :binary_id)
+
       add :user_id, references(:users, type: :binary_id, on_delete: :delete_all)
 
       timestamps(type: :utc_datetime)

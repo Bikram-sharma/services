@@ -12,12 +12,11 @@
 
 alias Services.Accounts
 
-
 IO.puts("creating user")
 
- Accounts.register_user(%{
+Accounts.register_user(%{
   email: "kami@gmail.com",
   username: "Kami",
   password: "123456789012",
-  role: "super_admin",
+  role: "super_admin"
 })

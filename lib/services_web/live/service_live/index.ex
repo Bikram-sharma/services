@@ -48,11 +48,10 @@ defmodule ServicesWeb.ServiceLive.Index do
       Servicing.subscribe_services(socket.assigns.current_scope)
     end
 
-
     {:ok,
      socket
-      |> assign(:page_title, "Listing Services")
-      |> stream(:services, list_services(socket.assigns.current_scope))}
+     |> assign(:page_title, "Listing Services")
+     |> stream(:services, list_services(socket.assigns.current_scope))}
   end
 
   @impl true
@@ -66,7 +65,8 @@ defmodule ServicesWeb.ServiceLive.Index do
   @impl true
   def handle_info({type, %Services.Servicing.Service{}}, socket)
       when type in [:created, :updated, :deleted] do
-    {:noreply, stream(socket, :services, list_services(socket.assigns.current_scope), reset: true)}
+    {:noreply,
+     stream(socket, :services, list_services(socket.assigns.current_scope), reset: true)}
   end
 
   defp list_services(current_scope) do

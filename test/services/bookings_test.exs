@@ -9,7 +9,14 @@ defmodule Services.BookingsTest do
     import Services.AccountsFixtures, only: [user_scope_fixture: 0]
     import Services.BookingsFixtures
 
-    @invalid_attrs %{schedule_date_time: nil, booked_at: nil, cancelled_at: nil, cancelled_by: nil, actual_total_price: nil, user_address: nil}
+    @invalid_attrs %{
+      schedule_date_time: nil,
+      booked_at: nil,
+      cancelled_at: nil,
+      cancelled_by: nil,
+      actual_total_price: nil,
+      user_address: nil
+    }
 
     test "list_bookings/1 returns all scoped bookings" do
       scope = user_scope_fixture()
@@ -29,7 +36,15 @@ defmodule Services.BookingsTest do
     end
 
     test "create_booking/2 with valid data creates a booking" do
-      valid_attrs = %{schedule_date_time: ~U[2025-11-02 04:43:00Z], booked_at: ~U[2025-11-02 04:43:00Z], cancelled_at: ~U[2025-11-02 04:43:00Z], cancelled_by: "some cancelled_by", actual_total_price: "120.5", user_address: "some user_address"}
+      valid_attrs = %{
+        schedule_date_time: ~U[2025-11-02 04:43:00Z],
+        booked_at: ~U[2025-11-02 04:43:00Z],
+        cancelled_at: ~U[2025-11-02 04:43:00Z],
+        cancelled_by: "some cancelled_by",
+        actual_total_price: "120.5",
+        user_address: "some user_address"
+      }
+
       scope = user_scope_fixture()
 
       assert {:ok, %Booking{} = booking} = Bookings.create_booking(scope, valid_attrs)
@@ -50,7 +65,15 @@ defmodule Services.BookingsTest do
     test "update_booking/3 with valid data updates the booking" do
       scope = user_scope_fixture()
       booking = booking_fixture(scope)
-      update_attrs = %{schedule_date_time: ~U[2025-11-03 04:43:00Z], booked_at: ~U[2025-11-03 04:43:00Z], cancelled_at: ~U[2025-11-03 04:43:00Z], cancelled_by: "some updated cancelled_by", actual_total_price: "456.7", user_address: "some updated user_address"}
+
+      update_attrs = %{
+        schedule_date_time: ~U[2025-11-03 04:43:00Z],
+        booked_at: ~U[2025-11-03 04:43:00Z],
+        cancelled_at: ~U[2025-11-03 04:43:00Z],
+        cancelled_by: "some updated cancelled_by",
+        actual_total_price: "456.7",
+        user_address: "some updated user_address"
+      }
 
       assert {:ok, %Booking{} = booking} = Bookings.update_booking(scope, booking, update_attrs)
       assert booking.schedule_date_time == ~U[2025-11-03 04:43:00Z]

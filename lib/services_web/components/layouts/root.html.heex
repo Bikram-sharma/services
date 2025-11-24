@@ -31,8 +31,7 @@
     </script>
   </head>
   <body>
-    <.main_header current_scope={@current_scope} />
-    <.avatar current_scope={@current_scope} id="profile-card" />
+    <.main_header current_scope={@current_scope} conn={@conn} />
     {@inner_content}
     <.footer />
   </body>

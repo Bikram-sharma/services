@@ -50,7 +50,10 @@ defmodule ServicesWeb.ProvidersServiceLiveTest do
       assert html =~ "Providers service created successfully"
     end
 
-    test "updates providers_service in listing", %{conn: conn, providers_service: providers_service} do
+    test "updates providers_service in listing", %{
+      conn: conn,
+      providers_service: providers_service
+    } do
       {:ok, index_live, _html} = live(conn, ~p"/providers_service")
 
       assert {:ok, form_live, _html} =
@@ -75,10 +78,16 @@ defmodule ServicesWeb.ProvidersServiceLiveTest do
       assert html =~ "Providers service updated successfully"
     end
 
-    test "deletes providers_service in listing", %{conn: conn, providers_service: providers_service} do
+    test "deletes providers_service in listing", %{
+      conn: conn,
+      providers_service: providers_service
+    } do
       {:ok, index_live, _html} = live(conn, ~p"/providers_service")
 
-      assert index_live |> element("#providers_service-#{providers_service.id} a", "Delete") |> render_click()
+      assert index_live
+             |> element("#providers_service-#{providers_service.id} a", "Delete")
+             |> render_click()
+
       refute has_element?(index_live, "#providers_service-#{providers_service.id}")
     end
   end
@@ -92,14 +101,20 @@ defmodule ServicesWeb.ProvidersServiceLiveTest do
       assert html =~ "Show Providers service"
     end
 
-    test "updates providers_service and returns to show", %{conn: conn, providers_service: providers_service} do
+    test "updates providers_service and returns to show", %{
+      conn: conn,
+      providers_service: providers_service
+    } do
       {:ok, show_live, _html} = live(conn, ~p"/providers_service/#{providers_service}")
 
       assert {:ok, form_live, _} =
                show_live
                |> element("a", "Edit")
                |> render_click()
-               |> follow_redirect(conn, ~p"/providers_service/#{providers_service}/edit?return_to=show")
+               |> follow_redirect(
+                 conn,
+                 ~p"/providers_service/#{providers_service}/edit?return_to=show"
+               )
 
       assert render(form_live) =~ "Edit Providers service"
 

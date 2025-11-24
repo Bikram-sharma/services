@@ -4,7 +4,7 @@ defmodule ServicesWeb.PageController do
 
   def home(conn, _params) do
     is_hidden = Servicing.is_hidden(conn.assigns.current_scope)
+    dbg(conn)
     render(conn, :home, is_hidden: is_hidden)
   end
-
 end

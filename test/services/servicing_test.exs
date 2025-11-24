@@ -25,7 +25,10 @@ defmodule Services.ServicingTest do
       category = category_fixture(scope)
       other_scope = user_scope_fixture()
       assert Servicing.get_category!(scope, category.id) == category
-      assert_raise Ecto.NoResultsError, fn -> Servicing.get_category!(other_scope, category.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Servicing.get_category!(other_scope, category.id)
+      end
     end
 
     test "create_category/2 with valid data creates a category" do
@@ -48,7 +51,9 @@ defmodule Services.ServicingTest do
       category = category_fixture(scope)
       update_attrs = %{name: "some updated name", description: "some updated description"}
 
-      assert {:ok, %Category{} = category} = Servicing.update_category(scope, category, update_attrs)
+      assert {:ok, %Category{} = category} =
+               Servicing.update_category(scope, category, update_attrs)
+
       assert category.name == "some updated name"
       assert category.description == "some updated description"
     end
@@ -66,7 +71,10 @@ defmodule Services.ServicingTest do
     test "update_category/3 with invalid data returns error changeset" do
       scope = user_scope_fixture()
       category = category_fixture(scope)
-      assert {:error, %Ecto.Changeset{}} = Servicing.update_category(scope, category, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Servicing.update_category(scope, category, @invalid_attrs)
+
       assert category == Servicing.get_category!(scope, category.id)
     end
 
@@ -154,7 +162,10 @@ defmodule Services.ServicingTest do
     test "update_service/3 with invalid data returns error changeset" do
       scope = user_scope_fixture()
       service = service_fixture(scope)
-      assert {:error, %Ecto.Changeset{}} = Servicing.update_service(scope, service, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Servicing.update_service(scope, service, @invalid_attrs)
+
       assert service == Servicing.get_service!(scope, service.id)
     end
 

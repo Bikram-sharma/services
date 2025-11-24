@@ -22,91 +22,85 @@
         <%= services.services.category.name %>
       </span>
 
-      <h3 class="text-lg font-semibold leading-tight mb-1">
-        <%= services.services.name %>
-      </h3>
+            <h3 class="text-lg font-semibold leading-tight mb-1">
+              {services.services.name}
+            </h3>
 
-      <p class="text-gray-200 text-xs line-clamp-2">
-        <%= services.services.description %>
-      </p>
-    </div>
-
-    <!-- Body -->
-    <div class="p-8">
-
-      <!-- Provider -->
-      <div class="flex items-start gap-3 mb-3">
-        <div class="h-10 w-10 rounded-full bg-gradient-to-br from-[#121e30] to-[#1a2f4a]
+            <p class="text-gray-200 text-xs line-clamp-2">
+              {services.services.description}
+            </p>
+          </div>
+          
+<!-- Body -->
+          <div class="p-8">
+            
+<!-- Provider -->
+            <div class="flex items-start gap-3 mb-3">
+              <div class="h-10 w-10 rounded-full bg-gradient-to-br from-[#121e30] to-[#1a2f4a]
                     flex items-center justify-center text-white text-sm font-bold">
-          <%= String.first(services.service_providers.users.username) %>
-        </div>
+                {String.first(services.service_providers.users.username)}
+              </div>
 
-        <div class="flex-1 min-w-0">
-          <p class="font-semibold text-gray-900 text-sm truncate">
-            <%= services.service_providers.users.username %>
-          </p>
-          <p class="text-xs text-gray-600 mt-0.5 line-clamp-2">
-            <%= services.service_providers.bio %>
-          </p>
-        </div>
-      </div>
+              <div class="flex-1 min-w-0">
+                <p class="font-semibold text-gray-900 text-sm truncate">
+                  {services.service_providers.users.username}
+                </p>
+                <p class="text-xs text-gray-600 mt-0.5 line-clamp-2">
+                  {services.service_providers.bio}
+                </p>
+              </div>
+            </div>
 
-      <div class="flex items-center justify-between pt-3 border-t border-gray-100">
-
-        <!-- Price -->
-        <div>
-          <p class="text-[11px] text-gray-500 mb-0.5">Service Rate</p>
-          <p class="text-xl font-bold text-[#121e30] leading-none">
-            Nu. <%= services.custom_price %>
-            <span class="text-[11px] text-gray-500 font-normal">/-</span>
-          </p>
-        </div>
-
-        <!-- Button -->
+            <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+              
+<!-- Price -->
+              <div>
+                <p class="text-[11px] text-gray-500 mb-0.5">Service Rate</p>
+                <p class="text-xl font-bold text-[#121e30] leading-none">
+                  Nu. {services.custom_price}
+                  <span class="text-[11px] text-gray-500 font-normal">/-</span>
+                </p>
+              </div>
+              
+<!-- Button -->
         <!--with-->
         <a 
            href={~p"/services/#{services.id}/book"}
           class="bg-[#121e30] hover:bg-[#1a2f4a] text-white font-medium text-sm
                  px-4 py-2 rounded-lg transition-colors duration-150 inline-flex items-center gap-1"
-        >
-          Book
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9 5l7 7-7 7" />
-          </svg>
-        </a>
-
-      </div>
+              >
+                Book
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
-
+    <div class="mt-10 mb-5">
+      <ul class="flex justify-center items-center gap-2">
+        <li><a href="#" class="border rounded-md py-2 px-4">&laquo;</a></li>
+        <li><a href="#" class="border rounded-md py-2 px-4">1</a></li>
+        <li><a href="#" class="border rounded-md py-2 px-4">2</a></li>
+        <li><a href="#" class="border rounded-md py-2 px-4">3</a></li>
+        <li><a href="#" class="border rounded-md py-2 px-4">&raquo;</a></li>
+      </ul>
+    </div>
   </div>
-<% end %>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", ()=>{
 
-        </div>
-        <div class="mt-10 mb-5">
-            <ul class="flex justify-center items-center gap-2">
-                <li><a href="#" class="border rounded-md py-2 px-4">&laquo;</a></li>
-                <li><a href="#" class="border rounded-md py-2 px-4">1</a></li>
-                <li><a href="#" class="border rounded-md py-2 px-4">2</a></li>
-                <li><a href="#" class="border rounded-md py-2 px-4">3</a></li>
-                <li><a href="#" class="border rounded-md py-2 px-4">&raquo;</a></li>
-              </ul>
-        </div>
-    </div>
-
-
-
-
-    
-</section> 
-    <script>
-
- 
-    document.addEventListener("DOMContentLoaded", ()=>{
-
-        const category_id = document.getElementById("category_id")
-        category_id.addEventListener("change", () =>{
-       document.getElementById("category_filter").submit()
-        })
-    })
-    </script>
+      const category_id = document.getElementById("category_id")
+      category_id.addEventListener("change", () =>{
+     document.getElementById("category_filter").submit()
+      })
+  })
+</script>

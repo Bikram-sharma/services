@@ -49,6 +49,7 @@ defmodule ServicesWeb.BookingLive.Index do
   @impl true
   def mount(_params, _session, socket) do
     is_hidden = Services.Servicing.is_hidden(socket.assigns.current_scope)
+
     if connected?(socket) do
       Bookings.subscribe_bookings(socket.assigns.current_scope)
     end
@@ -71,7 +72,8 @@ defmodule ServicesWeb.BookingLive.Index do
   @impl true
   def handle_info({type, %Services.Bookings.Booking{}}, socket)
       when type in [:created, :updated, :deleted] do
-    {:noreply, stream(socket, :bookings, list_bookings(socket.assigns.current_scope), reset: true)}
+    {:noreply,
+     stream(socket, :bookings, list_bookings(socket.assigns.current_scope), reset: true)}
   end
 
   defp list_bookings(current_scope) do

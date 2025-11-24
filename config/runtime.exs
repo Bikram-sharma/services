@@ -40,7 +40,6 @@ config :services, Services.Repo,
   socket_options: maybe_ipv6
 
 if config_env() == :prod do
-
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
   # want to use a different value for prod and you most likely don't want
@@ -54,7 +53,7 @@ if config_env() == :prod do
       """
 
   host = System.get_env("RENDER_EXTERNAL_HOSTNAME") || "localhost"
-port = String.to_integer(System.get_env("PORT") || "4000")
+  port = String.to_integer(System.get_env("PORT") || "4000")
 
   config :services, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 

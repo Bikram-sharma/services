@@ -59,15 +59,14 @@ defmodule ServicesWeb.UserLive.Login do
             autocomplete="current-password"
           />
 
-          <.button  name={@form[:remember_me].name} value="true">
+          <.button name={@form[:remember_me].name} value="true">
             Log in and stay logged in <span aria-hidden="true">→</span>
           </.button>
 
-          <.button >
+          <.button>
             Log in only this time
           </.button>
         </.form>
-
       </div>
     </Layouts.app>
     """
@@ -75,7 +74,6 @@ defmodule ServicesWeb.UserLive.Login do
 
   @impl true
   def mount(_params, _session, socket) do
-
     email =
       Phoenix.Flash.get(socket.assigns.flash, :email) ||
         get_in(socket.assigns, [:current_scope, Access.key(:user), Access.key(:email)])

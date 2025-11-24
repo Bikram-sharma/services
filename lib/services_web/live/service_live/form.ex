@@ -17,15 +17,17 @@ defmodule ServicesWeb.ServiceLive.Form do
         <.input field={@form[:name]} type="text" label="Name" />
         <.input field={@form[:description]} type="text" label="Description" />
         <.input
-        field={@form[:category_id]}
-        type="select"
-        prompt="select a category"
-        label="category"
-        options={@categories}
+          field={@form[:category_id]}
+          type="select"
+          prompt="select a category"
+          label="category"
+          options={@categories}
         />
         <footer class="flex flex-col gap-4 w-full text-center">
           <.button phx-disable-with="Saving..." variant="dark-blue-gray">Save Service</.button>
-          <.button navigate={return_path(@current_scope, @return_to, @service)} variant="blue-gray">Cancel</.button>
+          <.button navigate={return_path(@current_scope, @return_to, @service)} variant="blue-gray">
+            Cancel
+          </.button>
         </footer>
       </.custom_form>
     </Layouts.app>
@@ -36,10 +38,10 @@ defmodule ServicesWeb.ServiceLive.Form do
   def mount(params, _session, socket) do
     categories =
       Servicing.list_categories()
-      |>Enum.map(fn category ->
+      |> Enum.map(fn category ->
         {category.name, category.id}
-
       end)
+
     {:ok,
      socket
      |> assign(:return_to, return_to(params["return_to"]))

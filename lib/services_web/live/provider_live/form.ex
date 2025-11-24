@@ -20,7 +20,7 @@ defmodule ServicesWeb.ProviderLive.Form do
         <.input field={@form[:is_verified]} type="checkbox" label="Is verified" />
         <footer>
           <.button phx-disable-with="Saving..." variant="dark-blue-gray">Save Provider</.button>
-          <.button  variant="dark-blue-gray"><a href="/">Cancel</a></.button>
+          <.button variant="dark-blue-gray"><a href="/">Cancel</a></.button>
         </footer>
       </.custom_form>
     </Layouts.app>
@@ -28,21 +28,21 @@ defmodule ServicesWeb.ProviderLive.Form do
   end
 
   @impl true
- def mount(params, _session, socket) do
-  user_id = socket.assigns.current_scope.user.id
+  def mount(params, _session, socket) do
+    user_id = socket.assigns.current_scope.user.id
 
-  case ServiceProvider.get_provider_by_user_id(user_id) do
-    %Provider{} = _provider ->
-      {:ok, push_navigate(socket, to: ~p"/providers_service")}
+    case ServiceProvider.get_provider_by_user_id(user_id) do
+      %Provider{} = _provider ->
+        {:ok, push_navigate(socket, to: ~p"/providers_service")}
 
-    nil ->
-      {:ok,
-       socket
-       |> assign(:return_to, return_to(params["return_to"]))
-       |> assign(:user_name, socket.assigns.current_scope.user.username)
-       |> apply_action(socket.assigns.live_action, params)}
+      nil ->
+        {:ok,
+         socket
+         |> assign(:return_to, return_to(params["return_to"]))
+         |> assign(:user_name, socket.assigns.current_scope.user.username)
+         |> apply_action(socket.assigns.live_action, params)}
+    end
   end
-end
 
   defp return_to("show"), do: "show"
   defp return_to(_), do: "index"
@@ -53,7 +53,10 @@ end
     socket
     |> assign(:page_title, "Edit Provider")
     |> assign(:provider, provider)
-    |> assign(:form, to_form(ServiceProvider.change_provider(socket.assigns.current_scope, provider)))
+    |> assign(
+      :form,
+      to_form(ServiceProvider.change_provider(socket.assigns.current_scope, provider))
+    )
   end
 
   defp apply_action(socket, :new, _params) do
@@ -62,12 +65,21 @@ end
     socket
     |> assign(:page_title, "New Provider")
     |> assign(:provider, provider)
-    |> assign(:form, to_form(ServiceProvider.change_provider(socket.assigns.current_scope, provider)))
+    |> assign(
+      :form,
+      to_form(ServiceProvider.change_provider(socket.assigns.current_scope, provider))
+    )
   end
 
   @impl true
   def handle_event("validate", %{"provider" => provider_params}, socket) do
-    changeset = ServiceProvider.change_provider(socket.assigns.current_scope, socket.assigns.provider, provider_params)
+    changeset =
+      ServiceProvider.change_provider(
+        socket.assigns.current_scope,
+        socket.assigns.provider,
+        provider_params
+      )
+
     {:noreply, assign(socket, form: to_form(changeset, action: :validate))}
   end
 
@@ -76,7 +88,11 @@ end
   end
 
   defp save_provider(socket, :edit, provider_params) do
-    case ServiceProvider.update_provider(socket.assigns.current_scope, socket.assigns.provider, provider_params) do
+    case ServiceProvider.update_provider(
+           socket.assigns.current_scope,
+           socket.assigns.provider,
+           provider_params
+         ) do
       {:ok, provider} ->
         {:noreply,
          socket
@@ -105,6 +121,8 @@ end
     end
   end
 
- defp return_path(_scope, "index", _providers_service), do: ~p"/providers_service"
-  defp return_path(_scope, "show", providers_service), do: ~p"/providers_service/#{providers_service}"
+  defp return_path(_scope, "index", _providers_service), do: ~p"/providers_service"
+
+  defp return_path(_scope, "show", providers_service),
+    do: ~p"/providers_service/#{providers_service}"
 end

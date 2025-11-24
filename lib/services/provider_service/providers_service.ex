@@ -8,11 +8,11 @@ defmodule Services.ProviderService.ProvidersService do
     field :custom_price, :decimal
     field :is_available, :boolean, default: false
 
-    belongs_to :service_providers ,Services.ServiceProvider.Provider,
+    belongs_to :service_providers, Services.ServiceProvider.Provider,
       foreign_key: :service_provider_id,
       type: :binary_id
 
-    belongs_to :services ,Services.Servicing.Service,
+    belongs_to :services, Services.Servicing.Service,
       foreign_key: :service_id,
       type: :binary_id
 

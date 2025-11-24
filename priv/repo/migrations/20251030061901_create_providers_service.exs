@@ -6,7 +6,10 @@ defmodule Services.Repo.Migrations.CreateProvidersService do
       add :id, :binary_id, primary_key: true
       add :custom_price, :decimal
       add :is_available, :boolean, default: false, null: false
-      add :service_provider_id, references(:service_providers, on_delete: :nothing, type: :binary_id)
+
+      add :service_provider_id,
+          references(:service_providers, on_delete: :nothing, type: :binary_id)
+
       add :service_id, references(:services, on_delete: :nothing, type: :binary_id)
       add :user_id, references(:users, type: :binary_id, on_delete: :delete_all)
 
