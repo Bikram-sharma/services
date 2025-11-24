@@ -79,6 +79,7 @@ defmodule Services.ServiceProvider do
       nil ->
         user = Services.Accounts.get_user!(user_id)
         {:ok, :user, user}
+
       provider ->
         {:ok, :provider, provider}
     end
@@ -176,7 +177,6 @@ defmodule Services.ServiceProvider do
 
     Provider.changeset(provider, attrs, scope)
   end
-
 
   def change_provider_admin(provider, attrs \\ %{}) do
     Provider.changeset(provider, attrs)

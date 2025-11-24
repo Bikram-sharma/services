@@ -67,7 +67,11 @@ defmodule ServicesWeb.CategoryLive.Form do
   end
 
   defp save_category(socket, :edit, category_params) do
-    case Servicing.update_category_admin(socket.assigns.current_scope, socket.assigns.category, category_params) do
+    case Servicing.update_category_admin(
+           socket.assigns.current_scope,
+           socket.assigns.category,
+           category_params
+         ) do
       {:ok, category} ->
         {:noreply,
          socket

@@ -29,5 +29,4 @@ defmodule Services.ServiceProvider.Provider do
     |> cast(attrs, [:bio, :years_of_experience, :is_verified])
     |> validate_required([:bio, :years_of_experience, :is_verified])
   end
-
 end

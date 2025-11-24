@@ -4,7 +4,6 @@ defmodule ServicesWeb.DashController do
   alias Services.ProviderService
 
   def list_services(conn, params) do
-
     is_hidden = Servicing.is_hidden(conn.assigns.current_scope)
 
     categories = Servicing.list_categories()

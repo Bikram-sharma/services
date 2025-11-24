@@ -106,29 +106,26 @@ defmodule Services.Accounts do
     |> Repo.insert()
   end
 
-
   def change_user(user, attrs \\ %{}, _opts \\ []) do
-     user
+    user
     |> User.email_changeset(attrs)
     |> User.username_changeset(attrs)
     |> User.role_changeset(attrs)
-
   end
 
   def update_user(%User{} = user, attrs) do
-  user
-  |> change_user(attrs)
-  |> Repo.update()
-  |> case do
-    {:ok, user} ->
-      broadcast_user(user.id, {:updated, user})
-      {:ok, user}
-    error -> error
+    user
+    |> change_user(attrs)
+    |> Repo.update()
+    |> case do
+      {:ok, user} ->
+        broadcast_user(user.id, {:updated, user})
+        {:ok, user}
+
+      error ->
+        error
+    end
   end
-end
-
-
-
 
   ## Settings
 
@@ -259,7 +256,6 @@ end
     |> User.password_changeset(attrs)
     |> update_user_and_delete_all_tokens()
   end
-
 
   ## Session
 
