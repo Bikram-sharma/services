@@ -108,6 +108,6 @@ defmodule ServicesWeb.ServiceLive.Form do
     end
   end
 
-  defp return_path(_scope, "index", _service), do: ~p"/services"
-  defp return_path(_scope, "show", service), do: ~p"/services/#{service}"
+  defp return_path(_scope, "index", _service), do: ~p"/manage/services"
+  defp return_path(_scope, "show", service), do: ~p"/manage/services/#{service}"
 end

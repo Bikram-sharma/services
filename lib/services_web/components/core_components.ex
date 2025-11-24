@@ -216,7 +216,7 @@ defmodule ServicesWeb.CoreComponents do
         <select
           id={@id}
           name={@name}
-          class={[@class || "w-full select focus:outline-none focus:border-gray-300 dark:bg-gray-200 dark:text-[#121e30]", @errors != [] && (@error_class || "select-error")]}
+          class={[@class || "w-full select focus:outline-none focus:border-gray-300 dark:bg-gray-200 dark:text-[#121e30] dark:border-gray-400", @errors != [] && (@error_class || "select-error")]}
           multiple={@multiple}
           {@rest}
         >
@@ -261,7 +261,7 @@ defmodule ServicesWeb.CoreComponents do
           id={@id}
           value={Phoenix.HTML.Form.normalize_value(@type, @value)}
           class={[
-            @class ||"text-sm w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none transition-all duration-200",
+            @class ||"text-sm w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-400 focus:ring-2 dark:ring-gray-500 focus:border-transparent outline-none transition-all duration-200",
             @errors != [] && (@error_class || "input-error")
           ]}
           {@rest}

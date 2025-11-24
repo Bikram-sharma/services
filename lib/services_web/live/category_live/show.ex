@@ -11,10 +11,10 @@ defmodule ServicesWeb.CategoryLive.Show do
         Category {@category.id}
         <:subtitle>This is a category record from your database.</:subtitle>
         <:actions>
-          <.button navigate={~p"/categories"} variant="blue-gray">
+          <.button navigate={~p"/manage/categories"} variant="blue-gray">
             <.icon name="hero-arrow-left" />
           </.button>
-          <.button variant="dark-blue-gray" navigate={~p"/categories/#{@category}/edit?return_to=show"}>
+          <.button variant="dark-blue-gray" navigate={~p"/manage/categories/#{@category}/edit?return_to=show"}>
             <.icon name="hero-pencil-square" /> Edit category
           </.button>
         </:actions>
@@ -55,7 +55,7 @@ defmodule ServicesWeb.CategoryLive.Show do
     {:noreply,
      socket
      |> put_flash(:error, "The current category was deleted.")
-     |> push_navigate(to: ~p"/categories")}
+     |> push_navigate(to: ~p"/manage/categories")}
   end
 
   def handle_info({type, %Services.Servicing.Category{}}, socket)

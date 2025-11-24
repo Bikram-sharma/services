@@ -11,10 +11,10 @@ defmodule ServicesWeb.ServiceLive.Show do
         Service {@service.id}
         <:subtitle>This is a service record from your database.</:subtitle>
         <:actions>
-          <.button navigate={~p"/services"} variant="blue-gray">
+          <.button navigate={~p"/manage/services"} variant="blue-gray">
             <.icon name="hero-arrow-left" />
           </.button>
-          <.button variant="dark-blue-gray" navigate={~p"/services/#{@service}/edit?return_to=show"}>
+          <.button variant="dark-blue-gray" navigate={~p"/manage/services/#{@service}/edit?return_to=show"}>
             <.icon name="hero-pencil-square" /> Edit service
           </.button>
         </:actions>
@@ -55,7 +55,7 @@ defmodule ServicesWeb.ServiceLive.Show do
     {:noreply,
      socket
      |> put_flash(:error, "The current service was deleted.")
-     |> push_navigate(to: ~p"/services")}
+     |> push_navigate(to: ~p"/manage/services")}
   end
 
   def handle_info({type, %Services.Servicing.Service{}}, socket)

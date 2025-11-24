@@ -95,6 +95,6 @@ defmodule ServicesWeb.CategoryLive.Form do
     end
   end
 
-  defp return_path(_scope, "index", _category), do: ~p"/categories"
-  defp return_path(_scope, "show", category), do: ~p"/categories/#{category}"
+  defp return_path(_scope, "index", _category), do: ~p"/manage/categories"
+  defp return_path(_scope, "show", category), do: ~p"/manage/categories/#{category}"
 end

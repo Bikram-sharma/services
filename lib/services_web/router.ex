@@ -24,8 +24,8 @@ defmodule ServicesWeb.Router do
 
     get "/", PageController, :home
 
-    get "/dash", DashController, :dash
-    get "/dash/:id/book", DashController, :book
+    get "/services", DashController, :list_services
+    get "/services/:id/book", DashController, :book
 
   end
 
@@ -104,16 +104,19 @@ defmodule ServicesWeb.Router do
     pipe_through [:browser, :require_admin_or_super_admin_authentication]
 
     live_session :require_admin_or_super_admin_authentication,
-      on_mount: [{ServicesWeb.UserAuth, :require_admin_or_super_admin_authentication}] do
-    live "/manage", UserLive.Manage, :manage
-    live "/categories", CategoryLive.Index, :index
-    live "/categories/new", CategoryLive.Form, :new
-    live "/categories/:id", CategoryLive.Show, :show
-    live "/categories/:id/edit", CategoryLive.Form, :edit
-    live "/services/new", ServiceLive.Form, :new
-    live "/services/:id", ServiceLive.Show, :show
-    live "/services/:id/edit", ServiceLive.Form, :edit
-    live "/manage/:user_id/edit", UserLive.Edit, :edit
+    on_mount: [{ServicesWeb.UserAuth, :require_admin_or_super_admin_authentication}] do
+      live "/manage", UserLive.Manage, :manage
+      live "/manage/:user_id/edit", UserLive.Edit, :edit
+
+      live "/manage/categories", CategoryLive.Index, :index
+      live "/manage/categories/new", CategoryLive.Form, :new
+      live "/manage/categories/:id", CategoryLive.Show, :show
+      live "/manage/categories/:id/edit", CategoryLive.Form, :edit
+
+      live "/manage/services", ServiceLive.Index, :index
+      live "/manage/services/new", ServiceLive.Form, :new
+      live "/manage/services/:id", ServiceLive.Show, :show
+      live "/manage/services/:id/edit", ServiceLive.Form, :edit
+    end
   end
-end
 end
