@@ -155,12 +155,14 @@ defmodule ServicesWeb.UserLive.Edit do
           autocomplete="new-password"
           required
         />
+
         <.input
           field={@password_form[:password_confirmation]}
           type="password"
           label="Confirm new password"
           autocomplete="new-password"
         />
+
         <.button variant="primary" phx-disable-with="Saving...">
           Save Password
         </.button>
@@ -325,12 +327,14 @@ defmodule ServicesWeb.UserLive.Edit do
 
     case Services.Accounts.change_user_password(user, user_params) do
       %{valid?: true} = changeset ->
-        {:noreply, assign(socket, password_form: to_form(changeset))}
+        {:noreply, socket
+        |> assign(:password_form, to_form(changeset))
+        |> put_flash(:info, "password updated")}
 
       changeset ->
         {:noreply, socket
         |> assign(password_form: to_form(changeset, action: :insert))
-        |> put_flash(:info, "password updated")}
+        |> put_flash(:error, "couldn't update")}
     end
   end
 
