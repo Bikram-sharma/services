@@ -18,7 +18,9 @@ defmodule ServicesWeb.CategoryLive.Form do
         <.input field={@form[:description]} type="text" label="Description" />
         <footer class="flex flex-col gap-4 w-full text-center">
           <.button phx-disable-with="Saving..." variant="dark-blue-gray">Save Category</.button>
-          <.button navigate={return_path(@current_scope, @return_to, @category)}  variant="blue-gray">Cancel</.button>
+          <.button navigate={return_path(@current_scope, @return_to, @category)} variant="blue-gray">
+            Cancel
+          </.button>
         </footer>
       </.custom_form>
     </Layouts.app>
@@ -27,7 +29,6 @@ defmodule ServicesWeb.CategoryLive.Form do
 
   @impl true
   def mount(params, _session, socket) do
-
     {:ok,
      socket
      |> assign(:return_to, return_to(params["return_to"]))

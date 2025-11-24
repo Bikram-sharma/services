@@ -66,14 +66,15 @@ defmodule ServicesWeb.UserLive.Settings do
       <div class="divider" />
 
       <div>
-        <p class="text-sm font-semibold">Click the button below to <span class="text-lg text-red-700">deactivate</span> your account;</p>
+        <p class="text-sm font-semibold">
+          Click the button below to <span class="text-lg text-red-700">deactivate</span> your account;
+        </p>
         <.form for={%{}} action={~p"/users/deactivate"} method="delete">
           <.button type="submit">
             Deactivate Account
           </.button>
         </.form>
       </div>
-
     </Layouts.app>
     """
   end
@@ -168,5 +169,4 @@ defmodule ServicesWeb.UserLive.Settings do
         {:noreply, assign(socket, password_form: to_form(changeset, action: :insert))}
     end
   end
-
 end

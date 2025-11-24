@@ -202,7 +202,6 @@ defmodule Services.Servicing do
     else
       !scope.user
     end
-
   end
 
   def is_hidden(nil) do

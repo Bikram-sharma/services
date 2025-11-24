@@ -25,7 +25,10 @@ defmodule Services.ServiceProviderTest do
       provider = provider_fixture(scope)
       other_scope = user_scope_fixture()
       assert ServiceProvider.get_provider!(scope, provider.id) == provider
-      assert_raise Ecto.NoResultsError, fn -> ServiceProvider.get_provider!(other_scope, provider.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        ServiceProvider.get_provider!(other_scope, provider.id)
+      end
     end
 
     test "create_provider/2 with valid data creates a provider" do
@@ -49,7 +52,9 @@ defmodule Services.ServiceProviderTest do
       provider = provider_fixture(scope)
       update_attrs = %{bio: "some updated bio", years_of_experiance: 43, is_verified: false}
 
-      assert {:ok, %Provider{} = provider} = ServiceProvider.update_provider(scope, provider, update_attrs)
+      assert {:ok, %Provider{} = provider} =
+               ServiceProvider.update_provider(scope, provider, update_attrs)
+
       assert provider.bio == "some updated bio"
       assert provider.years_of_experiance == 43
       assert provider.is_verified == false
@@ -68,7 +73,10 @@ defmodule Services.ServiceProviderTest do
     test "update_provider/3 with invalid data returns error changeset" do
       scope = user_scope_fixture()
       provider = provider_fixture(scope)
-      assert {:error, %Ecto.Changeset{}} = ServiceProvider.update_provider(scope, provider, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               ServiceProvider.update_provider(scope, provider, @invalid_attrs)
+
       assert provider == ServiceProvider.get_provider!(scope, provider.id)
     end
 
@@ -76,7 +84,10 @@ defmodule Services.ServiceProviderTest do
       scope = user_scope_fixture()
       provider = provider_fixture(scope)
       assert {:ok, %Provider{}} = ServiceProvider.delete_provider(scope, provider)
-      assert_raise Ecto.NoResultsError, fn -> ServiceProvider.get_provider!(scope, provider.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        ServiceProvider.get_provider!(scope, provider.id)
+      end
     end
 
     test "delete_provider/2 with invalid scope raises" do
@@ -115,7 +126,10 @@ defmodule Services.ServiceProviderTest do
       provider = provider_fixture(scope)
       other_scope = user_scope_fixture()
       assert ServiceProvider.get_provider!(scope, provider.id) == provider
-      assert_raise Ecto.NoResultsError, fn -> ServiceProvider.get_provider!(other_scope, provider.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        ServiceProvider.get_provider!(other_scope, provider.id)
+      end
     end
 
     test "create_provider/2 with valid data creates a provider" do
@@ -139,7 +153,9 @@ defmodule Services.ServiceProviderTest do
       provider = provider_fixture(scope)
       update_attrs = %{bio: "some updated bio", years_of_experience: 43, is_verified: false}
 
-      assert {:ok, %Provider{} = provider} = ServiceProvider.update_provider(scope, provider, update_attrs)
+      assert {:ok, %Provider{} = provider} =
+               ServiceProvider.update_provider(scope, provider, update_attrs)
+
       assert provider.bio == "some updated bio"
       assert provider.years_of_experience == 43
       assert provider.is_verified == false
@@ -158,7 +174,10 @@ defmodule Services.ServiceProviderTest do
     test "update_provider/3 with invalid data returns error changeset" do
       scope = user_scope_fixture()
       provider = provider_fixture(scope)
-      assert {:error, %Ecto.Changeset{}} = ServiceProvider.update_provider(scope, provider, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               ServiceProvider.update_provider(scope, provider, @invalid_attrs)
+
       assert provider == ServiceProvider.get_provider!(scope, provider.id)
     end
 
@@ -166,7 +185,10 @@ defmodule Services.ServiceProviderTest do
       scope = user_scope_fixture()
       provider = provider_fixture(scope)
       assert {:ok, %Provider{}} = ServiceProvider.delete_provider(scope, provider)
-      assert_raise Ecto.NoResultsError, fn -> ServiceProvider.get_provider!(scope, provider.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        ServiceProvider.get_provider!(scope, provider.id)
+      end
     end
 
     test "delete_provider/2 with invalid scope raises" do

@@ -14,7 +14,10 @@ defmodule ServicesWeb.ProvidersServiceLive.Show do
           <.button navigate={~p"/providers_service"} variant="blue-gray">
             <.icon name="hero-arrow-left" />
           </.button>
-          <.button variant="dark-blue-gray" navigate={~p"/providers_service/#{@providers_service}/edit?return_to=show"}>
+          <.button
+            variant="dark-blue-gray"
+            navigate={~p"/providers_service/#{@providers_service}/edit?return_to=show"}
+          >
             <.icon name="hero-pencil-square" /> Edit providers_service
           </.button>
         </:actions>
@@ -37,7 +40,10 @@ defmodule ServicesWeb.ProvidersServiceLive.Show do
     {:ok,
      socket
      |> assign(:page_title, "Show Providers service")
-     |> assign(:providers_service, ProviderService.get_providers_service!(socket.assigns.current_scope, id))}
+     |> assign(
+       :providers_service,
+       ProviderService.get_providers_service!(socket.assigns.current_scope, id)
+     )}
   end
 
   @impl true

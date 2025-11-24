@@ -38,7 +38,6 @@ defmodule ServicesWeb.UserAuth do
     conn
     |> create_or_extend_session(user, params)
     |> redirect(to: user_return_to || signed_in_path(conn))
-
   end
 
   @doc """
@@ -227,33 +226,31 @@ defmodule ServicesWeb.UserAuth do
         |> Phoenix.LiveView.put_flash(:error, "You must log in to access this page.")
         |> Phoenix.LiveView.redirect(to: ~p"/users/log-in")
 
-
       {:halt, socket}
     end
   end
 
   def on_mount(:require_super_admin_authentication, _params, session, socket) do
     socket = mount_current_scope(socket, session)
-    if socket.assigns.current_scope && socket.assigns.current_scope.user && socket.assigns.current_scope.user.role == "super_admin" do
 
+    if socket.assigns.current_scope && socket.assigns.current_scope.user &&
+         socket.assigns.current_scope.user.role == "super_admin" do
       {:cont, socket}
     else
-
-       socket =
+      socket =
         socket
         |> Phoenix.LiveView.put_flash(:error, "You be super admin.")
         |> Phoenix.LiveView.redirect(to: ~p"/")
 
-        {:halt, socket}
-
+      {:halt, socket}
+    end
   end
-end
-
 
   def on_mount(:require_admin_or_super_admin_authentication, _params, session, socket) do
     socket = mount_current_scope(socket, session)
 
-    if socket.assigns.current_scope && socket.assigns.current_scope.user && socket.assigns.current_scope.user.role in ["admin", "super_admin"] do
+    if socket.assigns.current_scope && socket.assigns.current_scope.user &&
+         socket.assigns.current_scope.user.role in ["admin", "super_admin"] do
       {:cont, socket}
     else
       socket =
@@ -321,7 +318,8 @@ end
   defp maybe_store_return_to(conn), do: conn
 
   def require_admin_or_super_admin_authentication(conn, _opts) do
-    if conn.assigns.current_scope && conn.assigns.current_scope.user && conn.assigns.current_scope.user.role in ["admin", "super_admin"] do
+    if conn.assigns.current_scope && conn.assigns.current_scope.user &&
+         conn.assigns.current_scope.user.role in ["admin", "super_admin"] do
       conn
     else
       conn
@@ -333,7 +331,8 @@ end
   end
 
   def require_super_admin_authentication(conn, _opts) do
-    if conn.assigns.current_scope && conn.assigns.current_scope.user && conn.assigns.current_scope.user.role == "super_admin" do
+    if conn.assigns.current_scope && conn.assigns.current_scope.user &&
+         conn.assigns.current_scope.user.role == "super_admin" do
       conn
     else
       conn

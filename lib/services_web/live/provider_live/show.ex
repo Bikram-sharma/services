@@ -14,7 +14,10 @@ defmodule ServicesWeb.ProviderLive.Show do
           <.button navigate={~p"/service_providers"} variant="blue-gray">
             <.icon name="hero-arrow-left" />
           </.button>
-          <.button variant="dark-blue-gray" navigate={~p"/service_providers/#{@provider}/edit?return_to=show"}>
+          <.button
+            variant="dark-blue-gray"
+            navigate={~p"/service_providers/#{@provider}/edit?return_to=show"}
+          >
             <.icon name="hero-pencil-square" /> Edit provider
           </.button>
         </:actions>

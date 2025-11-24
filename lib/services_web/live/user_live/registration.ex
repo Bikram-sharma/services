@@ -23,7 +23,7 @@ defmodule ServicesWeb.UserLive.Registration do
         </div>
 
         <.form for={@form} id="registration_form" phx-submit="save" phx-change="validate">
-         <.input
+          <.input
             field={@form[:username]}
             type="text"
             label="Full Name"
@@ -48,15 +48,13 @@ defmodule ServicesWeb.UserLive.Registration do
             phx-mounted={JS.focus()}
           />
           <.input
-          field={@form[:password_confirmation]}
-          type="password"
-          label="Confirm new password"
-          autocomplete="new-password"
-        />
-
+            field={@form[:password_confirmation]}
+            type="password"
+            label="Confirm new password"
+            autocomplete="new-password"
+          />
 
           <.button phx-disable-with="Creating account..." class="btn btn-primary w-full">
-
             Create an account
           </.button>
         </.form>

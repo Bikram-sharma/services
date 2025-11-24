@@ -73,7 +73,11 @@ defmodule ServicesWeb.CoreComponents do
           </div>
         </div>
         <div class="flex-1" />
-        <button type="button" class="group self-start cursor-pointer absolute top-4 right-5" aria-label={gettext("close")}>
+        <button
+          type="button"
+          class="group self-start cursor-pointer absolute top-4 right-5"
+          aria-label={gettext("close")}
+        >
           <.icon name="hero-x-mark" class="size-5 opacity-100 group-hover:opacity-70" />
         </button>
       </div>
@@ -96,7 +100,12 @@ defmodule ServicesWeb.CoreComponents do
   slot :inner_block, required: true
 
   def button(%{rest: rest} = assigns) do
-    variants = %{"primary" => "btn-primary", "blue-gray" => "btn-blue-gray", "dark-blue-gray" => "btn-dark-blue-gray", nil => "btn-primary btn-soft"}
+    variants = %{
+      "primary" => "btn-primary",
+      "blue-gray" => "btn-blue-gray",
+      "dark-blue-gray" => "btn-dark-blue-gray",
+      nil => "btn-primary btn-soft"
+    }
 
     assigns =
       assign_new(assigns, :class, fn ->
@@ -105,13 +114,19 @@ defmodule ServicesWeb.CoreComponents do
 
     if rest[:href] || rest[:navigate] || rest[:patch] do
       ~H"""
-      <.link class="w-full bg-[#111E30] text-white font-semibold py-3 rounded-lg transform hover:scale-101 transition-all duration-100 shadow-lg cursor-pointer my-4  px-4" {@rest}>
+      <.link
+        class="w-full bg-[#111E30] text-white font-semibold py-3 rounded-lg transform hover:scale-101 transition-all duration-100 shadow-lg cursor-pointer my-4  px-4"
+        {@rest}
+      >
         {render_slot(@inner_block)}
       </.link>
       """
     else
       ~H"""
-      <button class = "w-full bg-[#111E30] text-white font-semibold py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transform hover:scale-101 transition-all duration-100 shadow-lg cursor-pointer my-4" {@rest}>
+      <button
+        class="w-full bg-[#111E30] text-white font-semibold py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transform hover:scale-101 transition-all duration-100 shadow-lg cursor-pointer my-4"
+        {@rest}
+      >
         {render_slot(@inner_block)}
       </button>
       """
@@ -254,7 +269,9 @@ defmodule ServicesWeb.CoreComponents do
     ~H"""
     <div class="fieldset mb-2">
       <label>
-        <span :if={@label} class="label mb-1 text-gray-900 dark:text-[#121e30] text-sm">{@label}</span>
+        <span :if={@label} class="label mb-1 text-gray-900 dark:text-[#121e30] text-sm">
+          {@label}
+        </span>
         <input
           type={@type}
           name={@name}
@@ -488,9 +505,8 @@ defmodule ServicesWeb.CoreComponents do
       class={"bg-white dark:bg-gray-300 p-6 rounded-lg border border-gray-300 shadow space-y-5#{@class}"}
       {@rest}
     >
-      <%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </.form>
     """
   end
-
 end

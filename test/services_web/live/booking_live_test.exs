@@ -4,9 +4,30 @@ defmodule ServicesWeb.BookingLiveTest do
   import Phoenix.LiveViewTest
   import Services.BookingsFixtures
 
-  @create_attrs %{schedule_date_time: "2025-11-02T04:43:00Z", booked_at: "2025-11-02T04:43:00Z", cancelled_at: "2025-11-02T04:43:00Z", cancelled_by: "some cancelled_by", actual_total_price: "120.5", user_address: "some user_address"}
-  @update_attrs %{schedule_date_time: "2025-11-03T04:43:00Z", booked_at: "2025-11-03T04:43:00Z", cancelled_at: "2025-11-03T04:43:00Z", cancelled_by: "some updated cancelled_by", actual_total_price: "456.7", user_address: "some updated user_address"}
-  @invalid_attrs %{schedule_date_time: nil, booked_at: nil, cancelled_at: nil, cancelled_by: nil, actual_total_price: nil, user_address: nil}
+  @create_attrs %{
+    schedule_date_time: "2025-11-02T04:43:00Z",
+    booked_at: "2025-11-02T04:43:00Z",
+    cancelled_at: "2025-11-02T04:43:00Z",
+    cancelled_by: "some cancelled_by",
+    actual_total_price: "120.5",
+    user_address: "some user_address"
+  }
+  @update_attrs %{
+    schedule_date_time: "2025-11-03T04:43:00Z",
+    booked_at: "2025-11-03T04:43:00Z",
+    cancelled_at: "2025-11-03T04:43:00Z",
+    cancelled_by: "some updated cancelled_by",
+    actual_total_price: "456.7",
+    user_address: "some updated user_address"
+  }
+  @invalid_attrs %{
+    schedule_date_time: nil,
+    booked_at: nil,
+    cancelled_at: nil,
+    cancelled_by: nil,
+    actual_total_price: nil,
+    user_address: nil
+  }
 
   setup :register_and_log_in_user
 

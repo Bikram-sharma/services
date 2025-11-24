@@ -76,7 +76,13 @@ defmodule ServicesWeb.UserSessionController do
 
   """
   def log_out_deactivated(conn, _params) do
-    conn = put_flash(conn, :info, "Your account has been successfully deactivated. We're sorry to see you go.")
+    conn =
+      put_flash(
+        conn,
+        :info,
+        "Your account has been successfully deactivated. We're sorry to see you go."
+      )
+
     _ = Services.Accounts.deactivate_user(conn)
     UserAuth.log_out_user(conn)
   end

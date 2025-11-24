@@ -49,7 +49,6 @@ defmodule ServicesWeb.ProviderLive.Index do
       ServiceProvider.subscribe_service_providers(socket.assigns.current_scope)
     end
 
-
     {:ok,
      socket
      |> assign(:page_title, "Listing Service providers")
@@ -67,7 +66,10 @@ defmodule ServicesWeb.ProviderLive.Index do
   @impl true
   def handle_info({type, %Services.ServiceProvider.Provider{}}, socket)
       when type in [:created, :updated, :deleted] do
-    {:noreply, stream(socket, :service_providers, list_service_providers(socket.assigns.current_scope), reset: true)}
+    {:noreply,
+     stream(socket, :service_providers, list_service_providers(socket.assigns.current_scope),
+       reset: true
+     )}
   end
 
   defp list_service_providers(current_scope) do

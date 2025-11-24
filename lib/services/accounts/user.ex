@@ -35,22 +35,24 @@ defmodule Services.Accounts.User do
     |> cast(attrs, [:username])
     |> validate_username(opts)
   end
+
   defp validate_username(changeset, _opts) do
     changeset
     |> validate_required([:username])
     |> validate_length(:username, min: 2, max: 100)
   end
 
-    def role_changeset(user, attrs, opts \\ []) do
+  def role_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:role])
     |> validate_role(opts)
   end
+
   defp validate_role(changeset, _opts) do
     changeset
     |> validate_required([:role])
     |> validate_inclusion(:role, @roles)
- end
+  end
 
   @spec email_changeset(
           {map(),
@@ -68,7 +70,6 @@ defmodule Services.Accounts.User do
         ) :: Ecto.Changeset.t()
   def email_changeset(user, attrs, opts \\ []) do
     user
-
     |> cast(attrs, [:email])
     |> validate_email(opts)
   end
@@ -77,7 +78,6 @@ defmodule Services.Accounts.User do
     changeset =
       changeset
       |> validate_required([:email])
-
       |> validate_format(:email, ~r/^[^@,;\s]+@[^@,;\s]+$/,
         message: "must have the @ sign and no spaces"
       )

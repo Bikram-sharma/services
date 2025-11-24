@@ -6,26 +6,24 @@ defmodule ServicesWeb.UserLive.Manage do
   @impl true
   def render(assigns) do
     ~H"""
+    <.header>
+      Listing Users
+    </.header>
 
-      <.header>
-        Listing Users
-      </.header>
+    <.table
+      id="users"
+      rows={@streams.users}
+    >
+      <:col :let={{_id, user}} label="Name">
+        {user.username}
+      </:col>
 
-      <.table
-        id="users"
-        rows={@streams.users}
-      >
-        <:col :let={{_id, user}} label="Name">
-          <%= user.username %>
-        </:col>
+      <:col :let={{_id, user}} label="Role">
+        {user.role}
+      </:col>
 
-        <:col :let={{_id, user}} label="Role">
-          <%= user.role %>
-        </:col>
-
-        <:action :let={{_id, user}}>
+      <:action :let={{_id, user}}>
         <.form for={%{}} phx-change="change_role">
-
           <.input type="text" hidden name="user_id" value={user.id} />
 
           <.input
@@ -36,27 +34,23 @@ defmodule ServicesWeb.UserLive.Manage do
             label="change role"
           />
         </.form>
+      </:action>
 
-        </:action>
-
-        <:action :let={{id, user}}>
-          <.link
-            phx-click={JS.push("delete", value: %{id: user.id}) |> hide("##{id}")}
-            data-confirm="Are you sure?"
-          >
-            Delete
-          </.link>
-        </:action>
-      </.table>
-
+      <:action :let={{id, user}}>
+        <.link
+          phx-click={JS.push("delete", value: %{id: user.id}) |> hide("##{id}")}
+          data-confirm="Are you sure?"
+        >
+          Delete
+        </.link>
+      </:action>
+    </.table>
     """
   end
 
   @impl true
   def mount(_params, _session, socket) do
     roles = [{"Admin", "admin"}, {"Client", "client"}]
-
-
 
     {:ok,
      socket

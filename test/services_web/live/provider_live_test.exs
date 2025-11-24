@@ -81,7 +81,10 @@ defmodule ServicesWeb.ProviderLiveTest do
     test "deletes provider in listing", %{conn: conn, provider: provider} do
       {:ok, index_live, _html} = live(conn, ~p"/service_providers")
 
-      assert index_live |> element("#service_providers-#{provider.id} a", "Delete") |> render_click()
+      assert index_live
+             |> element("#service_providers-#{provider.id} a", "Delete")
+             |> render_click()
+
       refute has_element?(index_live, "#service_providers-#{provider.id}")
     end
   end
