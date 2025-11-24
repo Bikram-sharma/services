@@ -23,4 +23,11 @@ defmodule Services.Servicing.Service do
     |> validate_required([:name, :description , :category_id])
     |> put_change(:user_id, user_scope.user.id)
   end
+
+
+  def changeset_admin(service, attrs) do
+    service
+    |> cast(attrs, [:name, :description, :category_id])
+    |> validate_required([:name, :description , :category_id])
+  end
 end

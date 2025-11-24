@@ -37,7 +37,7 @@ defmodule ServicesWeb.CategoryLive.Show do
     {:ok,
      socket
      |> assign(:page_title, "Show Category")
-     |> assign(:category, Servicing.get_category!(socket.assigns.current_scope, id))}
+     |> assign(:category, Servicing.get_category(id))}
   end
 
   @impl true

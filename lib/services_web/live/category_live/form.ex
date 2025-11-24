@@ -38,12 +38,12 @@ defmodule ServicesWeb.CategoryLive.Form do
   defp return_to(_), do: "index"
 
   defp apply_action(socket, :edit, %{"id" => id}) do
-    category = Servicing.get_category!(socket.assigns.current_scope, id)
+    category = Servicing.get_category(id)
 
     socket
     |> assign(:page_title, "Edit Category")
     |> assign(:category, category)
-    |> assign(:form, to_form(Servicing.change_category(socket.assigns.current_scope, category)))
+    |> assign(:form, to_form(Servicing.change_category_admin(category)))
   end
 
   defp apply_action(socket, :new, _params) do
@@ -52,12 +52,12 @@ defmodule ServicesWeb.CategoryLive.Form do
     socket
     |> assign(:page_title, "New Category")
     |> assign(:category, category)
-    |> assign(:form, to_form(Servicing.change_category(socket.assigns.current_scope, category)))
+    |> assign(:form, to_form(Servicing.change_category_admin(category)))
   end
 
   @impl true
   def handle_event("validate", %{"category" => category_params}, socket) do
-    changeset = Servicing.change_category(socket.assigns.current_scope, socket.assigns.category, category_params)
+    changeset = Servicing.change_category_admin(socket.assigns.category, category_params)
     {:noreply, assign(socket, form: to_form(changeset, action: :validate))}
   end
 
@@ -66,7 +66,7 @@ defmodule ServicesWeb.CategoryLive.Form do
   end
 
   defp save_category(socket, :edit, category_params) do
-    case Servicing.update_category(socket.assigns.current_scope, socket.assigns.category, category_params) do
+    case Servicing.update_category_admin(socket.assigns.current_scope, socket.assigns.category, category_params) do
       {:ok, category} ->
         {:noreply,
          socket

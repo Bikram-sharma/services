@@ -37,7 +37,7 @@ defmodule ServicesWeb.ServiceLive.Show do
     {:ok,
      socket
      |> assign(:page_title, "Show Service")
-     |> assign(:service, Servicing.get_service!(socket.assigns.current_scope, id))}
+     |> assign(:service, Servicing.get_service(id))}
   end
 
   @impl true
