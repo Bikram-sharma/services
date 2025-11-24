@@ -23,4 +23,11 @@ defmodule Services.ServiceProvider.Provider do
     |> validate_required([:bio, :years_of_experience, :is_verified])
     |> put_change(:user_id, user_scope.user.id)
   end
+
+  def changeset(provider, attrs) do
+    provider
+    |> cast(attrs, [:bio, :years_of_experience, :is_verified])
+    |> validate_required([:bio, :years_of_experience, :is_verified])
+  end
+
 end

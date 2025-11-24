@@ -31,6 +31,12 @@ defmodule Services.ServiceProvider do
     Phoenix.PubSub.broadcast(Services.PubSub, "user:#{key}:service_providers", message)
   end
 
+  defp broadcast_provider_admin(id, message) do
+    key = id
+
+    Phoenix.PubSub.broadcast(Services.PubSub, "user:#{key}:service_providers", message)
+  end
+
   @doc """
   Returns the list of service_providers.
 
@@ -66,6 +72,16 @@ defmodule Services.ServiceProvider do
     Provider
     |> preload(:users)
     |> Repo.get_by(user_id: user_id)
+  end
+
+  def list_user_details_by_user_id(user_id) do
+    case get_provider_by_user_id(user_id) do
+      nil ->
+        user = Services.Accounts.get_user!(user_id)
+        {:ok, :user, user}
+      provider ->
+        {:ok, :provider, provider}
+    end
   end
 
   @doc """
@@ -114,6 +130,16 @@ defmodule Services.ServiceProvider do
     end
   end
 
+  def update_provider_admin(%Provider{} = provider, attrs) do
+    with {:ok, provider = %Provider{}} <-
+           provider
+           |> Provider.changeset(attrs)
+           |> Repo.update() do
+      broadcast_provider_admin(provider.user_id, {:updated, provider})
+      {:ok, provider}
+    end
+  end
+
   @doc """
   Deletes a provider.
 
@@ -149,5 +175,10 @@ defmodule Services.ServiceProvider do
     true = provider.user_id == scope.user.id
 
     Provider.changeset(provider, attrs, scope)
+  end
+
+
+  def change_provider_admin(provider, attrs \\ %{}) do
+    Provider.changeset(provider, attrs)
   end
 end

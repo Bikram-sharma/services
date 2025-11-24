@@ -180,6 +180,9 @@ defmodule Services.Servicing do
   def list_services(_scope) do
     Repo.all(Service)
   end
+  def list_services() do
+    Repo.all(Service)
+  end
 
   def is_hidden(%Scope{} = scope) do
     if scope.user.role == "super_admin" do

@@ -125,6 +125,7 @@ defmodule ServicesWeb.Router do
     live "/categories/new", CategoryLive.Form, :new
     live "/categories/:id", CategoryLive.Show, :show
     live "/categories/:id/edit", CategoryLive.Form, :edit
+    live "/manage/:user_id/edit", UserLive.Edit, :edit
     end
 
   end

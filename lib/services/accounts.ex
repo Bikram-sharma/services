@@ -27,6 +27,12 @@ defmodule Services.Accounts do
     Repo.get_by(User, email: email)
   end
 
+  defp broadcast_user(id, message) do
+    key = id
+
+    Phoenix.PubSub.broadcast(Services.PubSub, "user:#{key}:providers_service", message)
+  end
+
   @doc """
   Gets a user by email and password.
 
@@ -105,6 +111,30 @@ defmodule Services.Accounts do
     |> Ecto.Changeset.change(role: role)
     |> Repo.insert()
   end
+
+
+  def change_user(user, attrs \\ %{}, _opts \\ []) do
+     user
+    |> User.email_changeset(attrs)
+    |> User.username_changeset(attrs)
+    |> User.role_changeset(attrs)
+
+  end
+
+  def update_user(%User{} = user, attrs) do
+  user
+  |> change_user(attrs)
+  |> Repo.update()
+  |> case do
+    {:ok, user} ->
+      broadcast_user(user.id, {:updated, user})
+      {:ok, user}
+    error -> error
+  end
+end
+
+
+
 
   ## Settings
 
@@ -237,8 +267,10 @@ end
     |> update_user_and_delete_all_tokens()
   end
 
+
   ## Session
 
+  @spec generate_user_session_token(any()) :: binary()
   @doc """
   Generates a session token.
   """
@@ -246,6 +278,10 @@ end
     {token, user_token} = UserToken.build_session_token(user)
     Repo.insert!(user_token)
     token
+  end
+
+  def get_user_by_id(user_id) do
+    Repo.get!(User, :id, user_id)
   end
 
   @doc """
