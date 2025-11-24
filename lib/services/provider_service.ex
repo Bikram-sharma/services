@@ -33,6 +33,13 @@ defmodule Services.ProviderService do
     Phoenix.PubSub.broadcast(Services.PubSub, "user:#{key}:providers_service", message)
   end
 
+
+
+  defp broadcast_providers_service_admin(id, message) do
+    key = id
+
+    Phoenix.PubSub.broadcast(Services.PubSub, "user:#{key}:providers_service", message)
+  end
   @doc """
   Returns the list of providers_service.
 
@@ -69,7 +76,7 @@ defmodule Services.ProviderService do
 
   end
   def get_providers_service_by_id(id) do
-  ProvidersService
+   ProvidersService
   |> Repo.get!(id)
   |> Repo.preload([
        :services,
@@ -77,7 +84,6 @@ defmodule Services.ProviderService do
        service_providers: :users,
        services: :category
      ])
-
   end
 
   def list_providers_service_by_id(user_id) do
@@ -88,7 +94,34 @@ defmodule Services.ProviderService do
   |> preload(service_providers: :users)
   |> preload(services: :category)
   |> Repo.all()
+  end
+
+def get_all_details_of_single_user(user_id) do
+  case list_providers_service_by_id(user_id) do
+    [] ->
+      case Services.ServiceProvider.list_user_details_by_user_id(user_id) do
+        {:ok, :user, user} -> {:ok, %{type: :user, data: user}}
+        {:ok, :provider, provider} -> {:ok, %{type: :provider, data: provider}}
+      end
+
+    providers_service ->
+      provider = Services.ServiceProvider.get_provider_by_user_id(user_id)
+      {:ok, %{type: :providers_service, data: providers_service}, provider}
+  end
 end
+
+
+
+
+  # def list_all_user_detail(user_id) do
+  #   case listproviders_service_by_id(user_id) do
+
+  #   end
+
+  # end
+
+
+
 
   @doc """
   Gets a single providers_service.
@@ -107,6 +140,7 @@ end
   def get_providers_service!(%Scope{} = _scope, id) do
     Repo.get!(ProvidersService, id)
   end
+
 
   @doc """
   Creates a providers_service.
@@ -152,6 +186,16 @@ end
     end
   end
 
+  def update_providers_service_admin(id, providers_service, attrs) do
+    with {:ok, providers_service = %ProvidersService{}} <-
+           providers_service
+           |> ProvidersService.changeset(attrs)
+           |> Repo.update() do
+      broadcast_providers_service_admin(id, {:updated, providers_service})
+      {:ok, providers_service}
+  end
+end
+
   @doc """
   Deletes a providers_service.
 
@@ -172,6 +216,10 @@ end
     end
   end
 
+
+
+
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking providers_service changes.
 
@@ -182,6 +230,10 @@ end
 
   """
   def change_providers_service(%Scope{} = _scope, %ProvidersService{} = providers_service, attrs \\ %{}) do
+    ProvidersService.changeset(providers_service, attrs)
+  end
+
+  def change_providers_service_admin(providers_service, attrs \\ %{}) do
     ProvidersService.changeset(providers_service, attrs)
   end
 end
