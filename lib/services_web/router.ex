@@ -25,7 +25,6 @@ defmodule ServicesWeb.Router do
 
     get "/services", DashController, :list_services
     get "/services/:id/book", DashController, :book
-
   end
 
   # Other scopes may use custom stacks.
@@ -98,7 +97,7 @@ defmodule ServicesWeb.Router do
     pipe_through [:browser, :require_admin_or_super_admin_authentication]
 
     live_session :require_admin_or_super_admin_authentication,
-    on_mount: [{ServicesWeb.UserAuth, :require_admin_or_super_admin_authentication}] do
+      on_mount: [{ServicesWeb.UserAuth, :require_admin_or_super_admin_authentication}] do
       live "/manage", UserLive.Manage, :manage
       live "/manage/:user_id/edit", UserLive.Edit, :edit
 

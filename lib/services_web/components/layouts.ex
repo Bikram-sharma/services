@@ -189,7 +189,7 @@ defmodule ServicesWeb.Layouts do
 
             <div class="hidden md:flex items-center justify-center space-x-8 w-[60vw]">
               <.link navigate="/" class={nav_link_class(@conn, "/")}>Home</.link>
-              <.link navigate="/dash" class={nav_link_class(@conn, "/dash")}>Services</.link>
+              <.link navigate="/services" class={nav_link_class(@conn, "/services")}>Services</.link>
               <.link navigate="/#about" class={nav_link_class(@conn, "/#about")}>About</.link>
               <.link navigate="/#contact-info" class={nav_link_class(@conn, "/#contact-info")}>
                 Contact
@@ -220,8 +220,8 @@ defmodule ServicesWeb.Layouts do
                       style="position-anchor:--anchor-1"
                     >
                       <li><.link href={~p"/manage"}>Users</.link></li>
-                      <li><.link href={~p"/categories"}>Categories</.link></li>
-                      <li><.link href={~p"/services"}>Services</.link></li>
+                      <li><.link href={~p"/manage/categories"}>Categories</.link></li>
+                      <li><.link href={~p"/manage/services"}>Services</.link></li>
                     </ul>
                   <% end %>
 
@@ -316,7 +316,7 @@ defmodule ServicesWeb.Layouts do
             <div>
               <div class="flex flex-col space-y-3 mt-10 ">
                 <a href="/" class="text-gray-700 hover:text-blue-600 font-medium w-fit">Home</a>
-                <a href="/dash" class="text-gray-700 hover:text-blue-600 font-medium w-fit">
+                <a href="/services" class="text-gray-700 hover:text-blue-600 font-medium w-fit">
                   Services
                 </a>
                 <a href="/#about" class="text-gray-700 hover:text-blue-600 font-medium w-fit">

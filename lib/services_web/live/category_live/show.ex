@@ -14,7 +14,10 @@ defmodule ServicesWeb.CategoryLive.Show do
           <.button navigate={~p"/manage/categories"} variant="blue-gray">
             <.icon name="hero-arrow-left" />
           </.button>
-          <.button variant="dark-blue-gray" navigate={~p"/manage/categories/#{@category}/edit?return_to=show"}>
+          <.button
+            variant="dark-blue-gray"
+            navigate={~p"/manage/categories/#{@category}/edit?return_to=show"}
+          >
             <.icon name="hero-pencil-square" /> Edit category
           </.button>
         </:actions>

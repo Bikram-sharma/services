@@ -81,7 +81,11 @@ defmodule ServicesWeb.ServiceLive.Form do
   end
 
   defp save_service(socket, :edit, service_params) do
-    case Servicing.update_service_admin(socket.assigns.current_scope, socket.assigns.service, service_params) do
+    case Servicing.update_service_admin(
+           socket.assigns.current_scope,
+           socket.assigns.service,
+           service_params
+         ) do
       {:ok, service} ->
         {:noreply,
          socket

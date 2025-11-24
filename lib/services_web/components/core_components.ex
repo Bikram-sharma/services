@@ -231,7 +231,11 @@ defmodule ServicesWeb.CoreComponents do
         <select
           id={@id}
           name={@name}
-          class={[@class || "w-full select focus:outline-none focus:border-gray-300 dark:bg-gray-200 dark:text-[#121e30] dark:border-gray-400", @errors != [] && (@error_class || "select-error")]}
+          class={[
+            @class ||
+              "w-full select focus:outline-none focus:border-gray-300 dark:bg-gray-200 dark:text-[#121e30] dark:border-gray-400",
+            @errors != [] && (@error_class || "select-error")
+          ]}
           multiple={@multiple}
           {@rest}
         >
@@ -278,7 +282,8 @@ defmodule ServicesWeb.CoreComponents do
           id={@id}
           value={Phoenix.HTML.Form.normalize_value(@type, @value)}
           class={[
-            @class ||"text-sm w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-400 focus:ring-2 dark:ring-gray-500 focus:border-transparent outline-none transition-all duration-200",
+            @class ||
+              "text-sm w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-400 focus:ring-2 dark:ring-gray-500 focus:border-transparent outline-none transition-all duration-200",
             @errors != [] && (@error_class || "input-error")
           ]}
           {@rest}
@@ -502,7 +507,7 @@ defmodule ServicesWeb.CoreComponents do
     <.form
       for={@for}
       id={@id}
-      class={"bg-white dark:bg-gray-300 p-6 rounded-lg border border-gray-300 shadow space-y-5#{@class}"}
+      class={"bg-white dark:bg-gray-300 p-6 rounded-lg border border-gray-300 shadow space-y-5 mb-6#{@class}"}
       {@rest}
     >
       {render_slot(@inner_block)}

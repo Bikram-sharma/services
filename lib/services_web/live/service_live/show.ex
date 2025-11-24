@@ -14,7 +14,10 @@ defmodule ServicesWeb.ServiceLive.Show do
           <.button navigate={~p"/manage/services"} variant="blue-gray">
             <.icon name="hero-arrow-left" />
           </.button>
-          <.button variant="dark-blue-gray" navigate={~p"/manage/services/#{@service}/edit?return_to=show"}>
+          <.button
+            variant="dark-blue-gray"
+            navigate={~p"/manage/services/#{@service}/edit?return_to=show"}
+          >
             <.icon name="hero-pencil-square" /> Edit service
           </.button>
         </:actions>
