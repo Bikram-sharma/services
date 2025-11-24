@@ -51,12 +51,12 @@ defmodule ServicesWeb.ServiceLive.Form do
   defp return_to(_), do: "index"
 
   defp apply_action(socket, :edit, %{"id" => id}) do
-    service = Servicing.get_service!(socket.assigns.current_scope, id)
+    service = Servicing.get_service(id)
 
     socket
     |> assign(:page_title, "Edit Service")
     |> assign(:service, service)
-    |> assign(:form, to_form(Servicing.change_service(socket.assigns.current_scope, service)))
+    |> assign(:form, to_form(Servicing.change_service_admin(service)))
   end
 
   defp apply_action(socket, :new, _params) do
@@ -70,7 +70,7 @@ defmodule ServicesWeb.ServiceLive.Form do
 
   @impl true
   def handle_event("validate", %{"service" => service_params}, socket) do
-    changeset = Servicing.change_service(socket.assigns.current_scope, socket.assigns.service, service_params)
+    changeset = Servicing.change_service_admin(socket.assigns.service, service_params)
     {:noreply, assign(socket, form: to_form(changeset, action: :validate))}
   end
 
@@ -79,7 +79,7 @@ defmodule ServicesWeb.ServiceLive.Form do
   end
 
   defp save_service(socket, :edit, service_params) do
-    case Servicing.update_service(socket.assigns.current_scope, socket.assigns.service, service_params) do
+    case Servicing.update_service_admin(socket.assigns.current_scope, socket.assigns.service, service_params) do
       {:ok, service} ->
         {:noreply,
          socket

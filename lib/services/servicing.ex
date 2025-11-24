@@ -109,6 +109,18 @@ defmodule Services.Servicing do
     end
   end
 
+  def update_category_admin(%Scope{} = scope, %Category{} = category, attrs) do
+    true = category.user_id == scope.user.id
+
+    with {:ok, category = %Category{}} <-
+           category
+           |> Category.changeset_admin(attrs)
+           |> Repo.update() do
+      broadcast_category(scope, {:updated, category})
+      {:ok, category}
+    end
+  end
+
   @doc """
   Deletes a category.
 
@@ -215,6 +227,14 @@ defmodule Services.Servicing do
     Repo.get_by!(Service, id: id, user_id: scope.user.id)
   end
 
+  def get_service(id) do
+    Repo.get_by(Service, id: id)
+  end
+
+  def get_category(id) do
+    Repo.get_by(Category, id: id)
+  end
+
   @doc """
   Creates a service.
 
@@ -249,12 +269,12 @@ defmodule Services.Servicing do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_service(%Scope{} = scope, %Service{} = service, attrs) do
-    true = service.user_id == scope.user.id
+  def update_service_admin(%Scope{} = scope, %Service{} = service, attrs) do
+    true
 
     with {:ok, service = %Service{}} <-
            service
-           |> Service.changeset(attrs, scope)
+           |> Service.changeset_admin(attrs)
            |> Repo.update() do
       broadcast_service(scope, {:updated, service})
       {:ok, service}
@@ -296,5 +316,13 @@ defmodule Services.Servicing do
     true = service.user_id == scope.user.id
 
     Service.changeset(service, attrs, scope)
+  end
+
+  def change_service_admin(%Service{} = service, attrs \\ %{}) do
+    Service.changeset_admin(service, attrs)
+  end
+
+  def change_category_admin(%Category{} = category, attrs \\ %{}) do
+    Category.changeset_admin(category, attrs)
   end
 end

@@ -19,4 +19,10 @@ defmodule Services.Servicing.Category do
     |> validate_required([:name, :description])
     |> put_change(:user_id, user_scope.user.id)
   end
+
+  def changeset_admin(category, attrs) do
+    category
+    |> cast(attrs, [:name, :description])
+    |> validate_required([:name, :description])
+  end
 end
