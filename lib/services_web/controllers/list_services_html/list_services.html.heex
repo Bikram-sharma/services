@@ -6,24 +6,29 @@
         type="select"
         id="category_id"
         name="category_id"
-        options={Enum.map(@categories, &{&1.name, &1.id})}
+        options={[{"Select a category", ""} | Enum.map(@categories, &{&1.name, &1.id})]}
         value={@selected_category}
-        class="focus:outline-none text-white font-bold px-2"
+        class="focus:outline-none bg-[#121e30] dark:bg-[var(--color-base-300)] text-white font-bold px-2"
       />
     </.form>
   </div>
   <div class="mt-10 p-4 border border-gray-200 rounded-lg shadow-md">
     <div class="flex justify-between">
       <h2 class="font-semibold">List of Service Providers</h2>
-      <button class="font-semibold cursor-pointer py-1 px-2 rounded hover:bg-gray-200">
-        <a href={~p"/services"}>Show All</a>
-      </button>
+      <a 
+        href={~p"/services"} 
+        class="font-semibold cursor-pointer py-1 px-2 rounded hover:bg-gray-200 inline-block"
+      >
+        Show All
+      </a>
+
     </div>
+
     <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       <%= for services <- @providers_service do %>
         <div class="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg 
            transition-all duration-200 overflow-hidden mt-4">
-          <!-- Header -->
+          <!-- ----------Header---------- -->
           <div class="bg-gradient-to-r from-[#121e30] to-[#1a2f4a] p-8 text-white">
             <span class="inline-block px-2 py-0.5 bg-white/20 rounded-full text-[10px] font-medium mb-2">
               {services.services.category.name}
@@ -37,11 +42,10 @@
               {services.services.description}
             </p>
           </div>
-          
-<!-- Body -->
+          <!-- ----------Body---------- -->
           <div class="p-8">
             
-<!-- Provider -->
+          <!-- ----------Provider---------- -->
             <div class="flex items-start gap-3 mb-3">
               <div class="h-10 w-10 rounded-full bg-gradient-to-br from-[#121e30] to-[#1a2f4a]
                     flex items-center justify-center text-white text-sm font-bold">
@@ -59,8 +63,7 @@
             </div>
 
             <div class="flex items-center justify-between pt-3 border-t border-gray-100">
-              
-<!-- Price -->
+              <!-- ----------Price---------- -->
               <div>
                 <p class="text-[11px] text-gray-500 mb-0.5">Service Rate</p>
                 <p class="text-xl font-bold text-[#121e30] leading-none">
@@ -68,9 +71,7 @@
                   <span class="text-[11px] text-gray-500 font-normal">/-</span>
                 </p>
               </div>
-              
-<!-- Button -->
-        <!--with-->
+              <!-- ----------Book Button---------- -->
               <a
                 href={~p"/services/#{services.id}/book"}
                 class="bg-[#121e30] hover:bg-[#1a2f4a] text-white font-medium text-sm
@@ -91,17 +92,35 @@
         </div>
       <% end %>
     </div>
-    <div class="mt-10 mb-5">
-      <ul class="flex justify-center items-center gap-2">
-        <li><a href="#" class="border rounded-md py-2 px-4">&laquo;</a></li>
-        <li><a href="#" class="border rounded-md py-2 px-4">1</a></li>
-        <li><a href="#" class="border rounded-md py-2 px-4">2</a></li>
-        <li><a href="#" class="border rounded-md py-2 px-4">3</a></li>
-        <li><a href="#" class="border rounded-md py-2 px-4">&raquo;</a></li>
-      </ul>
+
+    <!-- ----------Pagination Start---------- -->
+    <div class="mt-10 mb-5 flex justify-center gap-2">
+      <%= if @page > 1 do %>
+        <a 
+          href={"/services?page=#{@page - 1}&category_id=#{@selected_category}"}
+          class="border border-[#121e30] rounded-md py-2 px-4">&laquo; Previous</a>
+      <% else %>
+        <span class="border border-[#121e30] rounded-md py-2 px-4 text-gray-400 cursor-not-allowed">&laquo; Previous</span>
+      <% end %>
+
+      <span class="border border-[#121e30] rounded-md py-2 px-4 bg-[#121e30] text-white font-semibold">
+         Page <%= @page %> of <%= div(@total_count + @per_page - 1, @per_page) %>
+      </span>
+        
+      <%= if @page * @per_page < @total_count do %>
+        <a 
+          href={"/services?page=#{@page + 1}&category_id=#{@selected_category}"}
+          class="border border-[#121e30] rounded-md py-2 px-4">Next &raquo;</a>
+      <% else %>
+        <span class="border border-[#121e30] rounded-md py-2 px-4 text-gray-400 cursor-not-allowed">Next &raquo;</span>
+      <% end %>
     </div>
+    <!-- ----------Pagination End---------- -->
+
   </div>
 </section>
+
+<!-- ----------Custom JS---------- -->
 <script>
   document.addEventListener("DOMContentLoaded", ()=>{
 
