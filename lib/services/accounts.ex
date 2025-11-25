@@ -159,7 +159,8 @@ defmodule Services.Accounts do
   end
 
   def list_all_users() do
-    Repo.all(from u in User, where: u.role != "super_admin")
+    from(u in User, where: u.role != "super_admin", order_by: [asc: u.username])
+    |> Repo.all()
   end
 
   def list_all_users(nil) do
@@ -221,20 +222,6 @@ defmodule Services.Accounts do
   # Fallback for unauthorized scopes so the call doesn't raise a FunctionClauseError
   def update_user_role(_, _user_id, _new_role) do
     {:error, :unauthorized}
-  end
-
-  def delete_user(user_id) do
-    case Repo.get(User, user_id) do
-      nil ->
-        {:error, "User not found"}
-
-      user ->
-        Repo.delete(user)
-    end
-  end
-
-  def delete_user(_, _) do
-    {:error, "Invalid scope"}
   end
 
   @doc """
@@ -412,6 +399,34 @@ defmodule Services.Accounts do
     |> Repo.update()
 
     conn
+  end
+
+
+  def deactivate_user_by_admin(user_id) do
+    case Repo.get(User, user_id) do
+      nil ->
+        {:error, :not_found}
+
+      user ->
+        updated_user =
+          user
+          |> Ecto.Changeset.change(deactivated_at: DateTime.truncate(DateTime.utc_now(), :second))
+          |> Repo.update()
+
+        {:ok, updated_user}
+    end
+  end
+
+  def activate_user_by_admin(user_id) do
+    case Repo.get(User, user_id) do
+      nil ->
+        {:error, :not_found}
+
+      user ->
+        user
+        |> Ecto.Changeset.change(deactivated_at: nil)
+        |> Repo.update()
+    end
   end
 
   @doc """
