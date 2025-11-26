@@ -6,6 +6,7 @@ defmodule ServicesWeb.UserLive.Manage do
   @impl true
   def render(assigns) do
     ~H"""
+    <div class="px-[5vw] pb-2">
     <.header>
       <div class="flex items-center justify-evenly">
         <div class="px-8 py-2 place-items-center">
@@ -90,12 +91,12 @@ defmodule ServicesWeb.UserLive.Manage do
         <% end %>
       </:col>
 
-      <:action :let={{_id, user}}>
+      <:action :let={{_id, user}} label="Change Role">
         <%= if @current_scope.user.role == "super_admin" and user.id != @current_scope.user.id do %>
           <.form
             for={%{}}
             phx-change="change_role"
-            class="min-w-[140px]"
+
           >
             <.input type="text" name="user_id" value={user.id} hidden/>
 
@@ -147,7 +148,7 @@ defmodule ServicesWeb.UserLive.Manage do
         <% end %>
       </:action>
 
-      <:action :let={{_id, user}}>
+      <:action :let={{_id, user}} label="Deactivate/Activate">
         <%= if is_nil(user.deactivated_at) do %>
           <.link
             phx-click={JS.push("deactivate", value: %{id: user.id})}
@@ -187,6 +188,7 @@ defmodule ServicesWeb.UserLive.Manage do
         <% end %>
       </:action>
     </.table>
+    </div>
     """
   end
 
