@@ -154,7 +154,7 @@ defmodule ServicesWeb.Layouts do
     current_path = conn.request_path
 
     base =
-      "relative text-gray-700 font-medium after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:bg-[#121e30] after:duration-300 hover:after:w-full"
+      "dark:text-white dark:after:bg-white relative text-gray-700 font-medium after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:bg-[#121e30] after:duration-300 hover:after:w-full"
 
     active = if current_path == path, do: "after:w-full", else: "after:w-0"
     "#{base} #{active}"
@@ -163,7 +163,7 @@ defmodule ServicesWeb.Layouts do
   def main_header(assigns) do
     ~H"""
     <header class="shadow-lg flex items-center justify-evenly sticky top-0 bg-white dark:bg-gray-900 z-50">
-      <nav class="bg-white shadow-md sticky top-0 z-50 w-full">
+      <nav class="shadow-md sticky top-0 z-50 w-full drak:text-white">
         <div class="mx-auto px-2 sm:px-4 lg:px-6">
           <div class="flex justify-between items-center h-16">
             <div class="flex items-center">
