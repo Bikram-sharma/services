@@ -53,18 +53,22 @@ defmodule Services.Accounts do
   # end
 
   def get_user_by_email_and_password(email, password)
-      when is_binary(email) and is_binary(password) do
-    case Repo.get_by(User, email: email) do
-      %User{deactivated_at: nil} = user ->
-        if User.valid_password?(user, password), do: user
+    when is_binary(email) and is_binary(password) do
+  case Repo.get_by(User, email: email) do
+    %User{deactivated_at: nil} = user ->
+      if User.valid_password?(user, password), do: user
 
-      %User{deactivated_at: _} ->
+    %User{deactivated_at: _} = user ->
+      if User.valid_password?(user, password) do
+        {:error, :deactivated, user}
+      else
         nil
+      end
 
-      nil ->
-        nil
-    end
+    nil ->
+      nil
   end
+end
 
   @doc """
   Gets a single user.

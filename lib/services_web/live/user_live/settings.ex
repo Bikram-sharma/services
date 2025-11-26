@@ -69,7 +69,9 @@ defmodule ServicesWeb.UserLive.Settings do
         <p class="text-sm font-semibold">
           Click the button below to <span class="text-lg text-red-700">deactivate</span> your account;
         </p>
-        <.form for={%{}} action={~p"/users/deactivate"} method="delete">
+        <.form for={%{}} action={~p"/users/deactivate"} method="delete"
+        data-confirm={"Are you sure you want to deactivate you account?"}
+        >
           <.button type="submit">
             Deactivate Account
           </.button>

@@ -350,7 +350,9 @@ defmodule ServicesWeb.CoreComponents do
     attr :label, :string
   end
 
-  slot :action, doc: "the slot for showing user actions in the last table column"
+  slot :action, doc: "the slot for showing user actions in the last table column" do
+    attr :label, :string
+  end
 
   def table(assigns) do
     assigns =
@@ -363,9 +365,7 @@ defmodule ServicesWeb.CoreComponents do
       <thead class="dark:bg-gray-300 bg-[#121e30] dark:text-[#121e30] text-white">
         <tr>
           <th :for={col <- @col}>{col[:label]}</th>
-          <th :if={@action != []}>
-            <span class="sr-only">{gettext("Actions")}</span>
-          </th>
+          <th :for={action <- @action}>{action[:label]}</th>
         </tr>
       </thead>
       <tbody id={@id} phx-update={is_struct(@rows, Phoenix.LiveView.LiveStream) && "stream"}>
@@ -377,12 +377,11 @@ defmodule ServicesWeb.CoreComponents do
           >
             {render_slot(col, @row_item.(row))}
           </td>
-          <td :if={@action != []} class="w-0 font-semibold">
-            <div class="flex gap-4">
-              <%= for action <- @action do %>
+          <td :for={action <- @action}
+              phx-click={@row_click && @row_click.(row)}
+              class={@row_click && "hover:cursor-pointer"}
+          >
                 {render_slot(action, @row_item.(row))}
-              <% end %>
-            </div>
           </td>
         </tr>
       </tbody>
