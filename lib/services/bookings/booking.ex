@@ -38,7 +38,13 @@ defmodule Services.Bookings.Booking do
       :cancelled_at,
       :cancelled_by,
       :actual_total_price,
-      :user_address
+      :initiated_at,
+      :user_address,
+      :booking_status,
+      :contact,
+      :payment_status,
+      :delivered_at,
+      :accepted_at
     ])
     |> validate_required([
       :schedule_date_time,
