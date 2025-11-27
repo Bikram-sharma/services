@@ -1,43 +1,43 @@
-<section class="max-w-[80%] mx-auto py-12 bg-gray-50 p-6 mt-10 mb-10">
-  <h2 class="text-3xl font-extrabold text-gray-900 mb-8 pb-2">
+<section class="max-w-[80%] mx-auto py-12 bg-gray-50 dark:bg-gray-900 p-6 mt-10 mb-10">
+  <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 pb-2">
     Book Your Service
   </h2>
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
-    <div class="h-fit p-6 bg-white border border-gray-200 rounded-lg shadow-lg space-y-5">
-      <h3 class="text-xl font-bold text-indigo-700 border-b pb-3 mb-4">
+    <div class="h-fit p-6 bg-white dark:bg-gray-800  border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg space-y-5">
+      <h3 class="text-xl font-bold text-indigo-700 dark:text-indigo-400 border-b border-gray-200 dark:border-gray-700 pb-3 mb-4">
         Service Provider Details
       </h3>
 
       <div class="space-y-3">
-        <p class="text-lg font-semibold text-gray-800">
+        <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">
           Service:
-          <span class="font-normal text-gray-600">{@provider_service.services.name}</span>
+          <span class="font-normal text-gray-600 dark:text-gray-400">{@provider_service.services.name}</span>
         </p>
-        <p class="text-lg font-semibold text-gray-800">
+        <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">
           Description:
-          <span class="font-normal text-gray-600">{@provider_service.services.description}</span>
+          <span class="font-normal text-gray-600 dark:text-gray-400">{@provider_service.services.description}</span>
         </p>
-        <p class="text-lg font-semibold text-gray-800">
+        <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">
           Category:
-          <span class="font-normal text-gray-600">
+          <span class="font-normal text-gray-600 dark:text-gray-400">
             {@provider_service.services.category.name}
           </span>
         </p>
       </div>
 
-      <div class="pt-4 border-t mt-4 space-y-3">
-        <p class="text-lg font-semibold text-gray-800">
+      <div class="pt-4 border-t border-gray-200 dark:border-gray-700 mt-4 space-y-3">
+        <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">
           Provider:
-          <span class="font-normal text-gray-600">
+          <span class="font-normal text-gray-600 dark:text-gray-400">
             {@provider_service.service_providers.users.username}
           </span>
         </p>
-        <p class="text-lg font-semibold text-gray-800">
+        <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">
           Bio:
-          <span class="font-normal text-gray-600">{@provider_service.service_providers.bio}</span>
+          <span class="font-normal text-gray-600 dark:text-gray-400">{@provider_service.service_providers.bio}</span>
         </p>
-        <p class="text-xl font-bold text-green-600">
+        <p class="text-xl font-bold text-green-600 dark:text-green-400">
           Rate: Nu.{@provider_service.custom_price} /-
         </p>
       </div>
@@ -47,22 +47,22 @@
       <div id="inner-carousel" class="flex transition-transform duration-900">
         <div class="w-full flex-shrink-0">
           <!-- ----------Booking Form Start---------- -->
-          <form class="p-6 bg-white border border-gray-200 rounded-lg space-y-6">
-            <h3 class="text-xl font-bold text-indigo-700 border-b pb-3 mb-4">
+          <form class="p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg space-y-6">
+            <h3 class="text-xl font-bold text-indigo-700 dark:text-indigo-400 border-b dark:border-700 pb-3 mb-4">
               Complete Booking Details
             </h3>
-            <p class="text-sm text-gray-500">
+            <p class="text-sm text-gray-500 dark:text-gray-400">
               Fill in your details below to proceed to the payment step.
             </p>
       
             <div class="flex flex-col space-y-1">
-              <label for="address" class="flex items-center text-sm font-medium text-gray-700">
+              <label for="address" class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
                   fill="currentColor"
-                  class="bi bi-pin-map mr-2 text-indigo-500"
+                  class="bi bi-pin-map mr-2 text-indigo-500 dark:text-indigo-400"
                   viewBox="0 0 16 16"
                 >
                   <path
@@ -81,19 +81,19 @@
                 id="address"
                 name="address"
                 placeholder="Enter service location"
-                class="focus:outline-none border border-gray-300 rounded-md py-2 px-4 text-md"
+                class="focus:outline-none border border-gray-300 dark:border-gray-600 rounded-md py-2 px-4 text-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
                 required
               />
             </div>
       
             <div class="flex flex-col space-y-1">
-              <label for="day" class="flex items-center text-sm font-medium text-gray-700">
+              <label for="day" class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
                   fill="currentColor"
-                  class="bi bi-calendar2-week mr-2 text-indigo-500"
+                  class="bi bi-calendar2-week mr-2 text-indigo-500 dark:text-indigo-400"
                   viewBox="0 0 16 16"
                 >
                   <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z" />
@@ -104,7 +104,7 @@
               <select
                 id="day"
                 name="day"
-                class="focus:outline-none border border-gray-300 rounded-md py-2 px-4 text-md"
+                class="focus:outline-none border border-gray-300 dark:border-gray-600 rounded-md py-2 px-4 text-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 required
               >
                 <option value="" disabled selected>Select a weekday</option>
@@ -120,13 +120,13 @@
       
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="flex flex-col space-y-1">
-                <label for="contact" class="flex items-center text-sm font-medium text-gray-700">
+                <label for="contact" class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
                     height="16"
                     fill="currentColor"
-                    class="bi bi-telephone-plus mr-2 text-indigo-500"
+                    class="bi bi-telephone-plus mr-2 text-indigo-500 dark:text-indigo-400"
                     viewBox="0 0 16 16"
                   >
                     <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
@@ -142,19 +142,19 @@
                   id="contact"
                   name="contact"
                   placeholder="e.g., 17xxxxxx"
-                  class="focus:outline-none border border-gray-300 rounded-md py-2 px-4 text-md"
+                  class="focus:outline-none border border-gray-300 dark:border-gray-600 rounded-md py-2 px-4 text-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
                   required
                 />
               </div>
       
               <div class="flex flex-col space-y-1">
-                <label for="email" class="flex items-center text-sm font-medium text-gray-700">
+                <label for="email" class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
                     height="16"
                     fill="currentColor"
-                    class="bi bi-envelope-at mr-2 text-indigo-500"
+                    class="bi bi-envelope-at mr-2 text-indigo-500 dark:text-indigo-400"
                     viewBox="0 0 16 16"
                   >
                     <path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2zm3.708 6.208L1 11.105V5.383zM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2z" />
@@ -167,16 +167,16 @@
                   id="email"
                   name="email"
                   placeholder="you@example.com"
-                  class="focus:outline-none border border-gray-300 rounded-md py-2 px-4 text-md"
+                  class="focus:outline-none border border-gray-300 dark:border-gray-600 rounded-md py-2 px-4 text-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
                   required
                 />
               </div>
             </div>
       
-            <div class="flex flex-col sm:flex-row items-center justify-between pt-4 border-t-2 border-dashed mt-6">
+            <div class="flex flex-col sm:flex-row items-center justify-between pt-4 border-t-2 border-dashed border-gray-300 dark:border-gray-600 mt-6">
               <button
                 type="submit"
-                class="w-full sm:w-auto flex items-center justify-center space-x-2 bg-[#121e30] text-white px-6 py-2 rounded-lg font-semibold text-lg transition-all duration-300 shadow-xl  hover:shadow-2xl transform hover:scale-105"
+                class="w-full sm:w-auto flex items-center justify-center space-x-2 bg-[#121e30] dark:bg-indigo-600 text-white px-6 py-2 rounded-lg font-semibold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 dark:hover:bg-indigo-500"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +191,7 @@
                 </svg>
                 Proceed
               </button>
-              <button type="button" id="next" class="flex items-center text-indigo-700">
+              <button type="button" id="next" class="flex items-center text-indigo-700 dark:text-indigo-400">
                 Next
               </button>
             </div>
@@ -200,65 +200,65 @@
         </div>
         <div class="w-full flex-shrink-0">
           <!-- ----------Payment Form Start--------- -->
-          <form action="" class="p-6 bg-white border border-gray-200 rounded-lg space-y-6">
-            <h3 class="text-xl font-bold text-indigo-700 border-b pb-3 mb-4">
+          <form action="" class="p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg space-y-6">
+            <h3 class="text-xl font-bold text-indigo-700 dark:text-indigo-400 border-b border-gray-200 dark:border-gray-700 pb-3 mb-4">
               Complete Payment Details
             </h3>
     
-            <label class="text-lg font-bold mb-2">Payment Method</label>
-            <div class="flex flex-col pl-4 mb-5">
+            <label class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">Payment Method</label>
+            <div class="flex flex-col pl-4 mb-5 text-gray-700 dark:text-gray-300">
               <label>
-                <input type="radio" name="method" checked> 
+                <input type="radio" name="method" checked class="text-indigo-600 dark:text-indigo-400"> 
                 Credit/Debit Card
               </label>
       
               <label>
-                <input type="radio" name="method"> 
+                <input type="radio" name="method" class="text-indigo-600 dark:text-indigo-400"> 
                 Mobile Banking
               </label>
       
               <label>
-                <input type="radio" name="method"> 
+                <input type="radio" name="method" class="text-indigo-600 dark:text-indigo-400"> 
                 Cash on Delivery
               </label>
             </div>
       
             <div class="grid flex flex-col space-y-6">
-              <label class="text-lg font-bold mb-2">Payment Details</label>
-              <label class="flex items-center space-x-2 text-md mb-2">
-                <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" class="fill-indigo-700 dark:fill-white"><path d="M200-246q54-53 125.5-83.5T480-360q83 0 154.5 30.5T760-246v-514H200v514Zm280-194q58 0 99-41t41-99q0-58-41-99t-99-41q-58 0-99 41t-41 99q0 58 41 99t99 41ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm69-80h422q-44-39-99.5-59.5T480-280q-56 0-112.5 20.5T269-200Zm211-320q-25 0-42.5-17.5T420-580q0-25 17.5-42.5T480-640q25 0 42.5 17.5T540-580q0 25-17.5 42.5T480-520Zm0 17Z"/></svg>
+              <label class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">Payment Details</label>
+              <label class="flex items-center space-x-2 text-md text-gray-700 dark:text-gray-300 mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" class="fill-indigo-700 dark:fill-indigo-400"><path d="M200-246q54-53 125.5-83.5T480-360q83 0 154.5 30.5T760-246v-514H200v514Zm280-194q58 0 99-41t41-99q0-58-41-99t-99-41q-58 0-99 41t-41 99q0 58 41 99t99 41ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm69-80h422q-44-39-99.5-59.5T480-280q-56 0-112.5 20.5T269-200Zm211-320q-25 0-42.5-17.5T420-580q0-25 17.5-42.5T480-640q25 0 42.5 17.5T540-580q0 25-17.5 42.5T480-520Zm0 17Z"/></svg>
                 Cardholder Name 
                 <span class="text-red-500">*</span>
               </label>
-              <input type="text" placeholder="Full Name" required class="focus:outline-none border border-gray-300 rounded-md py-2 px-4 text-md">
+              <input type="text" placeholder="Full Name" required class="focus:outline-none border border-gray-300 dark:border-gray-600 rounded-md py-2 px-4 text-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400">
       
-              <label class="flex items-center space-x-2 mb-2">
-                <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" class="fill-indigo-700 dark:fill-white"><path d="M880-720v480q0 33-23.5 56.5T800-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720Zm-720 80h640v-80H160v80Zm0 160v240h640v-240H160Zm0 240v-480 480Z"/>
+              <label class="flex items-center space-x-2 text-gray-700 dark:text-gray-300 mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" class="fill-indigo-700 dark:fill-indigo-400"><path d="M880-720v480q0 33-23.5 56.5T800-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720Zm-720 80h640v-80H160v80Zm0 160v240h640v-240H160Zm0 240v-480 480Z"/>
                 </svg> 
                 Card Number 
                 <span class="text-red-500">*</span>
               </label>
-              <input type="text" placeholder="xxxx xxxx xxxx xxxx" required class="focus:outline-none border border-gray-300 rounded-md py-2 px-4 text-md">
+              <input type="text" placeholder="xxxx xxxx xxxx xxxx" required class="focus:outline-none border border-gray-300 dark:border-gray-600 rounded-md py-2 px-4 text-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400">
             </div>
             
-            <div class="flex flex-col">
+            <div class="flex flex-col text-gray-700 dark:text-gray-300">
               <label>
-                <input type="checkbox" required> 
+                <input type="checkbox" required class="text-indigo-600 dark:text-indigo-400"> 
                 I agree to the Terms & Conditions <span class="text-red-500">*</span>
               </label>
               <label>
-                <input type="checkbox" required> I agree to the Cancellation & Refund Policy <span class="text-red-500">*</span>
+                <input type="checkbox" required class="text-indigo-600 dark:text-indigo-400"> I agree to the Cancellation & Refund Policy <span class="text-red-500">*</span>
               </label>
             </div>
         
-            <div class="flex flex-col sm:flex-row items-center justify-between pt-4 border-t-2 border-dashed mt-6">
+            <div class="flex flex-col sm:flex-row items-center justify-between pt-4 border-t-2 border-dashed border-gray-300 dark:border-gray-600 mt-6">
               <button
                 type="submit"
-                class="w-full sm:w-auto flex items-center justify-center space-x-2 bg-[#121e30] text-white px-6 py-2 rounded-lg font-semibold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                class="w-full sm:w-auto flex items-center justify-center space-x-2 bg-[#121e30] dark:bg-indigo-600 text-white px-6 py-2 rounded-lg font-semibold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 dark:hover:bg-indigo-500"
               >
                 Pay
               </button>
-              <button type="button" id="prev" class="flex items-center cursor-pointer text-indigo-700" data-carousel-prev>
+              <button type="button" id="prev" class="flex items-center cursor-pointer text-indigo-700 dark:text-indigo-400" data-carousel-prev>
                 Previous
               </button>
             </div>

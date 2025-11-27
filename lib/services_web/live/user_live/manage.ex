@@ -11,15 +11,15 @@ defmodule ServicesWeb.UserLive.Manage do
       <div class="flex items-center justify-evenly">
         <div class="px-8 py-2 place-items-center">
           <div class="py-2">
-            <p class="italic font-semibold">
+            <p class="italic font-semibold text-gray-700 dark:text-gray-300">
               “Access grants power, responsibility gives it purpose.”
             </p>
           </div>
-          <h1 class="text-2xl font-semibold text-gray-900 underline">User Management</h1>
-          <p class="mt-1 text-sm text-gray-500">
+          <h1 class="text-2xl font-semibold text-gray-900 underline text-gray-900 dark:text-white">User Management</h1>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
             Manage user accounts, roles, and permissions across the system.
           </p>
-          <p class="text-sm text-gray-500">
+          <p class="text-sm text-gray-500 dark:text-gray-400">
             Total Users: {length(@streams.users.inserts)}
           </p>
         </div>
@@ -32,11 +32,11 @@ defmodule ServicesWeb.UserLive.Manage do
     >
       <:col :let={{_id, user}} label="User">
         <div class="flex items-center gap-3">
-          <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white font-semibold">
+          <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white font-semibold dark:text-gray-100">
             {String.first(user.username) |> String.upcase()}
           </div>
           <div>
-            <div class="font-medium text-gray-900">
+            <div class="font-medium text-gray-900 dark:text-gray-100">
               {user.username}
               <%= if user.id == @current_scope.user.id do %>
                 <span class="ml-2 inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
@@ -45,7 +45,7 @@ defmodule ServicesWeb.UserLive.Manage do
               <% end %>
             </div>
             <%= if user.email do %>
-              <div class="text-sm text-gray-500">{user.email}</div>
+              <div class="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
             <% end %>
           </div>
         </div>
@@ -54,7 +54,7 @@ defmodule ServicesWeb.UserLive.Manage do
       <:col :let={{_id, user}} label="Edit">
         <.link
           navigate={~p"/manage/#{user.id}/edit"}
-          class="inline-flex items-center gap-1.5 rounded-md pr-2.5 py-1.5 text-sm font-medium text-blue-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+          class="inline-flex items-center gap-1.5 rounded-md pr-2.5 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -80,13 +80,13 @@ defmodule ServicesWeb.UserLive.Manage do
       <:col :let={{_id, user}} label="Status">
         <%= if is_nil(user.deactivated_at) do %>
           <span class="inline-flex items-center gap-1.5">
-            <span class="h-2 w-2 rounded-full bg-green-500"></span>
-            <span class="text-sm text-gray-600">Active</span>
+            <span class="h-2 w-2 rounded-full bg-green-500 dark:bg-green-400"></span>
+            <span class="text-sm text-gray-600 dark:text-gray-300 ">Active</span>
           </span>
         <% else %>
           <span class="inline-flex items-center gap-1.5">
-            <span class="h-2 w-2 rounded-full bg-gray-400"></span>
-            <span class="text-sm text-gray-600">Inactive</span>
+            <span class="h-2 w-2 rounded-full bg-green-500 dark:bg-green-400"></span>
+            <span class="text-sm text-gray-600 dark:text-gray-300">Inactive</span>
           </span>
         <% end %>
       </:col>
@@ -105,7 +105,7 @@ defmodule ServicesWeb.UserLive.Manage do
               name="role"
               value={user.role}
               options={@roles}
-              class="text-sm"
+              class="text-sm bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
               disabled={@changing_role == user.id}
               phx-hook="ConfirmRoleChange"
               id={"role-select-#{user.id}"}
@@ -113,7 +113,7 @@ defmodule ServicesWeb.UserLive.Manage do
             />
 
             <%= if @changing_role == user.id do %>
-              <div class="mt-1 flex items-center gap-1 text-xs text-gray-500">
+              <div class="mt-1 flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
                 <svg
                   class="h-3 w-3 animate-spin"
                   xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +142,7 @@ defmodule ServicesWeb.UserLive.Manage do
           </.form>
         <% else %>
             <%= if @current_scope.user.role != "super_admin" do %>
-              <span class="text-sm text-gray-400">No permission</span>
+              <span class="text-sm text-gray-400 dark:text-gray-500">No permission</span>
             <% end %>
 
         <% end %>
@@ -153,7 +153,7 @@ defmodule ServicesWeb.UserLive.Manage do
           <.link
             phx-click={JS.push("deactivate", value: %{id: user.id})}
             data-confirm={"Are you sure you want to deactivate #{user.username}?"}
-            class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium text-orange-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"
+            class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/30 hover:text-orange-700 dark:hover:text-orange-300 transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
