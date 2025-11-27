@@ -1,10 +1,10 @@
-<section class="max-w-[80%] mx-auto py-12 bg-gray-50 dark:bg-gray-900 p-6 mt-10 mb-10">
-  <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 pb-2">
+<section class="max-w-[80%] mx-auto py-12  p-6 mb-10 p-20">
+  <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 pb-2 text-center">
     Book Your Service
   </h2>
 
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
-    <div class="h-fit p-6 bg-white dark:bg-gray-800  border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg space-y-5">
+  <div class="grid grid-cols-1 lg:grid-cols-2 px-10">
+    <div class="h-full p-6 bg-white dark:bg-gray-800  border border-gray-200 dark:border-gray-700 rounded-l-lg space-y-5">
       <h3 class="text-xl font-bold text-indigo-700 dark:text-indigo-400 border-b border-gray-200 dark:border-gray-700 pb-3 mb-4">
         Service Provider Details
       </h3>
@@ -47,8 +47,8 @@
       <div id="inner-carousel" class="flex transition-transform duration-900">
         <div class="w-full flex-shrink-0">
           <!-- ----------Booking Form Start---------- -->
-          <form class="p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg space-y-6">
-            <h3 class="text-xl font-bold text-indigo-700 dark:text-indigo-400 border-b dark:border-700 pb-3 mb-4">
+          <form class="h-full dark:text-indigo-400 p-6 bg-white dark:bg-gray-800  border border-gray-200 dark:border-gray-700 rounded-r-lg space-y-6 ">
+            <h3 class="text-xl font-bold text-indigo-700 dark:text-indigo-400 border-b border-gray-200 dark:border-gray-700 pb-3 mb-4">
               Complete Booking Details
             </h3>
             <p class="text-sm text-gray-500 dark:text-gray-400">
@@ -200,7 +200,7 @@
         </div>
         <div class="w-full flex-shrink-0">
           <!-- ----------Payment Form Start--------- -->
-          <form action="" class="p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg space-y-6">
+          <form action="" class="p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-r-lg space-y-6">
             <h3 class="text-xl font-bold text-indigo-700 dark:text-indigo-400 border-b border-gray-200 dark:border-gray-700 pb-3 mb-4">
               Complete Payment Details
             </h3>
@@ -252,15 +252,16 @@
             </div>
         
             <div class="flex flex-col sm:flex-row items-center justify-between pt-4 border-t-2 border-dashed border-gray-300 dark:border-gray-600 mt-6">
+             <button type="button" id="prev" class="flex items-center cursor-pointer text-indigo-700 dark:text-indigo-400" data-carousel-prev>
+                Previous
+              </button>
               <button
                 type="submit"
                 class="w-full sm:w-auto flex items-center justify-center space-x-2 bg-[#121e30] dark:bg-indigo-600 text-white px-6 py-2 rounded-lg font-semibold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 dark:hover:bg-indigo-500"
               >
                 Pay
               </button>
-              <button type="button" id="prev" class="flex items-center cursor-pointer text-indigo-700 dark:text-indigo-400" data-carousel-prev>
-                Previous
-              </button>
+             
             </div>
           </form>
           <!-- ----------Payment Form End---------- -->
