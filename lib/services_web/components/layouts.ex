@@ -183,7 +183,7 @@ defmodule ServicesWeb.Layouts do
                     />
                   </svg>
                 </div>
-                <span class="text-xl font-bold text-gray-900">ServiceHub</span>
+                <span class="text-xl font-bold text-gray-900 dark:text-white">ServiceHub</span>
               </a>
             </div>
 
