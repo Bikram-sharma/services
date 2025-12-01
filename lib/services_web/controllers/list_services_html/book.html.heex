@@ -1,10 +1,12 @@
 <section class="max-w-[80%] mx-auto py-12  p-6 mb-10 p-20">
-  <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 pb-2 text-center">
-    Book Your Service
-  </h2>
+  <div class="w-1/4 relative mx-auto">
+    <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 pb-2 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:bg-[#121e30]">
+      Book Your Service
+    </h2>
+  </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-2 px-10">
-    <div class="h-full p-6 bg-white dark:bg-gray-800  border border-gray-200 dark:border-gray-700 rounded-l-lg space-y-5">
+  <div class="grid grid-cols-1 lg:grid-cols-2 space-x-10 px-10">
+    <div class="h-fit p-6 bg-white dark:bg-gray-800  border border-gray-200 dark:border-gray-700 rounded-l-lg space-y-5">
       <h3 class="text-xl font-bold text-indigo-700 dark:text-indigo-400 border-b border-gray-200 dark:border-gray-700 pb-3 mb-4">
         Service Provider Details
       </h3>
@@ -43,11 +45,11 @@
       </div>
     </div>
     
-    <div id="carousel-container" class="overflow-hidden w-full">
+    <div class="overflow-hidden w-full">
       <div id="inner-carousel" class="flex transition-transform duration-900">
         <div class="w-full flex-shrink-0">
           <!-- ----------Booking Form Start---------- -->
-          <form class="h-full dark:text-indigo-400 p-6 bg-white dark:bg-gray-800  border border-gray-200 dark:border-gray-700 rounded-r-lg space-y-6 ">
+          <form class=" dark:text-indigo-400 p-6 bg-white dark:bg-gray-800  border border-gray-200 dark:border-gray-700 rounded-r-lg space-y-6 ">
             <h3 class="text-xl font-bold text-indigo-700 dark:text-indigo-400 border-b border-gray-200 dark:border-gray-700 pb-3 mb-4">
               Complete Booking Details
             </h3>
@@ -191,13 +193,66 @@
                 </svg>
                 Proceed
               </button>
-              <button type="button" id="next" class="flex items-center text-indigo-700 dark:text-indigo-400">
+              <button type="button" class="flex items-center text-indigo-700 dark:text-indigo-400" data-carousel-next>
                 Next
               </button>
             </div>
           </form>
           <!-- ----------Booking Form End---------- -->
         </div>
+        
+        <div class="w-full flex-shrink-0">
+          <div class="bg-white dark:bg-gray-800 dark:text-indigo-400 border border-gray-200 dark:border-gray-700 rounded-r-lg space-y-4 overflow-y-auto p-4">
+            <div>
+              <h2 class="font-bold">Terms & Conditions</h2>
+              <ul class="list-disc list-outside pl-6">
+                <li>The service provider agrees to deliver the service as described.</li>
+                <li>The client agrees to provide accurate information and access to the service location.</li>
+                <li>Both parties must follow platform policies regarding safety, behavior, and professionalism.</li>
+                <li>Any additional work not listed in the service description may incur extra charges.</li>
+                <li>The service provider is responsible for bringing necessary tools and materials unless otherwise stated.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h2 class="font-bold">Rescheduling & Cancellation</h2>
+              <ul class="list-disc list-outside pl-6">
+                <li>Client may reschedule the booking within X hours without any charge.</li>
+                <li>Cancellation by the client after confirmation may result in partial or full cancellation fees.</li>
+                <li>If the provider cancels, the client will receive a full refund, and an alternative provider may be suggested.
+                </li>
+              </ul>
+            </div>
+            
+            <div>
+              <h2 class="font-bold">Liability & Responsibilities</h2>
+              <ul class="list-disc list-outside pl-6">
+                <li>The platform acts as a mediator and is not directly responsible for service quality.</li>
+                <li>The provider is liable for damages caused due to negligence or improper work.</li>
+                <li>The client must ensure safety and provide a hazard-free environment for the provider.</li>
+                <li>The platform is not responsible for loss, theft, or damage to personal belongings.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h2 class="font-bold">Privacy & Data Protection</h2>
+              <ul class="list-disc list-outside pl-6">
+                <li>Information collected will only be used for booking and service purposes.</li>
+                <li>Personal data will not be shared with third parties except as required to deliver the service.</li>
+              </ul>
+            </div>
+
+            <div class="flex items-center justify-between border-t-2 border-dashed border-gray-300 dark:border-gray-600 mt-6 pt-4">
+              <button type="button" class="flex items-center text-indigo-700 dark:text-indigo-400" data-carousel-prev>
+                Previous
+              </button>
+              <button type="button" class="flex items-center cursor-pointer text-indigo-700 dark:text-indigo-400" data-carousel-next>
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div class="w-full flex-shrink-0">
           <!-- ----------Payment Form Start--------- -->
           <form action="" class="p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-r-lg space-y-6">
@@ -252,7 +307,7 @@
             </div>
         
             <div class="flex flex-col sm:flex-row items-center justify-between pt-4 border-t-2 border-dashed border-gray-300 dark:border-gray-600 mt-6">
-             <button type="button" id="prev" class="flex items-center cursor-pointer text-indigo-700 dark:text-indigo-400" data-carousel-prev>
+              <button type="button" class="flex items-center cursor-pointer text-indigo-700 dark:text-indigo-400" data-carousel-prev>
                 Previous
               </button>
               <button
@@ -270,27 +325,3 @@
     </div>
   </div>
 </section>
-
-<script>
-  let carousel = document.getElementById("inner-carousel");
-  let slices = carousel.children;
-  let index = 0;
-
-  function updateSlide() {
-    let width = slices[0].clientWidth; 
-    carousel.style.transform = `translateX(-${index * width}px)`;
-  }
-
-  document.getElementById("next").onclick = () => {
-    index++;
-    if (index >= slices.length) index = 0; 
-    updateSlide();
-  }
-
-  document.getElementById("prev").onclick = () => {
-    index--;
-    if (index < 0) index = slices.length - 1; 
-    updateSlide();
-}
-
-</script>

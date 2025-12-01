@@ -24,6 +24,8 @@ import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
 import { hooks as colocatedHooks } from "phoenix-colocated/services";
 import topbar from "../vendor/topbar";
+import { Carousel } from "./custom_js/carousel"
+import { Sidebar } from "./custom_js/sidebar";
 
 let Hooks = {};
 
@@ -117,3 +119,8 @@ if (process.env.NODE_ENV === "development") {
     }
   );
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+  Carousel();
+  Sidebar();
+});
