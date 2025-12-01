@@ -32,6 +32,7 @@ defmodule ServicesWeb.ProvidersServiceLive.Form do
           label="service"
           options={@services}
         />
+        <.input field={@form[:descriptions]} type="textarea" label="Service Descriptions/Details" rows="10"/>
         <.input field={@form[:custom_price]} type="number" label="Custom price" step="any" />
         <.input field={@form[:is_available]} type="checkbox" checked label="Is available" />
 
