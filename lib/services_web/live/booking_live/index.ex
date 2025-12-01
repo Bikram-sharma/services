@@ -6,43 +6,62 @@ defmodule ServicesWeb.BookingLive.Index do
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} current_scope={@current_scope}>
+    <div class="py-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 min-h-[60vh]">
       <.header>
-        Listing Bookings
+        Your Bookings
         <:actions>
           <.button variant="dark-blue-gray" navigate={~p"/bookings/new"}>
             <.icon name="hero-plus" /> New Booking
           </.button>
         </:actions>
       </.header>
-
-      <.table
-        id="bookings"
-        rows={@streams.bookings}
-        row_click={fn {_id, booking} -> JS.navigate(~p"/bookings/#{booking}") end}
-      >
-        <:col :let={{_id, booking}} label="Schedule date time">{booking.schedule_date_time}</:col>
-        <:col :let={{_id, booking}} label="Booked at">{booking.booked_at}</:col>
-        <:col :let={{_id, booking}} label="Cancelled at">{booking.cancelled_at}</:col>
-        <:col :let={{_id, booking}} label="Cancelled by">{booking.cancelled_by}</:col>
-        <:col :let={{_id, booking}} label="Actual total price">{booking.actual_total_price}</:col>
-        <:col :let={{_id, booking}} label="User address">{booking.user_address}</:col>
-        <:action :let={{_id, booking}}>
-          <div class="sr-only">
-            <.link navigate={~p"/bookings/#{booking}"}>Show</.link>
-          </div>
-          <.link navigate={~p"/bookings/#{booking}/edit"}>Edit</.link>
-        </:action>
-        <:action :let={{id, booking}}>
-          <.link
-            phx-click={JS.push("delete", value: %{id: booking.id}) |> hide("##{id}")}
-            data-confirm="Are you sure?"
-          >
-            Delete
-          </.link>
-        </:action>
-      </.table>
-    </Layouts.app>
+      <%= if length(@streams.bookings.inserts) != 0 do %>
+        <.table
+          id="bookings"
+          rows={@streams.bookings}
+          row_click={fn {_id, booking} -> JS.navigate(~p"/bookings/#{booking}") end}
+        >
+          <:col :let={{_id, booking}} label="Service">
+            <%=(booking.providers_service && booking.providers_service.services.name) || "undefined"%>
+          </:col>
+          <:col :let={{_id, booking}} label="Provider">
+            <%=(booking.providers_service && booking.providers_service.service_providers.users.username) ||
+              "undefined"%>
+          </:col>
+          <:col :let={{_id, booking}} label="Cost">
+           <%=(booking.providers_service && booking.providers_service.custom_price) || "undefined"%>
+          </:col>
+          <:col :let={{_id, _booking}} label="Status">"Initiated"</:col>
+          <:action :let={{_id, booking}} label="Review"> <%=booking.user_address%></:action>
+          <:action :let={{_id, booking}} label="Cancel"> <%=booking.actual_total_price%></:action>
+          <:action :let={{_id, booking}}>
+            <div class="sr-only">
+              <.link navigate={~p"/bookings/#{booking}"}>Show</.link>
+            </div>
+            <.link navigate={~p"/bookings/#{booking}/edit"}>Edit</.link>
+          </:action>
+          <:action :let={{id, booking}} label="Cancel">
+            <.link
+              phx-click={JS.push("delete", value: %{id: booking.id}) |> hide("##{id}")}
+              data-confirm="Are you sure?"
+              class="text-red-600 hover:underline"
+            >
+              Cancel
+            </.link>
+          </:action>
+        </.table>
+      <% else %>
+        <div class="flex flex-col items-center justify-center py-16 text-gray-600">
+          <.icon name="hero-calendar" class="w-12 h-12 text-gray-400" />
+          <p class="text-lg font-medium">No bookings found.</p>
+          <p class="mt-2">
+            <.link navigate={~p"/bookings/new"} class="text-blue-600 underline font-semibold">
+              Create your first booking?
+            </.link>
+          </p>
+        </div>
+      <% end %>
+    </div>
     """
   end
 
@@ -78,5 +97,6 @@ defmodule ServicesWeb.BookingLive.Index do
 
   defp list_bookings(current_scope) do
     Bookings.list_bookings(current_scope)
+
   end
 end
