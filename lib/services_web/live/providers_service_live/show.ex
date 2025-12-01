@@ -24,6 +24,7 @@ defmodule ServicesWeb.ProvidersServiceLive.Show do
       </.header>
 
       <.list>
+        <:item title="Service Descriptions">{@providers_service.descriptions}</:item>
         <:item title="Custom price">{@providers_service.custom_price}</:item>
         <:item title="Is available">{@providers_service.is_available}</:item>
       </.list>

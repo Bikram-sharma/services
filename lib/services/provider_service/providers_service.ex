@@ -5,6 +5,7 @@ defmodule Services.ProviderService.ProvidersService do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "providers_service" do
+    field :descriptions, :string
     field :custom_price, :decimal
     field :is_available, :boolean, default: false
 
@@ -22,7 +23,7 @@ defmodule Services.ProviderService.ProvidersService do
   @doc false
   def changeset(providers_service, attrs) do
     providers_service
-    |> cast(attrs, [:custom_price, :is_available, :service_provider_id, :service_id])
+    |> cast(attrs, [:descriptions, :custom_price, :is_available, :service_provider_id, :service_id])
     |> validate_required([:custom_price, :is_available])
   end
 end

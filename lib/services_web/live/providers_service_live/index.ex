@@ -23,7 +23,12 @@ defmodule ServicesWeb.ProvidersServiceLive.Index do
           fn {_id, providers_service} -> JS.navigate(~p"/providers_service/#{providers_service}") end
         }
       >
-        <:col :let={{_id, providers_service}} label="Service">{providers_service.services.name}</:col>
+        <:col :let={{_id, providers_service}} label="Service">
+          {providers_service.services.name}
+        </:col>
+        <:col :let={{_id, providers_service}} label="Service Descriptions">
+          {providers_service.descriptions}
+        </:col>
         <:col :let={{_id, providers_service}} label="Custom price">
           {providers_service.custom_price}
         </:col>
