@@ -84,6 +84,18 @@ defmodule Services.Bookings do
     end
   end
 
+  def book_service(%Scope{} = scope, %Booking{} = booking, attrs) do
+    true = booking.user_id == scope.user.id
+
+    with {:ok, booking = %Booking{}} <-
+      update_booking(scope, booking, attrs),
+      {:ok, _notification} <-
+       Services.Notifications.create_special_notification(scope, attrs) do
+        {:ok, booking}
+      end
+
+  end
+
   @doc """
   Updates a booking.
 

@@ -44,14 +44,16 @@ defmodule Services.Bookings.Booking do
       :contact,
       :payment_status,
       :delivered_at,
-      :accepted_at
+      :accepted_at,
+      :user_id,
+      :provider_service_id
     ])
     |> validate_required([
-      :schedule_date_time,
-      :booked_at,
-      :cancelled_at,
-      :cancelled_by,
+      :user_id,
+      :booking_status,
+      :provider_service_id,
       :actual_total_price,
+      :contact,
       :user_address
     ])
     |> put_change(:user_id, user_scope.user.id)

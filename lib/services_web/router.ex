@@ -6,6 +6,7 @@ defmodule ServicesWeb.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
+    plug :fetch_flash
     plug :fetch_live_flash
     plug :put_root_layout, html: {ServicesWeb.Layouts, :root}
     plug :protect_from_forgery
@@ -24,7 +25,7 @@ defmodule ServicesWeb.Router do
     get "/", PageController, :home
 
     get "/services", DashController, :list_services
-    get "/services/:id/book", DashController, :book
+    # get "/services/:id/book", DashController, :book
   end
 
   # Other scopes may use custom stacks.
@@ -55,7 +56,7 @@ defmodule ServicesWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_user,
-      on_mount: [{ServicesWeb.UserAuth, :require_authenticated}] do
+    on_mount: [{ServicesWeb.UserAuth, :require_authenticated}] do
       live "/users/settings", UserLive.Settings, :edit
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
 
@@ -72,7 +73,7 @@ defmodule ServicesWeb.Router do
       live "/bookings", BookingLive.Index, :index
       live "/bookings/new", BookingLive.Form, :new
       live "/bookings/:id", BookingLive.Show, :show
-      live "/bookings/:id/edit", BookingLive.Form, :edit
+      live "/services/:id/book", BookingLive.Form, :form
     end
 
     post "/users/update-password", UserSessionController, :update_password

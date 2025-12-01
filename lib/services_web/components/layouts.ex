@@ -62,10 +62,9 @@ defmodule ServicesWeb.Layouts do
       </div> --%>
     </header>
 
-    <main class="px-4 py-20 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl space-y-4">
+    <main >
+
         {render_slot(@inner_block)}
-      </div>
     </main>
 
     <.flash_group flash={@flash} />
@@ -195,6 +194,7 @@ defmodule ServicesWeb.Layouts do
                 Contact
               </.link>
             </div>
+
 
             <div class="flex items-center space-x-8">
               <ul class="hidden md:flex items-center space-x-8">
