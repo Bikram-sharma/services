@@ -194,6 +194,11 @@ defmodule ServicesWeb.Layouts do
               <.link navigate="/#contact-info" class={nav_link_class(@conn, "/#contact-info")}>
                 Contact
               </.link>
+              <%= if @current_scope do %>
+              <.link navigate={~p"/bookings"} class={nav_link_class(@conn, ~p"/bookings")}>
+                Your Bookings
+              </.link>
+              <% end %>
             </div>
 
             <div class="flex items-center space-x-8">
