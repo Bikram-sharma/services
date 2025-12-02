@@ -62,8 +62,10 @@ defmodule ServicesWeb.Layouts do
       </div> --%>
     </header>
 
-    <main>
-      {render_slot(@inner_block)}
+    <main class="px-4 py-20 sm:px-6 lg:px-20">
+      <div class="mx-auto space-y-4">
+        {render_slot(@inner_block)}
+      </div>
     </main>
 
     <.flash_group flash={@flash} />
