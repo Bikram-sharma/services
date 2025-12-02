@@ -9,7 +9,16 @@ defmodule Services.Notifications.SpecialNotification do
     field :archive, :boolean, default: false
     field :read, :boolean, default: false
     field :booking_id, :binary_id
-    field :user_id, :binary_id
+
+
+    belongs_to :to_user, Services.Accounts.User,
+    foreign_key: :to_id,
+    type: :binary_id
+
+    belongs_to :from_user, Services.Accounts.User,
+    foreign_key: :user_id,
+    type: :binary_id
+
 
     timestamps(type: :utc_datetime)
   end
@@ -17,8 +26,8 @@ defmodule Services.Notifications.SpecialNotification do
   @doc false
   def changeset(special_notification, attrs, user_scope) do
     special_notification
-    |> cast(attrs, [:description, :archive, :read, :booking_id])
-    |> validate_required([:description, :archive, :read])
+    |> cast(attrs, [:description, :archive, :read, :to_id])
+    |> validate_required([:description, :archive, :read, :to_id])
     |> put_change(:user_id, user_scope.user.id)
   end
 end
