@@ -19,7 +19,10 @@ defmodule ServicesWeb.SpecialNotificationLiveTest do
   describe "Index" do
     setup [:create_special_notification]
 
-    test "lists all special_notifications", %{conn: conn, special_notification: special_notification} do
+    test "lists all special_notifications", %{
+      conn: conn,
+      special_notification: special_notification
+    } do
       {:ok, _index_live, html} = live(conn, ~p"/special_notifications")
 
       assert html =~ "Listing Special notifications"
@@ -52,7 +55,10 @@ defmodule ServicesWeb.SpecialNotificationLiveTest do
       assert html =~ "some description"
     end
 
-    test "updates special_notification in listing", %{conn: conn, special_notification: special_notification} do
+    test "updates special_notification in listing", %{
+      conn: conn,
+      special_notification: special_notification
+    } do
       {:ok, index_live, _html} = live(conn, ~p"/special_notifications")
 
       assert {:ok, form_live, _html} =
@@ -78,10 +84,16 @@ defmodule ServicesWeb.SpecialNotificationLiveTest do
       assert html =~ "some updated description"
     end
 
-    test "deletes special_notification in listing", %{conn: conn, special_notification: special_notification} do
+    test "deletes special_notification in listing", %{
+      conn: conn,
+      special_notification: special_notification
+    } do
       {:ok, index_live, _html} = live(conn, ~p"/special_notifications")
 
-      assert index_live |> element("#special_notifications-#{special_notification.id} a", "Delete") |> render_click()
+      assert index_live
+             |> element("#special_notifications-#{special_notification.id} a", "Delete")
+             |> render_click()
+
       refute has_element?(index_live, "#special_notifications-#{special_notification.id}")
     end
   end
@@ -89,21 +101,30 @@ defmodule ServicesWeb.SpecialNotificationLiveTest do
   describe "Show" do
     setup [:create_special_notification]
 
-    test "displays special_notification", %{conn: conn, special_notification: special_notification} do
+    test "displays special_notification", %{
+      conn: conn,
+      special_notification: special_notification
+    } do
       {:ok, _show_live, html} = live(conn, ~p"/special_notifications/#{special_notification}")
 
       assert html =~ "Show Special notification"
       assert html =~ special_notification.description
     end
 
-    test "updates special_notification and returns to show", %{conn: conn, special_notification: special_notification} do
+    test "updates special_notification and returns to show", %{
+      conn: conn,
+      special_notification: special_notification
+    } do
       {:ok, show_live, _html} = live(conn, ~p"/special_notifications/#{special_notification}")
 
       assert {:ok, form_live, _} =
                show_live
                |> element("a", "Edit")
                |> render_click()
-               |> follow_redirect(conn, ~p"/special_notifications/#{special_notification}/edit?return_to=show")
+               |> follow_redirect(
+                 conn,
+                 ~p"/special_notifications/#{special_notification}/edit?return_to=show"
+               )
 
       assert render(form_live) =~ "Edit Special notification"
 

@@ -14,11 +14,15 @@
       <div class="space-y-3">
         <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">
           Service:
-          <span class="font-normal text-gray-600 dark:text-gray-400">{@provider_service.services.name}</span>
+          <span class="font-normal text-gray-600 dark:text-gray-400">
+            {@provider_service.services.name}
+          </span>
         </p>
         <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">
           Description:
-          <span class="font-normal text-gray-600 dark:text-gray-400">{@provider_service.services.description}</span>
+          <span class="font-normal text-gray-600 dark:text-gray-400">
+            {@provider_service.services.description}
+          </span>
         </p>
         <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">
           Category:
@@ -37,14 +41,16 @@
         </p>
         <p class="text-lg font-semibold text-gray-800 dark:text-gray-200">
           Bio:
-          <span class="font-normal text-gray-600 dark:text-gray-400">{@provider_service.service_providers.bio}</span>
+          <span class="font-normal text-gray-600 dark:text-gray-400">
+            {@provider_service.service_providers.bio}
+          </span>
         </p>
         <p class="text-xl font-bold text-green-600 dark:text-green-400">
           Rate: Nu.{@provider_service.custom_price} /-
         </p>
       </div>
     </div>
-    
+
     <div class="overflow-hidden w-full">
       <div id="inner-carousel" class="flex transition-transform duration-900">
         <div class="w-full flex-shrink-0">
@@ -56,9 +62,12 @@
             <p class="text-sm text-gray-500 dark:text-gray-400">
               Fill in your details below to proceed to the payment step.
             </p>
-      
+
             <div class="flex flex-col space-y-1">
-              <label for="address" class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label
+                for="address"
+                class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -87,9 +96,12 @@
                 required
               />
             </div>
-      
+
             <div class="flex flex-col space-y-1">
-              <label for="day" class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label
+                for="day"
+                class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -119,10 +131,13 @@
                 <option value="sunday">Sunday</option>
               </select>
             </div>
-      
+
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="flex flex-col space-y-1">
-                <label for="contact" class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  for="contact"
+                  class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -148,9 +163,12 @@
                   required
                 />
               </div>
-      
+
               <div class="flex flex-col space-y-1">
-                <label for="email" class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  for="email"
+                  class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -174,11 +192,12 @@
                 />
               </div>
             </div>
-      
+
             <div class="flex flex-col sm:flex-row items-center justify-between pt-4 border-t-2 border-dashed border-gray-300 dark:border-gray-600 mt-6">
               <button
                 type="submit"
                 class="w-full sm:w-auto flex items-center justify-center space-x-2 bg-[#121e30] dark:bg-indigo-600 text-white px-6 py-2 rounded-lg font-semibold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 dark:hover:bg-indigo-500"
+                data-carousel-next
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -193,121 +212,132 @@
                 </svg>
                 Proceed
               </button>
-              <button type="button" class="flex items-center text-indigo-700 dark:text-indigo-400" data-carousel-next>
+              <button
+                type="button"
+                class="flex items-center text-indigo-700 dark:text-indigo-400"
+                data-carousel-next
+              >
                 Next
               </button>
             </div>
           </form>
           <!-- ----------Booking Form End---------- -->
         </div>
-        
-        <div class="w-full flex-shrink-0">
-          <div class="bg-white dark:bg-gray-800 dark:text-indigo-400 border border-gray-200 dark:border-gray-700 rounded-r-lg space-y-4 overflow-y-auto p-4">
-            <div>
-              <h2 class="font-bold">Terms & Conditions</h2>
-              <ul class="list-disc list-outside pl-6">
-                <li>The service provider agrees to deliver the service as described.</li>
-                <li>The client agrees to provide accurate information and access to the service location.</li>
-                <li>Both parties must follow platform policies regarding safety, behavior, and professionalism.</li>
-                <li>Any additional work not listed in the service description may incur extra charges.</li>
-                <li>The service provider is responsible for bringing necessary tools and materials unless otherwise stated.</li>
-              </ul>
-            </div>
-
-            <div>
-              <h2 class="font-bold">Rescheduling & Cancellation</h2>
-              <ul class="list-disc list-outside pl-6">
-                <li>Client may reschedule the booking within X hours without any charge.</li>
-                <li>Cancellation by the client after confirmation may result in partial or full cancellation fees.</li>
-                <li>If the provider cancels, the client will receive a full refund, and an alternative provider may be suggested.
-                </li>
-              </ul>
-            </div>
-            
-            <div>
-              <h2 class="font-bold">Liability & Responsibilities</h2>
-              <ul class="list-disc list-outside pl-6">
-                <li>The platform acts as a mediator and is not directly responsible for service quality.</li>
-                <li>The provider is liable for damages caused due to negligence or improper work.</li>
-                <li>The client must ensure safety and provide a hazard-free environment for the provider.</li>
-                <li>The platform is not responsible for loss, theft, or damage to personal belongings.</li>
-              </ul>
-            </div>
-
-            <div>
-              <h2 class="font-bold">Privacy & Data Protection</h2>
-              <ul class="list-disc list-outside pl-6">
-                <li>Information collected will only be used for booking and service purposes.</li>
-                <li>Personal data will not be shared with third parties except as required to deliver the service.</li>
-              </ul>
-            </div>
-
-            <div class="flex items-center justify-between border-t-2 border-dashed border-gray-300 dark:border-gray-600 mt-6 pt-4">
-              <button type="button" class="flex items-center text-indigo-700 dark:text-indigo-400" data-carousel-prev>
-                Previous
-              </button>
-              <button type="button" class="flex items-center cursor-pointer text-indigo-700 dark:text-indigo-400" data-carousel-next>
-                Next
-              </button>
-            </div>
-          </div>
-        </div>
 
         <div class="w-full flex-shrink-0">
           <!-- ----------Payment Form Start--------- -->
-          <form action="" class="p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-r-lg space-y-6">
+          <form
+            action=""
+            class="p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-r-lg space-y-6"
+          >
             <h3 class="text-xl font-bold text-indigo-700 dark:text-indigo-400 border-b border-gray-200 dark:border-gray-700 pb-3 mb-4">
               Complete Payment Details
             </h3>
-    
-            <label class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">Payment Method</label>
+
+            <label class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">
+              Payment Method
+            </label>
             <div class="flex flex-col pl-4 mb-5 text-gray-700 dark:text-gray-300">
               <label>
-                <input type="radio" name="method" checked class="text-indigo-600 dark:text-indigo-400"> 
-                Credit/Debit Card
+                <input
+                  type="radio"
+                  name="method"
+                  checked
+                  class="text-indigo-600 dark:text-indigo-400"
+                /> Credit/Debit Card
               </label>
-      
+
               <label>
-                <input type="radio" name="method" class="text-indigo-600 dark:text-indigo-400"> 
+                <input type="radio" name="method" class="text-indigo-600 dark:text-indigo-400" />
                 Mobile Banking
               </label>
-      
+
               <label>
-                <input type="radio" name="method" class="text-indigo-600 dark:text-indigo-400"> 
+                <input type="radio" name="method" class="text-indigo-600 dark:text-indigo-400" />
                 Cash on Delivery
               </label>
             </div>
-      
+
             <div class="grid flex flex-col space-y-6">
-              <label class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">Payment Details</label>
+              <label class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">
+                Payment Details
+              </label>
               <label class="flex items-center space-x-2 text-md text-gray-700 dark:text-gray-300 mb-2">
-                <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" class="fill-indigo-700 dark:fill-indigo-400"><path d="M200-246q54-53 125.5-83.5T480-360q83 0 154.5 30.5T760-246v-514H200v514Zm280-194q58 0 99-41t41-99q0-58-41-99t-99-41q-58 0-99 41t-41 99q0 58 41 99t99 41ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm69-80h422q-44-39-99.5-59.5T480-280q-56 0-112.5 20.5T269-200Zm211-320q-25 0-42.5-17.5T420-580q0-25 17.5-42.5T480-640q25 0 42.5 17.5T540-580q0 25-17.5 42.5T480-520Zm0 17Z"/></svg>
-                Cardholder Name 
-                <span class="text-red-500">*</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="30px"
+                  viewBox="0 -960 960 960"
+                  width="30px"
+                  class="fill-indigo-700 dark:fill-indigo-400"
+                >
+                  <path d="M200-246q54-53 125.5-83.5T480-360q83 0 154.5 30.5T760-246v-514H200v514Zm280-194q58 0 99-41t41-99q0-58-41-99t-99-41q-58 0-99 41t-41 99q0 58 41 99t99 41ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm69-80h422q-44-39-99.5-59.5T480-280q-56 0-112.5 20.5T269-200Zm211-320q-25 0-42.5-17.5T420-580q0-25 17.5-42.5T480-640q25 0 42.5 17.5T540-580q0 25-17.5 42.5T480-520Zm0 17Z" />
+                </svg>
+                Cardholder Name <span class="text-red-500">*</span>
               </label>
-              <input type="text" placeholder="Full Name" required class="focus:outline-none border border-gray-300 dark:border-gray-600 rounded-md py-2 px-4 text-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400">
-      
+              <input
+                type="text"
+                placeholder="Full Name"
+                required
+                class="focus:outline-none border border-gray-300 dark:border-gray-600 rounded-md py-2 px-4 text-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
+              />
+
               <label class="flex items-center space-x-2 text-gray-700 dark:text-gray-300 mb-2">
-                <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" class="fill-indigo-700 dark:fill-indigo-400"><path d="M880-720v480q0 33-23.5 56.5T800-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720Zm-720 80h640v-80H160v80Zm0 160v240h640v-240H160Zm0 240v-480 480Z"/>
-                </svg> 
-                Card Number 
-                <span class="text-red-500">*</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="30px"
+                  viewBox="0 -960 960 960"
+                  width="30px"
+                  class="fill-indigo-700 dark:fill-indigo-400"
+                >
+                  <path d="M880-720v480q0 33-23.5 56.5T800-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720Zm-720 80h640v-80H160v80Zm0 160v240h640v-240H160Zm0 240v-480 480Z" />
+                </svg>
+                Card Number <span class="text-red-500">*</span>
               </label>
-              <input type="text" placeholder="xxxx xxxx xxxx xxxx" required class="focus:outline-none border border-gray-300 dark:border-gray-600 rounded-md py-2 px-4 text-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400">
+              <input
+                type="text"
+                placeholder="xxxx xxxx xxxx xxxx"
+                required
+                class="focus:outline-none border border-gray-300 dark:border-gray-600 rounded-md py-2 px-4 text-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
+              />
             </div>
-            
+            <!-- The button to open modal -->
+            <label
+              for="my_modal_6"
+              class="inline-flex text-sm text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 cursor-pointer underline decoration-dotted underline-offset-2"
+            >
+              Read terms and conditions
+              <svg
+                class="w-4 h-4 no-underline"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clip-rule="evenodd"
+                >
+                </path>
+              </svg>
+            </label>
+
             <div class="flex flex-col text-gray-700 dark:text-gray-300">
               <label>
-                <input type="checkbox" required class="text-indigo-600 dark:text-indigo-400"> 
+                <input type="checkbox" required class="text-indigo-600 dark:text-indigo-400" />
                 I agree to the Terms & Conditions <span class="text-red-500">*</span>
               </label>
               <label>
-                <input type="checkbox" required class="text-indigo-600 dark:text-indigo-400"> I agree to the Cancellation & Refund Policy <span class="text-red-500">*</span>
+                <input type="checkbox" required class="text-indigo-600 dark:text-indigo-400" />
+                I agree to the Cancellation & Refund Policy <span class="text-red-500">*</span>
               </label>
             </div>
-        
+
             <div class="flex flex-col sm:flex-row items-center justify-between pt-4 border-t-2 border-dashed border-gray-300 dark:border-gray-600 mt-6">
-              <button type="button" class="flex items-center cursor-pointer text-indigo-700 dark:text-indigo-400" data-carousel-prev>
+              <button
+                type="button"
+                class="flex items-center cursor-pointer text-indigo-700 dark:text-indigo-400"
+                data-carousel-prev
+              >
                 Previous
               </button>
               <button
@@ -316,7 +346,6 @@
               >
                 Pay
               </button>
-             
             </div>
           </form>
           <!-- ----------Payment Form End---------- -->

@@ -9,7 +9,15 @@ defmodule Services.NotificationTest do
     import Services.AccountsFixtures, only: [user_scope_fixture: 0]
     import Services.NotificationFixtures
 
-    @invalid_attrs %{status: nil, read: nil, context: nil, title: nil, from: nil, archived: nil, favourite: nil}
+    @invalid_attrs %{
+      status: nil,
+      read: nil,
+      context: nil,
+      title: nil,
+      from: nil,
+      archived: nil,
+      favourite: nil
+    }
 
     test "list_notification/1 returns all scoped notification" do
       scope = user_scope_fixture()
@@ -25,14 +33,28 @@ defmodule Services.NotificationTest do
       notifications = notifications_fixture(scope)
       other_scope = user_scope_fixture()
       assert Notification.get_notifications!(scope, notifications.id) == notifications
-      assert_raise Ecto.NoResultsError, fn -> Notification.get_notifications!(other_scope, notifications.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Notification.get_notifications!(other_scope, notifications.id)
+      end
     end
 
     test "create_notifications/2 with valid data creates a notifications" do
-      valid_attrs = %{status: "some status", read: true, context: "some context", title: "some title", from: "some from", archived: true, favourite: true}
+      valid_attrs = %{
+        status: "some status",
+        read: true,
+        context: "some context",
+        title: "some title",
+        from: "some from",
+        archived: true,
+        favourite: true
+      }
+
       scope = user_scope_fixture()
 
-      assert {:ok, %Notifications{} = notifications} = Notification.create_notifications(scope, valid_attrs)
+      assert {:ok, %Notifications{} = notifications} =
+               Notification.create_notifications(scope, valid_attrs)
+
       assert notifications.status == "some status"
       assert notifications.read == true
       assert notifications.context == "some context"
@@ -45,15 +67,28 @@ defmodule Services.NotificationTest do
 
     test "create_notifications/2 with invalid data returns error changeset" do
       scope = user_scope_fixture()
-      assert {:error, %Ecto.Changeset{}} = Notification.create_notifications(scope, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Notification.create_notifications(scope, @invalid_attrs)
     end
 
     test "update_notifications/3 with valid data updates the notifications" do
       scope = user_scope_fixture()
       notifications = notifications_fixture(scope)
-      update_attrs = %{status: "some updated status", read: false, context: "some updated context", title: "some updated title", from: "some updated from", archived: false, favourite: false}
 
-      assert {:ok, %Notifications{} = notifications} = Notification.update_notifications(scope, notifications, update_attrs)
+      update_attrs = %{
+        status: "some updated status",
+        read: false,
+        context: "some updated context",
+        title: "some updated title",
+        from: "some updated from",
+        archived: false,
+        favourite: false
+      }
+
+      assert {:ok, %Notifications{} = notifications} =
+               Notification.update_notifications(scope, notifications, update_attrs)
+
       assert notifications.status == "some updated status"
       assert notifications.read == false
       assert notifications.context == "some updated context"
@@ -76,7 +111,10 @@ defmodule Services.NotificationTest do
     test "update_notifications/3 with invalid data returns error changeset" do
       scope = user_scope_fixture()
       notifications = notifications_fixture(scope)
-      assert {:error, %Ecto.Changeset{}} = Notification.update_notifications(scope, notifications, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Notification.update_notifications(scope, notifications, @invalid_attrs)
+
       assert notifications == Notification.get_notifications!(scope, notifications.id)
     end
 
@@ -84,14 +122,20 @@ defmodule Services.NotificationTest do
       scope = user_scope_fixture()
       notifications = notifications_fixture(scope)
       assert {:ok, %Notifications{}} = Notification.delete_notifications(scope, notifications)
-      assert_raise Ecto.NoResultsError, fn -> Notification.get_notifications!(scope, notifications.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Notification.get_notifications!(scope, notifications.id)
+      end
     end
 
     test "delete_notifications/2 with invalid scope raises" do
       scope = user_scope_fixture()
       other_scope = user_scope_fixture()
       notifications = notifications_fixture(scope)
-      assert_raise MatchError, fn -> Notification.delete_notifications(other_scope, notifications) end
+
+      assert_raise MatchError, fn ->
+        Notification.delete_notifications(other_scope, notifications)
+      end
     end
 
     test "change_notifications/2 returns a notifications changeset" do

@@ -4,9 +4,33 @@ defmodule ServicesWeb.NotificationsLiveTest do
   import Phoenix.LiveViewTest
   import Services.NotificationFixtures
 
-  @create_attrs %{status: "some status", read: true, context: "some context", title: "some title", from: "some from", archived: true, favourite: true}
-  @update_attrs %{status: "some updated status", read: false, context: "some updated context", title: "some updated title", from: "some updated from", archived: false, favourite: false}
-  @invalid_attrs %{status: nil, read: false, context: nil, title: nil, from: nil, archived: false, favourite: false}
+  @create_attrs %{
+    status: "some status",
+    read: true,
+    context: "some context",
+    title: "some title",
+    from: "some from",
+    archived: true,
+    favourite: true
+  }
+  @update_attrs %{
+    status: "some updated status",
+    read: false,
+    context: "some updated context",
+    title: "some updated title",
+    from: "some updated from",
+    archived: false,
+    favourite: false
+  }
+  @invalid_attrs %{
+    status: nil,
+    read: false,
+    context: nil,
+    title: nil,
+    from: nil,
+    archived: false,
+    favourite: false
+  }
 
   setup :register_and_log_in_user
 
@@ -81,7 +105,10 @@ defmodule ServicesWeb.NotificationsLiveTest do
     test "deletes notifications in listing", %{conn: conn, notifications: notifications} do
       {:ok, index_live, _html} = live(conn, ~p"/notification")
 
-      assert index_live |> element("#notification-#{notifications.id} a", "Delete") |> render_click()
+      assert index_live
+             |> element("#notification-#{notifications.id} a", "Delete")
+             |> render_click()
+
       refute has_element?(index_live, "#notification-#{notifications.id}")
     end
   end

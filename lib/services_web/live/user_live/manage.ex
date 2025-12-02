@@ -7,187 +7,187 @@ defmodule ServicesWeb.UserLive.Manage do
   def render(assigns) do
     ~H"""
     <div class="px-[5vw] pb-2">
-    <.header>
-      <div class="flex items-center justify-evenly">
-        <div class="px-8 py-2 place-items-center">
-          <div class="py-2">
-            <p class="italic font-semibold text-gray-700 dark:text-gray-300">
-              “Access grants power, responsibility gives it purpose.”
+      <.header>
+        <div class="flex items-center justify-evenly">
+          <div class="px-8 py-2 place-items-center">
+            <div class="py-2">
+              <p class="italic font-semibold text-gray-700 dark:text-gray-300">
+                “Access grants power, responsibility gives it purpose.”
+              </p>
+            </div>
+            <h1 class="text-2xl font-semibold text-gray-900 underline text-gray-900 dark:text-white">
+              User Management
+            </h1>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              Manage user accounts, roles, and permissions across the system.
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+              Total Users: {length(@streams.users.inserts)}
             </p>
           </div>
-          <h1 class="text-2xl font-semibold text-gray-900 underline text-gray-900 dark:text-white">User Management</h1>
-          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Manage user accounts, roles, and permissions across the system.
-          </p>
-          <p class="text-sm text-gray-500 dark:text-gray-400">
-            Total Users: {length(@streams.users.inserts)}
-          </p>
         </div>
-      </div>
-    </.header>
+      </.header>
 
-    <.table
-      id="users"
-      rows={@streams.users}
-    >
-      <:col :let={{_id, user}} label="User">
-        <div class="flex items-center gap-3">
-          <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white font-semibold dark:text-gray-100">
-            {String.first(user.username) |> String.upcase()}
-          </div>
-          <div>
-            <div class="font-medium text-gray-900 dark:text-gray-100">
-              {user.username}
-              <%= if user.id == @current_scope.user.id do %>
-                <span class="ml-2 inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                  You
-                </span>
+      <.table
+        id="users"
+        rows={@streams.users}
+      >
+        <:col :let={{_id, user}} label="User">
+          <div class="flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white font-semibold dark:text-gray-100">
+              {String.first(user.username) |> String.upcase()}
+            </div>
+            <div>
+              <div class="font-medium text-gray-900 dark:text-gray-100">
+                {user.username}
+                <%= if user.id == @current_scope.user.id do %>
+                  <span class="ml-2 inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                    You
+                  </span>
+                <% end %>
+              </div>
+              <%= if user.email do %>
+                <div class="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
               <% end %>
             </div>
-            <%= if user.email do %>
-              <div class="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
-            <% end %>
           </div>
-        </div>
-      </:col>
+        </:col>
 
-      <:col :let={{_id, user}} label="Edit">
-        <.link
-          navigate={~p"/manage/#{user.id}/edit"}
-          class="inline-flex items-center gap-1.5 rounded-md pr-2.5 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4"
-            viewBox="0 0 20 20"
-            fill="currentColor"
+        <:col :let={{_id, user}} label="Edit">
+          <.link
+            navigate={~p"/manage/#{user.id}/edit"}
+            class="inline-flex items-center gap-1.5 rounded-md pr-2.5 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
           >
-            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-          </svg>
-          Edit
-        </.link>
-      </:col>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+            </svg>
+            Edit
+          </.link>
+        </:col>
 
-      <:col :let={{_id, user}} label="Role">
-        <span class={[
-          "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold",
-          role_badge_class(user.role)
-        ]}>
-          {format_role(user.role)}
-        </span>
-      </:col>
-
-      <:col :let={{_id, user}} label="Status">
-        <%= if is_nil(user.deactivated_at) do %>
-          <span class="inline-flex items-center gap-1.5">
-            <span class="h-2 w-2 rounded-full bg-green-500 dark:bg-green-400"></span>
-            <span class="text-sm text-gray-600 dark:text-gray-300 ">Active</span>
+        <:col :let={{_id, user}} label="Role">
+          <span class={[
+            "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold",
+            role_badge_class(user.role)
+          ]}>
+            {format_role(user.role)}
           </span>
-        <% else %>
-          <span class="inline-flex items-center gap-1.5">
-            <span class="h-2 w-2 rounded-full bg-green-500 dark:bg-green-400"></span>
-            <span class="text-sm text-gray-600 dark:text-gray-300">Inactive</span>
-          </span>
-        <% end %>
-      </:col>
+        </:col>
 
-      <:action :let={{_id, user}} label="Change Role">
-        <%= if @current_scope.user.role == "super_admin" and user.id != @current_scope.user.id do %>
-          <.form
-            for={%{}}
-            phx-change="change_role"
+        <:col :let={{_id, user}} label="Status">
+          <%= if is_nil(user.deactivated_at) do %>
+            <span class="inline-flex items-center gap-1.5">
+              <span class="h-2 w-2 rounded-full bg-green-500 dark:bg-green-400"></span>
+              <span class="text-sm text-gray-600 dark:text-gray-300 ">Active</span>
+            </span>
+          <% else %>
+            <span class="inline-flex items-center gap-1.5">
+              <span class="h-2 w-2 rounded-full bg-green-500 dark:bg-green-400"></span>
+              <span class="text-sm text-gray-600 dark:text-gray-300">Inactive</span>
+            </span>
+          <% end %>
+        </:col>
 
-          >
-            <.input type="text" name="user_id" value={user.id} hidden/>
+        <:action :let={{_id, user}} label="Change Role">
+          <%= if @current_scope.user.role == "super_admin" and user.id != @current_scope.user.id do %>
+            <.form
+              for={%{}}
+              phx-change="change_role"
+            >
+              <.input type="text" name="user_id" value={user.id} hidden />
 
-            <.input
-              type="select"
-              name="role"
-              value={user.role}
-              options={@roles}
-              class="text-sm bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
-              disabled={@changing_role == user.id}
-              phx-hook="ConfirmRoleChange"
-              id={"role-select-#{user.id}"}
-              data-username={user.username}
-            />
+              <.input
+                type="select"
+                name="role"
+                value={user.role}
+                options={@roles}
+                class="text-sm bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
+                disabled={@changing_role == user.id}
+                phx-hook="ConfirmRoleChange"
+                id={"role-select-#{user.id}"}
+                data-username={user.username}
+              />
 
-            <%= if @changing_role == user.id do %>
-              <div class="mt-1 flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-                <svg
-                  class="h-3 w-3 animate-spin"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    class="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    stroke-width="4"
+              <%= if @changing_role == user.id do %>
+                <div class="mt-1 flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                  <svg
+                    class="h-3 w-3 animate-spin"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
                   >
-                  </circle>
-                  <path
-                    class="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  >
-                  </path>
-                </svg>
-                Updating...
-              </div>
-            <% end %>
-          </.form>
-        <% else %>
+                    <circle
+                      class="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="4"
+                    >
+                    </circle>
+                    <path
+                      class="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    >
+                    </path>
+                  </svg>
+                  Updating...
+                </div>
+              <% end %>
+            </.form>
+          <% else %>
             <%= if @current_scope.user.role != "super_admin" do %>
               <span class="text-sm text-gray-400 dark:text-gray-500">No permission</span>
             <% end %>
+          <% end %>
+        </:action>
 
-        <% end %>
-      </:action>
-
-      <:action :let={{_id, user}} label="Deactivate/Activate">
-        <%= if is_nil(user.deactivated_at) do %>
-          <.link
-            phx-click={JS.push("deactivate", value: %{id: user.id})}
-            data-confirm={"Are you sure you want to deactivate #{user.username}?"}
-            class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/30 hover:text-orange-700 dark:hover:text-orange-300 transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4"
-              viewBox="0 0 20 20"
-              fill="currentColor"
+        <:action :let={{_id, user}} label="Deactivate/Activate">
+          <%= if is_nil(user.deactivated_at) do %>
+            <.link
+              phx-click={JS.push("deactivate", value: %{id: user.id})}
+              data-confirm={"Are you sure you want to deactivate #{user.username}?"}
+              class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/30 hover:text-orange-700 dark:hover:text-orange-300 transition-colors"
             >
-              <path d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zM10 15a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 15zM10 7a3 3 0 100 6 3 3 0 000-6zM15.657 5.404a.75.75 0 10-1.06-1.06l-1.061 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.464 14.596a.75.75 0 10-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM18 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0118 10zM5 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 015 10zM14.596 15.657a.75.75 0 001.06-1.06l-1.06-1.061a.75.75 0 10-1.06 1.06l1.06 1.06zM5.404 6.464a.75.75 0 001.06-1.06l-1.06-1.06a.75.75 0 10-1.06 1.06l1.06 1.06z" />
-            </svg>
-            Deactivate
-          </.link>
-        <% else %>
-          <.link
-            phx-click={JS.push("activate", value: %{id: user.id})}
-             data-confirm={"Are you sure you want to deactivate #{user.username}?"}
-            class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium text-green-600 hover:bg-green-50 hover:text-green-700 transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4"
-              viewBox="0 0 20 20"
-              fill="currentColor"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zM10 15a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 15zM10 7a3 3 0 100 6 3 3 0 000-6zM15.657 5.404a.75.75 0 10-1.06-1.06l-1.061 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.464 14.596a.75.75 0 10-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM18 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0118 10zM5 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 015 10zM14.596 15.657a.75.75 0 001.06-1.06l-1.06-1.061a.75.75 0 10-1.06 1.06l1.06 1.06zM5.404 6.464a.75.75 0 001.06-1.06l-1.06-1.06a.75.75 0 10-1.06 1.06l1.06 1.06z" />
+              </svg>
+              Deactivate
+            </.link>
+          <% else %>
+            <.link
+              phx-click={JS.push("activate", value: %{id: user.id})}
+              data-confirm={"Are you sure you want to deactivate #{user.username}?"}
+              class="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium text-green-600 hover:bg-green-50 hover:text-green-700 transition-colors"
             >
-              <path
-                fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            Activate
-          </.link>
-        <% end %>
-      </:action>
-    </.table>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Activate
+            </.link>
+          <% end %>
+        </:action>
+      </.table>
     </div>
     """
   end
@@ -214,8 +214,9 @@ defmodule ServicesWeb.UserLive.Manage do
         {:noreply, put_flash(socket, :error, "Failed to update role")}
     end
   end
-   def handle_event("deactivate", %{"id" => user_id},socket) do
-  case Accounts.deactivate_user_by_admin(user_id) do
+
+  def handle_event("deactivate", %{"id" => user_id}, socket) do
+    case Accounts.deactivate_user_by_admin(user_id) do
       {:ok, updated_user} ->
         {:noreply,
          socket
@@ -225,23 +226,20 @@ defmodule ServicesWeb.UserLive.Manage do
       {:error, _changeset} ->
         {:noreply, put_flash(socket, :error, "Failed to deactivate user")}
     end
-
   end
 
-   def handle_event("activate", %{"id" => user_id}, socket) do
-      case Accounts.activate_user_by_admin(user_id) do
-        {:ok, updated_user} ->
-          {:noreply,
-           socket
-           |> stream_insert(:users, updated_user)
-           |> put_flash(:info, "#{updated_user.username} has been activated successfully")}
+  def handle_event("activate", %{"id" => user_id}, socket) do
+    case Accounts.activate_user_by_admin(user_id) do
+      {:ok, updated_user} ->
+        {:noreply,
+         socket
+         |> stream_insert(:users, updated_user)
+         |> put_flash(:info, "#{updated_user.username} has been activated successfully")}
 
-        {:error, _changeset} ->
-          {:noreply, put_flash(socket, :error, "Failed to activate user")}
-      end
-
+      {:error, _changeset} ->
+        {:noreply, put_flash(socket, :error, "Failed to activate user")}
+    end
   end
-
 
   @impl true
   def handle_info({type, _user}, socket) when type in [:created, :updated, :deleted] do
@@ -251,8 +249,6 @@ defmodule ServicesWeb.UserLive.Manage do
   defp list_all_users() do
     Accounts.list_all_users()
   end
-
-
 
   defp role_badge_class("super_admin"),
     do: "bg-purple-100 text-purple-800 ring-1 ring-purple-600/20"
