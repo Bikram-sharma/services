@@ -42,9 +42,8 @@ defmodule Services.Bookings do
   """
   def list_bookings(%Scope{} = scope) do
     Booking
-    |> preload([providers_service: [:services, service_providers: :users]])
+    |> preload(providers_service: [:services, service_providers: :users])
     |> Repo.all_by(user_id: scope.user.id)
-
   end
 
   @doc """
@@ -63,9 +62,8 @@ defmodule Services.Bookings do
   """
   def get_booking!(%Scope{} = _scope, id) do
     Booking
-    |> preload([providers_service: [:service, service_providers: :users]])
+    |> preload(providers_service: [:service, service_providers: :users])
     |> Repo.get_by!(id: id)
-
   end
 
   @doc """
@@ -94,12 +92,11 @@ defmodule Services.Bookings do
     true = booking.user_id == scope.user.id
 
     with {:ok, booking = %Booking{}} <-
-      update_booking(scope, booking, attrs),
-      {:ok, _notification} <-
-       Services.Notifications.create_special_notification(scope, attrs) do
-        {:ok, booking}
-      end
-
+           update_booking(scope, booking, attrs),
+         {:ok, _notification} <-
+           Services.Notifications.create_special_notification(scope, attrs) do
+      {:ok, booking}
+    end
   end
 
   @doc """

@@ -9,37 +9,23 @@ defmodule ServicesWeb.BookingLive.Index do
     <div class="py-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 min-h-[60vh]">
       <.header>
         Your Bookings
-        <:actions>
-          <.button variant="dark-blue-gray" navigate={~p"/bookings/new"}>
-            <.icon name="hero-plus" /> New Booking
-          </.button>
-        </:actions>
       </.header>
       <%= if length(@streams.bookings.inserts) != 0 do %>
         <.table
           id="bookings"
           rows={@streams.bookings}
-          row_click={fn {_id, booking} -> JS.navigate(~p"/bookings/#{booking}") end}
         >
           <:col :let={{_id, booking}} label="Service">
-            <%=(booking.providers_service && booking.providers_service.services.name) || "undefined"%>
+            {(booking.providers_service && booking.providers_service.services.name) || "undefined"}
           </:col>
           <:col :let={{_id, booking}} label="Provider">
-            <%=(booking.providers_service && booking.providers_service.service_providers.users.username) ||
-              "undefined"%>
+            {(booking.providers_service && booking.providers_service.service_providers.users.username) ||
+              "undefined"}
           </:col>
           <:col :let={{_id, booking}} label="Cost">
-           <%=(booking.providers_service && booking.providers_service.custom_price) || "undefined"%>
+            {"Nu. #{(booking.providers_service && booking.providers_service.custom_price) || "-"}"}
           </:col>
-          <:col :let={{_id, _booking}} label="Status">"Initiated"</:col>
-          <:action :let={{_id, booking}} label="Review"> <%=booking.user_address%></:action>
-          <:action :let={{_id, booking}} label="Cancel"> <%=booking.actual_total_price%></:action>
-          <:action :let={{_id, booking}}>
-            <div class="sr-only">
-              <.link navigate={~p"/bookings/#{booking}"}>Show</.link>
-            </div>
-            <.link navigate={~p"/bookings/#{booking}/edit"}>Edit</.link>
-          </:action>
+          <:col :let={{_id, booking}} label="Status">{booking.booking_status}</:col>
           <:action :let={{id, booking}} label="Cancel">
             <.link
               phx-click={JS.push("delete", value: %{id: booking.id}) |> hide("##{id}")}
@@ -97,6 +83,5 @@ defmodule ServicesWeb.BookingLive.Index do
 
   defp list_bookings(current_scope) do
     Bookings.list_bookings(current_scope)
-
   end
 end

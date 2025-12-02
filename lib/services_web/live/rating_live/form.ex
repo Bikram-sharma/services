@@ -14,8 +14,8 @@ defmodule ServicesWeb.RatingLive.Form do
       </.header>
 
       <.form for={@form} id="rating-form" phx-change="validate" phx-submit="save">
-
-        <!-- Star Rating Field -->
+        
+    <!-- Star Rating Field -->
         <div class="space-y-2">
           <label class="block text-sm font-semibold leading-6 text-zinc-800">
             Rating
@@ -44,14 +44,14 @@ defmodule ServicesWeb.RatingLive.Form do
               </span>
             <% end %>
           </div>
-
-          <!-- Hidden input to store the rating value -->
+          
+    <!-- Hidden input to store the rating value -->
           <input type="hidden" name={@form[:rating].name} value={get_rating_value(@form) || ""} />
-
-          <!-- Display errors if any -->
+          
+    <!-- Display errors if any -->
           <%= if @form[:rating].errors != [] do %>
             <p class="mt-2 text-sm text-rose-600">
-              <%= translate_errors(@form[:rating].errors) %>
+              {translate_errors(@form[:rating].errors)}
             </p>
           <% end %>
         </div>
@@ -60,7 +60,9 @@ defmodule ServicesWeb.RatingLive.Form do
 
         <footer class="flex flex-col gap-4 w-full text-center">
           <.button phx-disable-with="Saving..." variant="dark-blue-gray">Save Review</.button>
-          <.button navigate={return_path(@current_scope, @return_to, @rating)} variant="blue-gray">Cancel</.button>
+          <.button navigate={return_path(@current_scope, @return_to, @rating)} variant="blue-gray">
+            Cancel
+          </.button>
         </footer>
       </.form>
     </Layouts.app>
@@ -122,28 +124,33 @@ defmodule ServicesWeb.RatingLive.Form do
     rating = String.to_integer(rating_value)
 
     # Get current form data
-    current_params = case socket.assigns.form.source do
-      %Ecto.Changeset{changes: changes} ->
-        changes |> Map.new(fn {k, v} -> {to_string(k), v} end)
-      _ ->
-        %{}
-    end
+    current_params =
+      case socket.assigns.form.source do
+        %Ecto.Changeset{changes: changes} ->
+          changes |> Map.new(fn {k, v} -> {to_string(k), v} end)
+
+        _ ->
+          %{}
+      end
 
     # Merge with new rating
     rating_params = Map.put(current_params, "rating", rating)
 
     # Update the changeset
-    changeset = Ratings.change_rating(
-      socket.assigns.current_scope,
-      socket.assigns.rating,
-      rating_params
-    )
+    changeset =
+      Ratings.change_rating(
+        socket.assigns.current_scope,
+        socket.assigns.rating,
+        rating_params
+      )
 
     {:noreply, assign(socket, form: to_form(changeset))}
   end
 
   def handle_event("validate", %{"rating" => rating_params}, socket) do
-    changeset = Ratings.change_rating(socket.assigns.current_scope, socket.assigns.rating, rating_params)
+    changeset =
+      Ratings.change_rating(socket.assigns.current_scope, socket.assigns.rating, rating_params)
+
     {:noreply, assign(socket, form: to_form(changeset, action: :validate))}
   end
 

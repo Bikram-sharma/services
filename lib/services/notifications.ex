@@ -96,7 +96,11 @@ defmodule Services.Notifications do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_special_notification(%Scope{} = scope, %SpecialNotification{} = special_notification, attrs) do
+  def update_special_notification(
+        %Scope{} = scope,
+        %SpecialNotification{} = special_notification,
+        attrs
+      ) do
     true = special_notification.user_id == scope.user.id
 
     with {:ok, special_notification = %SpecialNotification{}} <-
@@ -139,7 +143,11 @@ defmodule Services.Notifications do
       %Ecto.Changeset{data: %SpecialNotification{}}
 
   """
-  def change_special_notification(%Scope{} = scope, %SpecialNotification{} = special_notification, attrs \\ %{}) do
+  def change_special_notification(
+        %Scope{} = scope,
+        %SpecialNotification{} = special_notification,
+        attrs \\ %{}
+      ) do
     true = special_notification.user_id == scope.user.id
 
     SpecialNotification.changeset(special_notification, attrs, scope)

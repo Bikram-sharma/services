@@ -14,7 +14,7 @@ defmodule ServicesWeb.RatingLive.Show do
           <.button navigate={~p"/ratings"}>
             <.icon name="hero-arrow-left" />
           </.button>
-          <.button  variant="dark-blue-gray" navigate={~p"/ratings/#{@rating}/edit?return_to=show"}>
+          <.button variant="dark-blue-gray" navigate={~p"/ratings/#{@rating}/edit?return_to=show"}>
             <.icon name="hero-pencil-square" /> Edit rating
           </.button>
         </:actions>

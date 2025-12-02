@@ -30,6 +30,72 @@
       })();
     </script>
   </head>
+  <input type="checkbox" id="my_modal_6" class="modal-toggle" />
+  <div class="modal" role="dialog">
+    <div class="modal-box w-11/12 max-w-5xl">
+      <h3 class="font-bold text-lg mb-4">Booking Terms and Conditions</h3>
+      <div>
+        <h2 class="font-bold">Terms & Conditions</h2>
+        <ul class="list-disc list-outside pl-6">
+          <li>The service provider agrees to deliver the service as described.</li>
+          <li>
+            The client agrees to provide accurate information and access to the service location.
+          </li>
+          <li>
+            Both parties must follow platform policies regarding safety, behavior, and professionalism.
+          </li>
+          <li>
+            Any additional work not listed in the service description may incur extra charges.
+          </li>
+          <li>
+            The service provider is responsible for bringing necessary tools and materials unless otherwise stated.
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="font-bold">Rescheduling & Cancellation</h2>
+        <ul class="list-disc list-outside pl-6">
+          <li>Client may reschedule the booking within X hours without any charge.</li>
+          <li>
+            Cancellation by the client after confirmation may result in partial or full cancellation fees.
+          </li>
+          <li>
+            If the provider cancels, the client will receive a full refund, and an alternative provider may be suggested.
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="font-bold">Liability & Responsibilities</h2>
+        <ul class="list-disc list-outside pl-6">
+          <li>
+            The platform acts as a mediator and is not directly responsible for service quality.
+          </li>
+          <li>The provider is liable for damages caused due to negligence or improper work.</li>
+          <li>
+            The client must ensure safety and provide a hazard-free environment for the provider.
+          </li>
+          <li>
+            The platform is not responsible for loss, theft, or damage to personal belongings.
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="font-bold">Privacy & Data Protection</h2>
+        <ul class="list-disc list-outside pl-6">
+          <li>Information collected will only be used for booking and service purposes.</li>
+          <li>
+            Personal data will not be shared with third parties except as required to deliver the service.
+          </li>
+        </ul>
+      </div>
+      <div class="modal-action">
+        <label for="my_modal_6" class="btn">Close!</label>
+      </div>
+    </div>
+  </div>
   <body>
     <.main_header current_scope={@current_scope} conn={@conn} />
     {@inner_content}

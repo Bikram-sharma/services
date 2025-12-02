@@ -1,10 +1,7 @@
 defmodule Services.Ratings do
   use Ecto.Schema
 
-
   alias Services.Repo
-
-
 
   alias Services.Ratings.Rating
   alias Services.Accounts.Scope
@@ -107,7 +104,6 @@ defmodule Services.Ratings do
       {:ok, rating}
     end
   end
-
 
   @doc """
   Deletes a rating.

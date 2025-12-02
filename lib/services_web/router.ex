@@ -25,7 +25,7 @@ defmodule ServicesWeb.Router do
     get "/", PageController, :home
 
     get "/services", DashController, :list_services
-    # get "/services/:id/book", DashController, :book
+    get "/services/:id/book", DashController, :book
   end
 
   # Other scopes may use custom stacks.
@@ -56,7 +56,7 @@ defmodule ServicesWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_user,
-    on_mount: [{ServicesWeb.UserAuth, :require_authenticated}] do
+      on_mount: [{ServicesWeb.UserAuth, :require_authenticated}] do
       live "/users/settings", UserLive.Settings, :edit
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
 
@@ -79,7 +79,7 @@ defmodule ServicesWeb.Router do
       live "/ratings/new", RatingLive.Form, :new
       live "/ratings/:id", RatingLive.Show, :show
       live "/ratings/:id/edit", RatingLive.Form, :edit
-      end
+    end
 
     post "/users/update-password", UserSessionController, :update_password
   end

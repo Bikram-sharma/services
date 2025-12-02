@@ -62,9 +62,8 @@ defmodule ServicesWeb.Layouts do
       </div> --%>
     </header>
 
-    <main >
-
-        {render_slot(@inner_block)}
+    <main>
+      {render_slot(@inner_block)}
     </main>
 
     <.flash_group flash={@flash} />
@@ -194,12 +193,11 @@ defmodule ServicesWeb.Layouts do
                 Contact
               </.link>
               <%= if @current_scope do %>
-              <.link navigate={~p"/bookings"} class={nav_link_class(@conn, ~p"/bookings")}>
-                Your Bookings
-              </.link>
+                <.link navigate={~p"/bookings"} class={nav_link_class(@conn, ~p"/bookings")}>
+                  Your Bookings
+                </.link>
               <% end %>
             </div>
-
 
             <div class="flex items-center space-x-8">
               <ul class="hidden md:flex items-center space-x-8">

@@ -377,11 +377,12 @@ defmodule ServicesWeb.CoreComponents do
           >
             {render_slot(col, @row_item.(row))}
           </td>
-          <td :for={action <- @action}
-              phx-click={@row_click && @row_click.(row)}
-              class={@row_click && "hover:cursor-pointer"}
+          <td
+            :for={action <- @action}
+            phx-click={@row_click && @row_click.(row)}
+            class={@row_click && "hover:cursor-pointer"}
           >
-                {render_slot(action, @row_item.(row))}
+            {render_slot(action, @row_item.(row))}
           </td>
         </tr>
       </tbody>

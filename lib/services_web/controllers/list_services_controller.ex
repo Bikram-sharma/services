@@ -41,7 +41,6 @@ defmodule ServicesWeb.DashController do
     |> render(:list_services, is_hidden: is_hidden, categories: categories)
   end
 
-
   def book(conn, %{"id" => id}) do
     provider_service =
       ProviderService.get_providers_service_by_id(id)
