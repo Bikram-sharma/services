@@ -118,8 +118,6 @@ defmodule ServicesWeb.Router do
       live "/manage/services/:id/edit", ServiceLive.Form, :edit
 
       live "/booking/:id/form", BookingLive.Form, :form
-      live "/booking/:id/form", BookingLive.Form, :form
-      live "/booking/:id/form", BookingLive.Form, :form
     end
   end
 end
