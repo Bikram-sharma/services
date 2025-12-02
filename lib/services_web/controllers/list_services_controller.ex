@@ -40,13 +40,4 @@ defmodule ServicesWeb.DashController do
     |> assign(:total_count, total_count)
     |> render(:list_services, is_hidden: is_hidden, categories: categories)
   end
-
-  def book(conn, %{"id" => id}) do
-    provider_service =
-      ProviderService.get_providers_service_by_id(id)
-
-    conn
-    |> assign(:provider_service, provider_service)
-    |> render(:book)
-  end
 end

@@ -8,7 +8,7 @@ defmodule ServicesWeb.BookingLive.Form do
   def render(assigns) do
     ~H"""
     <Layouts.app flash={@flash}>
-      <section class="max-w-[80%] mx-auto py-12  p-6 mb-10 p-20">
+      <section class="max-w-[80%] mx-auto">
         <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 pb-2 text-center">
           Book Your Service
         </h2>
@@ -62,8 +62,7 @@ defmodule ServicesWeb.BookingLive.Form do
           <div id="carousel-container" class="overflow-hidden w-full">
             <div id="inner-carousel" class="flex transition-transform duration-900">
               <div class="w-full flex-shrink-0">
-                
-    <!-- ----------Booking Form Start---------- -->
+                <!-- ----------Booking Form Start---------- -->
                 <.form
                   for={%{}}
                   phx-submit="create_booking_draft"
@@ -120,8 +119,8 @@ defmodule ServicesWeb.BookingLive.Form do
                     </button>
                     <button
                       type="button"
-                      id="next"
                       class="flex items-center text-indigo-700 dark:text-indigo-400"
+                      data-carousel-next
                     >
                       Next
                     </button>
@@ -131,8 +130,7 @@ defmodule ServicesWeb.BookingLive.Form do
               </div>
 
               <div class="w-full flex-shrink-0">
-                
-    <!-- ---------Service Form Start--------- -->
+                <!-- ---------Service Form Start--------- -->
                 <.form
                   for={%{}}
                   phx-submit="book_service"
@@ -164,6 +162,27 @@ defmodule ServicesWeb.BookingLive.Form do
                   />
                   <.input type="text" hidden name="booking_status" value="initiated" />
 
+                  <!-- ----------The button to open modal---------- -->
+                  <label
+                    for="my_modal_6"
+                    class="inline-flex text-sm text-indigo-700 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 cursor-pointer underline decoration-dotted underline-offset-2"
+                  >
+                    Read terms and conditions
+                    <svg
+                      class="w-4 h-4 no-underline"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd"
+                      >
+                      </path>
+                    </svg>
+                  </label>
+
                   <div class="flex flex-col text-gray-700 dark:text-gray-300">
                     <label>
                       <input type="checkbox" required class="text-indigo-600 dark:text-indigo-400" />
@@ -178,7 +197,6 @@ defmodule ServicesWeb.BookingLive.Form do
                   <div class="flex flex-col sm:flex-row items-center justify-between pt-4 border-t-2 border-dashed border-gray-300 dark:border-gray-600 mt-6">
                     <button
                       type="button"
-                      id="prev"
                       class="flex items-center cursor-pointer text-indigo-700 dark:text-indigo-400"
                       data-carousel-prev
                     >
@@ -198,29 +216,6 @@ defmodule ServicesWeb.BookingLive.Form do
           </div>
         </div>
       </section>
-
-      <script>
-          let carousel = document.getElementById("inner-carousel");
-          let slices = carousel.children;
-          let index = 0;
-
-          function updateSlide() {
-            let width = slices[0].clientWidth;
-            carousel.style.transform = `translateX(-${index * width}px)`;
-          }
-
-          document.getElementById("next").onclick = () => {
-            index++;
-            if (index >= slices.length) index = 0;
-            updateSlide();
-          }
-
-          document.getElementById("prev").onclick = () => {
-            index--;
-            if (index < 0) index = slices.length - 1;
-            updateSlide();
-        }
-      </script>
     </Layouts.app>
     """
   end
