@@ -62,6 +62,15 @@ defmodule Services.Notifications do
     Repo.get_by!(SpecialNotification, id: id, user_id: scope.user.id)
   end
 
+  def list_special_notification_provider(to_id) do
+    SpecialNotification
+    |> where([sn], sn.read == false)
+    |> where([sn], sn.archive == false)
+    |> Repo.all_by(to_id: to_id)
+  end
+
+
+
   @doc """
   Creates a special_notification.
 

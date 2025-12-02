@@ -6,10 +6,32 @@ defmodule ServicesWeb.Plugs do
 
   def call(conn, _opts) do
     conn = check_user_active(conn)
-
     if conn.halted do
       conn
     else
+
+    notification =
+      cond do
+        conn.assigns.current_scope && conn.assigns.current_scope.user ->
+
+             case Services.Notifications.list_special_notification_provider(conn.assigns.current_scope.user.id) do
+              [] -> "no_notification"
+              _ -> "has_notification"
+             end
+
+          true -> "don't show"
+      end
+
+      dbg(notification)
+
+
+    # check if the notification icon should be shown in the layout.
+
+
+
+
+
+
       is_hidden = Servicing.is_hidden(conn.assigns.current_scope)
 
       page_title =
@@ -19,7 +41,9 @@ defmodule ServicesWeb.Plugs do
 
       conn
       |> assign(:page_title, page_title)
+      |> assign(:notification, notification)
       |> assign(:is_hidden, is_hidden)
+
     end
   end
 
