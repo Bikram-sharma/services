@@ -2,7 +2,6 @@ defmodule ServicesWeb.BookingLive.Form do
   use ServicesWeb, :live_view
 
   alias Services.Bookings
-  alias Services.Bookings.Booking
 
   @impl true
   def render(assigns) do
@@ -91,11 +90,12 @@ defmodule ServicesWeb.BookingLive.Form do
                     type="text"
                     value=""
                   />
-                  <.input type="hidden" name="user_id" value={@id} />
-                  <.input type="hidden" name="provider_service_id" value={@provider_service.id} />
-                  <.input type="hidden" name="booking_status" value="draft" />
+                  <.input hidden name="user_id" value={@id} />
+                  <.input hidden name="provider_service_id" value={@provider_service.id} />
+                  <.input hidden name="booking_status" value="draft" />
                   <.input
-                    type="hidden"
+
+                    hidden
                     name="actual_total_price"
                     value={@provider_service.custom_price}
                   />
@@ -248,6 +248,7 @@ defmodule ServicesWeb.BookingLive.Form do
      |> assign(:is_hidden, is_hidden)}
   end
 
+  @impl true
   def handle_event("create_booking_draft", params, socket) do
     case Bookings.create_booking(socket.assigns.current_scope, params) do
       {:ok, booking} ->
@@ -266,13 +267,14 @@ defmodule ServicesWeb.BookingLive.Form do
     end
   end
 
+  @impl true
   def handle_event("book_service", params, socket) do
     case Services.Bookings.book_service(
            socket.assigns.current_scope,
            socket.assigns.booking,
            params
          ) do
-      {:ok, booking} ->
+      {:ok, _booking} ->
         {:noreply,
          socket
          |> put_flash(
