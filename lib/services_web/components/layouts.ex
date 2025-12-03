@@ -227,6 +227,7 @@ defmodule ServicesWeb.Layouts do
                       <li><.link href={~p"/manage"}>Users</.link></li>
                       <li><.link href={~p"/manage/categories"}>Categories</.link></li>
                       <li><.link href={~p"/manage/services"}>Services</.link></li>
+                      <li><.link href={~p"/manage/bookings"}>Bookings</.link></li>
                     </ul>
                   <% end %>
 

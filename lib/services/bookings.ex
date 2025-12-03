@@ -67,6 +67,16 @@ defmodule Services.Bookings do
   end
 
   @doc """
+  Get all bookings.
+  """
+  def get_all_booking(_scope) do
+    Booking
+    |> preload(providers_service: [:services, service_providers: :users])
+    |> preload(:users)
+    |> Repo.all()
+  end
+
+  @doc """
   Creates a booking.
 
   ## Examples
