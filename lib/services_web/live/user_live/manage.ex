@@ -6,7 +6,7 @@ defmodule ServicesWeb.UserLive.Manage do
   @impl true
   def render(assigns) do
     ~H"""
-    <div class="px-[5vw] pb-2">
+    <div class="px-[5vw] pb-2 pt-20">
       <.header>
         <div class="flex items-center justify-evenly">
           <div class="px-8 py-2 place-items-center">

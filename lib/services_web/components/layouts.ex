@@ -62,7 +62,7 @@ defmodule ServicesWeb.Layouts do
       </div> --%>
     <%!-- </header> --%>
 
-    <main class="px-4 py-20 sm:px-6 lg:px-20">
+    <main class="px-4 py-30 sm:px-6 lg:px-20">
       <div class="mx-auto space-y-4">
         {render_slot(@inner_block)}
       </div>
@@ -162,8 +162,11 @@ defmodule ServicesWeb.Layouts do
 
   def main_header(assigns) do
     ~H"""
-    <header class="shadow-lg flex items-center justify-evenly sticky top-0 bg-white dark:bg-gray-900 z-50">
-      <nav class="shadow-md sticky top-0 z-50 w-full drak:text-white">
+    <header
+     id="main-header"
+     phx-hook="ScrollHeader"
+     class="rounded-full bg-white shadow shadow-black flex items-center justify-evenly fixed top-2 left-[2vw] max-w-[96vw] border dark:bg-gray-900 z-50">
+      <nav class="w-full drak:text-white">
         <div class="mx-auto px-2 sm:px-4 lg:px-6">
           <div class="flex justify-between items-center h-16">
             <div class="flex items-center">
@@ -388,7 +391,7 @@ defmodule ServicesWeb.Layouts do
   """
   def avatar(assigns) do
     ~H"""
-    <div class="bg-[#eff6fe] w-[20vw] border border-gray-200 rounded-lg shadow z-10">
+    <div class="bg-white dark:bg-gray-800 w-[20vw] border border-gray-200 rounded-lg shadow z-10">
       <div class="relative">
         <div class="relative">
           <img
@@ -397,54 +400,41 @@ defmodule ServicesWeb.Layouts do
             class="w-full h-20 object-cover rounded-t-lg"
           />
           <div class="bg-[#121e30] absolute bottom-0 left-4 translate-y-1/2 h-15 w-15 rounded-full flex flex-col justify-center">
-            <%= if @current_scope do %>
+
               <p class="text-white text-center font-bold">
                 {String.slice(@current_scope.user.username, 0, 1) |> String.upcase()}
               </p>
-            <% else %>
-              <.link
-                href={~p"/users/register"}
-                class="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-              >
-                Register
-              </.link>
-              <.link
-                href={~p"/users/log-in"}
-                class="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-              >
-                Log in
-              </.link>
-            <% end %>
           </div>
         </div>
       </div>
       <div class="mt-10 px-4 py-2">
         <ul class="flex flex-col">
-          <%= if @current_scope do %>
             <p class="font-semibold">{@current_scope.user.username}</p>
-            <p class="font-normal text-gray-600">{@current_scope.user.email}</p>
+            <p class="font-normal text-gray-600 dark:text-gray-200">{@current_scope.user.email}</p>
             <div class="divider" />
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-2 py-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="20px"
                 viewBox="0 -960 960 960"
                 width="20px"
                 fill="#000000"
+                class="dark:fill-white"
               >
                 <path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z" />
               </svg>
-              <.link href={~p"/users/settings"} class="text-gray-700 font-medium transition-colors">
+              <.link href={~p"/users/settings"} class="text-gray-700 dark:text-gray-200 font-medium transition-colors">
                 Account Setting
               </.link>
             </div>
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-2 py-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="20px"
                 viewBox="0 -960 960 960"
                 width="20px"
                 fill="#000000"
+                class="dark:fill-white"
               >
                 <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
               </svg>
@@ -456,20 +446,7 @@ defmodule ServicesWeb.Layouts do
                 Log out
               </.link>
             </div>
-          <% else %>
-            <.link
-              href={~p"/users/register"}
-              class="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-            >
-              Register
-            </.link>
-            <.link
-              href={~p"/users/log-in"}
-              class="text-gray-700 hover:text-blue-600 font-medium transition-colors"
-            >
-              Log in
-            </.link>
-          <% end %>
+
         </ul>
       </div>
     </div>
