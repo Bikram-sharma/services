@@ -17,7 +17,7 @@ defmodule Services.Notifications.SpecialNotification do
   @doc false
   def changeset(special_notification, attrs, user_scope) do
     special_notification
-    |> cast(attrs, [:description, :archive, :read])
+    |> cast(attrs, [:description, :archive, :read, :booking_id])
     |> validate_required([:description, :archive, :read])
     |> put_change(:user_id, user_scope.user.id)
   end

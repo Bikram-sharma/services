@@ -89,7 +89,9 @@ defmodule Services.Bookings do
   end
 
   def book_service(%Scope{} = scope, %Booking{} = booking, attrs) do
+    attrs = Map.put(attrs, "booking_id", booking.id)
     true = booking.user_id == scope.user.id
+    dbg(attrs)
 
     with {:ok, booking = %Booking{}} <-
            update_booking(scope, booking, attrs),

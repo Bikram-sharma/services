@@ -54,6 +54,16 @@ Hooks.ConfirmRoleChange = {
     this.el.dataset.originalValue = this.el.value;
   },
 };
+Hooks.CarouselNext = {
+  mounted() {
+    this.handleEvent("trigger-carousel-next", () => {
+      const nextBtn = document.getElementById("carousel-next-btn");
+      if (nextBtn) {
+        nextBtn.click();
+      }
+    });
+  },
+};
 
 const csrfToken = document
   .querySelector("meta[name='csrf-token']")

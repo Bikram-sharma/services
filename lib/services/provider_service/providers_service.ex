@@ -23,7 +23,13 @@ defmodule Services.ProviderService.ProvidersService do
   @doc false
   def changeset(providers_service, attrs) do
     providers_service
-    |> cast(attrs, [:descriptions, :custom_price, :is_available, :service_provider_id, :service_id])
+    |> cast(attrs, [
+      :descriptions,
+      :custom_price,
+      :is_available,
+      :service_provider_id,
+      :service_id
+    ])
     |> validate_required([:custom_price, :is_available])
   end
 end
