@@ -65,6 +65,39 @@ Hooks.CarouselNext = {
   },
 };
 
+Hooks.ScrollHeader = {
+  mounted() {
+    let lastScrollTop = 0;
+    let header = this.el;
+    let scrollThreshold = 50; // Minimum scroll distance to trigger hide/show
+
+    window.addEventListener("scroll", () => {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      // If at the top, always show
+      if (scrollTop <= 0) {
+        header.classList.remove("hidden");
+        return;
+      }
+
+      // Check scroll direction
+      if (Math.abs(scrollTop - lastScrollTop) < scrollThreshold) {
+        return; // Not enough scroll movement
+      }
+
+      if (scrollTop > lastScrollTop) {
+        // Scrolling down - hide header
+        header.classList.add("hidden");
+      } else {
+        // Scrolling up - show header
+        header.classList.remove("hidden");
+      }
+
+      lastScrollTop = scrollTop;
+    });
+  },
+};
+
 const csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content");
