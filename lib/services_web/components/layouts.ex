@@ -193,7 +193,7 @@ defmodule ServicesWeb.Layouts do
             <div class="hidden md:flex items-center justify-center space-x-8 w-[60vw]">
               <.link navigate="/" class={nav_link_class(@conn, "/")}>Home</.link>
               <.link navigate="/services" class={nav_link_class(@conn, "/services")}>Services</.link>
-              <.link navigate="/#about" class={nav_link_class(@conn, "/#about")}>About</.link>
+              <.link navigate="/about" class={nav_link_class(@conn, "/about")}>About</.link>
               <.link navigate="/#contact-info" class={nav_link_class(@conn, "/#contact-info")}>
                 Contact
               </.link>
@@ -328,7 +328,7 @@ defmodule ServicesWeb.Layouts do
                 <a href="/services" class="text-gray-700 hover:text-blue-600 font-medium w-fit">
                   Services
                 </a>
-                <a href="/#about" class="text-gray-700 hover:text-blue-600 font-medium w-fit">
+                <a href="/about" class="text-gray-700 hover:text-blue-600 font-medium w-fit">
                   About
                 </a>
                 <a href="#" class="text-gray-700 hover:text-blue-600 font-medium w-fit">Contact</a>
