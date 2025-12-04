@@ -58,14 +58,41 @@ defmodule Services.Notifications do
       ** (Ecto.NoResultsError)
 
   """
-  def get_special_notification!(%Scope{} = scope, id) do
-    Repo.get_by!(SpecialNotification, id: id, user_id: scope.user.id)
+  def get_special_notification!(%Scope{} = _scope, id) do
+    SpecialNotification
+    |> preload([:from_user, :to_user, :bookings, bookings: [providers_service: :services]])
+     |> Repo.get_by!(id: id)
+  end
+  def get_special_notification_by_id(id) do
+    SpecialNotification
+      |> preload([:from_user, :to_user, :bookings, bookings: [providers_service: [:services, :service_providers]]])
+     |> Repo.get_by!( id: id)
   end
 
   def list_special_notification_provider(to_id) do
     SpecialNotification
+    |> order_by([sn], desc: sn.inserted_at)
     |> where([sn], sn.read == false)
     |> where([sn], sn.archive == false)
+    |> preload([:from_user, :to_user, :bookings, bookings: [providers_service: [:services, :service_providers]]])
+    |> Repo.all_by(to_id: to_id)
+  end
+
+
+  def list_special_notification_read(to_id) do
+    SpecialNotification
+    |> order_by([sn], desc: sn.inserted_at)
+    |> where([sn], sn.read == true)
+    |> where([sn], sn.archive == false)
+    |> preload([:from_user, :to_user, :bookings, bookings: [providers_service: [:services, :service_providers]]])
+    |> Repo.all_by(to_id: to_id)
+  end
+
+  def list_special_notification_archive(to_id) do
+    SpecialNotification
+    |> order_by([sn], desc: sn.inserted_at)
+    |> where([sn], sn.archive == true)
+    |> preload([:from_user, :to_user, :bookings, bookings: [providers_service: [:services, :service_providers]]])
     |> Repo.all_by(to_id: to_id)
   end
 
@@ -105,16 +132,11 @@ defmodule Services.Notifications do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_special_notification(
-        %Scope{} = scope,
-        %SpecialNotification{} = special_notification,
-        attrs
-      ) do
-    true = special_notification.user_id == scope.user.id
+  def update_special_notification(%Scope{} = scope, %SpecialNotification{} = special_notification, attrs) do
 
     with {:ok, special_notification = %SpecialNotification{}} <-
            special_notification
-           |> SpecialNotification.changeset(attrs, scope)
+           |> SpecialNotification.changeset_update(attrs, scope)
            |> Repo.update() do
       broadcast_special_notification(scope, {:updated, special_notification})
       {:ok, special_notification}
