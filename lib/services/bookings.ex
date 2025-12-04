@@ -69,11 +69,23 @@ defmodule Services.Bookings do
   @doc """
   Get all bookings.
   """
-  def get_all_booking(_scope) do
+  def get_all_booking() do
     Booking
     |> preload(providers_service: [:services, service_providers: :users])
     |> preload(:users)
     |> Repo.all()
+  end
+
+  @doc """
+  Count bookings status.
+  """
+  def count_booking_status() do
+    query =
+      from i in Booking,
+      group_by: i.booking_status,
+      select: {i.booking_status, count(i.id)}
+
+    Repo.all(query)
   end
 
   @doc """
