@@ -6,8 +6,40 @@ defmodule ServicesWeb.ListsBookingsLive.Index do
   def render(assigns) do
     ~H"""
     <div class="py-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 min-h-[60vh]">
-      <.header> All Bookings </.header>
+      <div class="grid grid-cols-6 gap-5 mb-10">
+         <div class="bg-[#121e30] border border-gray-200 rounded-lg text-lg text-white font-bold p-4 space-y-2">
+            <.icon name="hero-book-open" class="size-8"/>
+            <p>Total Booking: {@total_bookings || 0} </p>
+         </div>
 
+         <div class="bg-[#121e30] border border-gray-200 rounded-lg text-lg text-white font-bold p-4 space-y-2">
+            <.icon name="hero-archive-box-arrow-down" class="size-8"/>
+            <p>Draft: {@count["draft"] || 0} </p>
+         </div>
+
+         <div class="bg-[#121e30] border border-gray-200 rounded-lg text-lg text-white font-bold p-4 space-y-2">
+            <.icon name="hero-inbox-arrow-down" class="size-8"/>
+            <p>Initiated: {@count["initiated"]} </p>
+         </div>
+
+         <div class="bg-[#121e30] border border-gray-200 rounded-lg text-lg text-white font-bold p-4 space-y-2">
+            <.icon name="hero-x-circle" class="size-8"/>
+            <p>Rejected: {@count["rejected"] || 0} </p>
+         </div>
+
+         <div class="bg-[#121e30] border border-gray-200 rounded-lg text-lg text-white font-bold p-4 space-y-2">
+            <.icon name="hero-check-circle" class="size-8"/>
+            <p>Accepted: {@count["accepted"] || 0} </p>
+         </div>
+
+         <div class="bg-[#121e30] border border-gray-200 rounded-lg text-lg text-white font-bold p-4 space-y-2">
+            <.icon name="hero-clipboard-document-check" class="size-8"/>
+            <p>Booked: {@count["booked"] || 0} </p>
+         </div>
+      </div>
+
+      <%=if length(@all_bookings) != 0 do %>
+      <.header> All Bookings </.header>
       <.table id="all_bookings" rows={@all_bookings}>
         <:col :let={booking} label="Service Booked">
            { booking.providers_service.services.name }
@@ -40,9 +72,21 @@ defmodule ServicesWeb.ListsBookingsLive.Index do
         <:col :let={booking} label="Price">
            { booking.actual_total_price }
         </:col>
+        <:action :let={booking} label="Cancel">
+            <.link
+               phx-click={JS.push("delete", value: %{id: booking.id}) |> hide("##{booking.id}")}
+               data-confirm="Are you sure you want to cancel this action?"
+               class="text-red-600 hover:underline"
+            >
+               Cancel
+            </.link>
+        </:action>
       </.table>
 
-      <p class="mt-5">{@ouch_uaaa}</p>
+      <% else %>
+         <.header> {@empty} </.header>
+         <p class="mt-5">{@ouch_uaaa}</p>
+      <% end %>
 
     </div>
     """
@@ -50,14 +94,21 @@ defmodule ServicesWeb.ListsBookingsLive.Index do
 
   def mount(_params, _session, socket) do
 
-   result = Bookings.get_all_booking(nil)
-   dbg(result)
-
    {:ok,
    socket
       |> assign(:page_title, "Listing Bookings")
-      |> assign(:all_bookings, Bookings.get_all_booking(nil))
+      |> assign(:all_bookings, Bookings.get_all_booking())
+      |> assign(:total_bookings, length(Bookings.get_all_booking()))
+      |> assign(:count, Map.new(Bookings.count_booking_status()))
+      |> assign(:empty, "No Bookings to Display")
       |> assign(:ouch_uaaa, "Harder!!!! more harder!!!! yey! yey!!!! yey!!! ouch you bitch!!!!")}
   end
+
+  def handle_event("delete", %{"id" => id}, socket) do
+      booking = Bookings.get_booking!(socket.assigns.current_scope, id)
+      {:ok, _} = Bookings.delete_booking(socket.assigns.current_scope, booking)
+
+      {:noreply, stream_delete(socket, :bookings, booking)}
+   end
 
 end
