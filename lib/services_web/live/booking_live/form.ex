@@ -73,7 +73,7 @@ defmodule ServicesWeb.BookingLive.Form do
             </div>
           </div>
 
-          <div id="carousel-container" class="overflow-hidden w-full" phx-hook="CarouselNext">
+          <div id="carousel-container" class="overflow-hidden h-full w-full" phx-hook="CarouselNext">
             <div id="inner-carousel" class="flex transition-transform duration-900">
               <div class="w-full flex-shrink-0">
                 <!-- ----------Booking Form Start---------- -->
@@ -150,16 +150,16 @@ defmodule ServicesWeb.BookingLive.Form do
                     </button>
                   </div>
                 </.form>
-                
+
     <!-- ----------Booking Form End---------- -->
               </div>
 
-              <div class="w-full flex-shrink-0">
+              <div class="min-h-full min-w-full flex-shrink-y-0   ">
                 <!-- ---------Service Form Start--------- -->
                 <.form
                   for={%{}}
                   phx-submit="book_service"
-                  class="p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-r-lg space-y-6"
+                  class="h-full p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-r-lg space-y-6"
                 >
                   <h3 class="text-xl font-bold text-indigo-700 dark:text-indigo-400 border-b border-gray-200 dark:border-gray-700 pb-3 mb-4">
                     Enter the service detail
@@ -188,7 +188,7 @@ defmodule ServicesWeb.BookingLive.Form do
                     hidden
                   />
                   <.input type="text" hidden name="booking_status" value="initiated" />
-                  
+
     <!-- ----------The button to open modal---------- -->
                   <label
                     for="my_modal_6"
@@ -221,7 +221,7 @@ defmodule ServicesWeb.BookingLive.Form do
                     </label>
                   </div>
 
-                  <div class="flex flex-col sm:flex-row items-center justify-between pt-4 border-t-2 border-dashed border-gray-300 dark:border-gray-600 mt-6">
+                  <div class="flex flex-col sm:flex-row items-center justify-between border-t-2 border-dashed border-gray-300 dark:border-gray-600 mt-6 pt-4">
                     <button
                       type="button"
                       class="flex items-center cursor-pointer text-indigo-700 dark:text-indigo-400"

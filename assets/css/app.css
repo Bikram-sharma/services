@@ -100,7 +100,10 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 /* Make LiveView wrapper divs transparent for layout */
-[data-phx-session], [data-phx-teleported-src] { display: contents }
+[data-phx-session],
+[data-phx-teleported-src] {
+  display: contents;
+}
 
 /* This file is for your main application CSS */
 .btn-blue-gray {
@@ -111,3 +114,6 @@
   @apply bg-[#121e30] dark:border-none text-white;
 }
 
+html {
+  scroll-behavior: smooth;
+}

@@ -165,7 +165,7 @@ defmodule ServicesWeb.Layouts do
     <header
      id="main-header"
      phx-hook="ScrollHeader"
-     class="rounded-full bg-white shadow shadow-black flex items-center justify-evenly fixed top-2 left-[2vw] max-w-[96vw] border dark:bg-gray-900 z-50">
+     class="rounded-full bg-white shadow shadow-black flex items-center justify-evenly fixed top-4 left-1/2 -translate-x-1/2 w-[95vw]  border dark:bg-gray-900 z-50">
       <nav class="w-full drak:text-white">
         <div class="mx-auto px-2 sm:px-4 lg:px-6">
           <div class="flex justify-between items-center h-16">
@@ -193,10 +193,10 @@ defmodule ServicesWeb.Layouts do
             <div class="hidden md:flex items-center justify-center space-x-8 w-[60vw]">
               <.link navigate="/" class={nav_link_class(@conn, "/")}>Home</.link>
               <.link navigate="/services" class={nav_link_class(@conn, "/services")}>Services</.link>
-              <.link navigate="/about" class={nav_link_class(@conn, "/about")}>About</.link>
-              <.link navigate="/#contact-info" class={nav_link_class(@conn, "/#contact-info")}>
+              <.link navigate="/#about" class={nav_link_class(@conn, "/#about")}>About</.link>
+              <a href="mailto:servicehub@gmail.com" class={nav_link_class(@conn, "/#contact-info")}>
                 Contact
-              </.link>
+              </a>
               <%= if @current_scope do %>
                 <.link navigate={~p"/bookings"} class={nav_link_class(@conn, ~p"/bookings")}>
                   Your Bookings
@@ -288,7 +288,7 @@ defmodule ServicesWeb.Layouts do
 
           <div
             id="mobile-menu"
-            class="fixed top-0 -left-1 h-full w-[90%] bg-[#e6edfe] -translate-x-full duration-300 p-4 z-50"
+            class="md:hidden fixed top-0 -left-1 h-full w-[90%] bg-[#e6edfe] -translate-x-full duration-300 p-4 z-50"
           >
             <div class="flex items-center justify-between mb-4">
               <div class="flex items-center">
