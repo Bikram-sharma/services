@@ -193,10 +193,9 @@ defmodule ServicesWeb.Layouts do
             <div class="hidden md:flex items-center justify-center space-x-8 w-[60vw]">
               <.link navigate="/" class={nav_link_class(@conn, "/")}>Home</.link>
               <.link navigate="/services" class={nav_link_class(@conn, "/services")}>Services</.link>
-              <.link navigate="/#about" class={nav_link_class(@conn, "/#about")}>About</.link>
-              <a href="mailto:servicehub@gmail.com" class={nav_link_class(@conn, "/#contact-info")}>
-                Contact
-              </a>
+              <.link navigate="/about" class={nav_link_class(@conn, "/about")}>About</.link>
+              <.link navigate="/contact" class={nav_link_class(@conn, "/contact")}>Contact</.link>
+
               <%= if @current_scope do %>
                 <.link navigate={~p"/bookings"} class={nav_link_class(@conn, ~p"/bookings")}>
                   Your Bookings
