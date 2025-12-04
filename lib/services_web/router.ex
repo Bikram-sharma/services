@@ -23,6 +23,7 @@ defmodule ServicesWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/about", AboutController, :about
 
     get "/services", DashController, :list_services
     get "/services/:id/book", DashController, :book
