@@ -62,7 +62,7 @@ defmodule Services.Bookings do
   """
   def get_booking!(%Scope{} = _scope, id) do
     Booking
-    |> preload(providers_service: [:service, service_providers: :users])
+    |> preload([providers_service: [:services, service_providers: :users]])
     |> Repo.get_by!(id: id)
   end
 
@@ -111,16 +111,15 @@ defmodule Services.Bookings do
   end
 
   def book_service(%Scope{} = scope, %Booking{} = booking, attrs) do
-    attrs = Map.put(attrs, "booking_id", booking.id)
-    true = booking.user_id == scope.user.id
-    dbg(attrs)
+    attrs_b = Map.put(attrs, "booking_id", booking.id)
 
     with {:ok, booking = %Booking{}} <-
-           update_booking(scope, booking, attrs),
-         {:ok, _notification} <-
-           Services.Notifications.create_special_notification(scope, attrs) do
-      {:ok, booking}
-    end
+      update_booking(scope, booking, attrs),
+      {:ok, _notification} <-
+       Services.Notifications.create_special_notification(scope, attrs_b) do
+        {:ok, booking}
+      end
+
   end
 
   @doc """
@@ -136,11 +135,11 @@ defmodule Services.Bookings do
 
   """
   def update_booking(%Scope{} = scope, %Booking{} = booking, attrs) do
-    true = booking.user_id == scope.user.id
+
 
     with {:ok, booking = %Booking{}} <-
            booking
-           |> Booking.changeset(attrs, scope)
+           |> Booking.changeset_update(attrs, scope)
            |> Repo.update() do
       broadcast_booking(scope, {:updated, booking})
       {:ok, booking}

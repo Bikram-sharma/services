@@ -58,4 +58,33 @@ defmodule Services.Bookings.Booking do
     ])
     |> put_change(:user_id, user_scope.user.id)
   end
+
+  def changeset_update(booking, attrs, _user_scope) do
+    booking
+    |> cast(attrs, [
+      :schedule_date_time,
+      :booked_at,
+      :cancelled_at,
+      :cancelled_by,
+      :actual_total_price,
+      :initiated_at,
+      :user_address,
+      :booking_status,
+      :contact,
+      :payment_status,
+      :delivered_at,
+      :accepted_at,
+      :provider_service_id
+    ])
+    |> validate_required([
+
+      :booking_status,
+      :provider_service_id,
+      :actual_total_price,
+      :contact,
+      :user_address
+    ])
+  end
+
+
 end
