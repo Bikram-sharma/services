@@ -260,11 +260,8 @@ defmodule ServicesWeb.BookingLive.Form do
       NaiveDateTime.utc_now()
       |> DateTime.from_naive!("Etc/UTC")
 
-    local_time =
-      case DateTime.shift_zone(current_time, "Asia/Thimphu") do
-        {:ok, time} -> time
-        {:error, error} -> error
-      end
+
+    local_time = DateTime.shift_zone!(current_time, "Asia/Thimphu")
 
     socket =
       socket
