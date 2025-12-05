@@ -14,7 +14,7 @@ defmodule ServicesWeb.RatingLive.Form do
       </.header>
 
       <.form for={@form} id="rating-form" phx-change="validate" phx-submit="save">
-        
+
     <!-- Star Rating Field -->
         <div class="space-y-2">
           <label class="block text-sm font-semibold leading-6 text-zinc-800">
@@ -44,10 +44,10 @@ defmodule ServicesWeb.RatingLive.Form do
               </span>
             <% end %>
           </div>
-          
+
     <!-- Hidden input to store the rating value -->
           <input type="hidden" name={@form[:rating].name} value={get_rating_value(@form) || ""} />
-          
+
     <!-- Display errors if any -->
           <%= if @form[:rating].errors != [] do %>
             <p class="mt-2 text-sm text-rose-600">
@@ -57,6 +57,7 @@ defmodule ServicesWeb.RatingLive.Form do
         </div>
 
         <.input field={@form[:comment]} type="textarea" label="Comment" />
+        <.input field={@form[:rated_user_id]} type="text" value={@current_scope.user.username} label="User name" placeholder={@current_scope.user.username}/>
 
         <footer class="flex flex-col gap-4 w-full text-center">
           <.button phx-disable-with="Saving..." variant="dark-blue-gray">Save Review</.button>

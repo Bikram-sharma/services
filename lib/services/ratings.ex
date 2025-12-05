@@ -1,5 +1,6 @@
 defmodule Services.Ratings do
   use Ecto.Schema
+  import Ecto.Query, warn: false
 
   alias Services.Repo
 
@@ -37,8 +38,10 @@ defmodule Services.Ratings do
       [%Rating{}, ...]
 
   """
-  def list_ratings(%Scope{} = scope) do
-    Repo.all_by(Rating, rated_user_id: scope.user.id)
+  def list_ratings() do
+    Rating
+    |> preload(:users)
+    |> Repo.all()
   end
 
   @doc """
