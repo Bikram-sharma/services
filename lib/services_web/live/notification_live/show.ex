@@ -26,6 +26,7 @@ defmodule ServicesWeb.NotificationLive.Show do
       <.input hidden type="text" name="booking_id" value={@current_notification.booking_id}/>
       <.input hidden type="text" name="to_id" value={@current_notification.from_user.id}/>
       <.input hidden type="text" name="booking_status" value="rejected"/>
+      <.input hidden type="text" name="rejected_at" value={@local_time}/>
       </div>
       </.form>
     </div>
@@ -35,6 +36,7 @@ defmodule ServicesWeb.NotificationLive.Show do
     <.input type="textarea" name="description" label="description" placeholder="Looking forward to provide service." value=""/>
     <.input hidden name="to_id" value={@current_notification.from_user.id}/>
     <.input type="text" hidden name="booking_status" value="accepted" />
+    <.input hidden name="accepted_at" value={@local_time}/>
     <.input hidden name="notification_id" value={@current_notification.id}/>
     <.input hidden name="booking_id" value={@current_notification.bookings.id}/>
     <button>Accept</button>
@@ -49,9 +51,12 @@ defmodule ServicesWeb.NotificationLive.Show do
   end
 
   def mount(%{"id" => id}, _session, socket) do
+    current_time = NaiveDateTime.utc_now() |> DateTime.from_naive!("Etc/UTC")
+    local_time = DateTime.shift_zone!(current_time, "Asia/Thimphu")
 
     current_notification = Services.Notifications.get_special_notification_by_id(id)
     {:ok, socket
+    |> assign(:local_time, local_time)
     |> assign(:current_notification, current_notification)
     |> assign(:openform, false)
     }

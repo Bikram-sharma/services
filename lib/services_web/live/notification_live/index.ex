@@ -31,14 +31,18 @@ alias Services.Bookings
       <%= for inbox <- list do%>
       <div class="flex flex-col p-4 w-[70vh] justify-center bg-gray-700 rounded">
       <div class=" font-bold">{inbox.from_user.username}</div>
-      <.link href={~p"/notification/#{inbox.id}/show"}>
+      <.form for={%{}} phx-submit="open_notification">
+      <.input hidden name="notification_id" value={inbox.id}/>
+      <button>
       <div class="p-2">{inbox.description}.</div>
-      </.link>
+      </button>
+      </.form>
       <div class="flex gap-2">
 
       <%=if inbox.bookings.booking_status == "initiated" && inbox.bookings.providers_service.service_providers.user_id do%>
-      <.form for={%{}} phx-submit="open_form" class="">
+      <.form for={%{}} phx-submit="open_notification">
       <button class="text-bold">Accept ✔️</button>
+      <.input hidden name="notification_id" value={inbox.id}/>
       </.form>
       <.form for={%{}} phx-submit="reject">
       <button type="submit" class="text-bold"> Reject ❌</button>
@@ -114,10 +118,24 @@ alias Services.Bookings
     |> assign(:list_of_inbox, list_of_inbox)
     |> assign(:page_header, "Archives")
   end
+  defp read_notification(socket, scope, notification, params) do
+    Services.Notifications.update_special_notification(scope, notification, params)
+    socket
+  end
 
   def handle_event("open_form", _params, socket) do
     {:noreply, socket
     |> assign(:openform, true)}
+  end
+
+  def handle_event("open_notification", params, socket) do
+    current_notification = Services.Notifications.get_special_notification_by_id(params["notification_id"])
+    naughty_change = %{"read" => true}
+      {:noreply,
+        socket
+        |> push_navigate(to: ~p"/notification/#{current_notification.id}/show")
+        |> read_notification(socket.assigns.current_scope, current_notification, naughty_change)
+    }
   end
 
   def handle_event("reject", params, socket) do

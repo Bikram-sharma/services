@@ -165,8 +165,7 @@ defmodule ServicesWeb.BookingLive.Form do
                     Enter the service detail
                   </h3>
 
-            <.input placeholder="enter brief discussion about the service you are trying to avail." label="description" type="textarea" name="description" value=""/>
-            <.input type="datetime-local" label="date of service." name="schedule_date_time" value=""/>
+
 
             <.input  type="datetime-local" placeholder={@local_time} name="initiated_at" value={@local_time}  hidden/>
             <.input type="text" hidden name="booking_status" value="initiated"/>
