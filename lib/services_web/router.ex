@@ -78,7 +78,7 @@ defmodule ServicesWeb.Router do
       live "/bookings/:id/edit", BookingLive.Form, :edit
       live "/bookings/:id/form", BookingLive.Form, :form
 
-      live "/ratings", RatingLive.Index, :index
+
       live "/ratings/new", RatingLive.Form, :new
       live "/ratings/:id", RatingLive.Show, :show
       live "/ratings/:id/edit", RatingLive.Form, :edit
@@ -125,6 +125,7 @@ defmodule ServicesWeb.Router do
       live "/manage/services/:id/edit", ServiceLive.Form, :edit
 
       live "/manage/bookings", ListsBookingsLive.Index, :index
+      live "/manage/ratings", RatingLive.Index, :index
     end
   end
 end

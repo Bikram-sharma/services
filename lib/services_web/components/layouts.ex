@@ -122,8 +122,8 @@ defmodule ServicesWeb.Layouts do
   """
   def theme_toggle(assigns) do
     ~H"""
-    <div class="card relative flex flex-row items-center border-2 border-base-300 bg-base-300 rounded-full">
-      <div class="absolute w-1/2 h-full rounded-full border-1 border-base-200 bg-base-100 brightness-200 left-0 [[data-theme=light]_&]:left-0 [[data-theme=dark]_&]:left-1/2 transition-[left]" />
+    <div class="card relative flex flex-row items-center border-1 border-white bg-black rounded-full">
+      <div class="absolute w-1/2 h-full rounded-full border-1 border-white bg-black brightness-200 left-0 [[data-theme=light]_&]:left-0 [[data-theme=dark]_&]:left-1/2 transition-[left]" />
 
       <button
         class="flex p-2 cursor-pointer w-1/2"
@@ -154,7 +154,7 @@ defmodule ServicesWeb.Layouts do
     current_path = conn.request_path
 
     base =
-      "dark:text-white dark:after:bg-white relative text-gray-700 font-medium after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:bg-[#121e30] after:duration-300 hover:after:w-full"
+      "after:bg-white relative text-white font-medium after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:bg-[#121e30] after:duration-300 hover:after:w-full"
 
     active = if current_path == path, do: "after:w-full", else: "after:w-0"
     "#{base} #{active}"
@@ -165,7 +165,7 @@ defmodule ServicesWeb.Layouts do
     <header
      id="main-header"
      phx-hook="ScrollHeader"
-     class="rounded-full bg-white shadow shadow-black flex items-center justify-evenly fixed top-4 left-1/2 -translate-x-1/2 w-[95vw]  border dark:bg-gray-900 z-50">
+     class="rounded-full text-white flex items-center justify-evenly fixed top-4 left-1/2 -translate-x-1/2 w-[95vw]  border  z-50 backdrop-blur-[200px] mix-blend-difference">
       <nav class="w-full drak:text-white">
         <div class="mx-auto px-2 sm:px-4 lg:px-6">
           <div class="flex justify-between items-center h-16">
@@ -186,7 +186,7 @@ defmodule ServicesWeb.Layouts do
                     />
                   </svg>
                 </div>
-                <span class="text-xl font-bold text-gray-900 dark:text-white">ServiceHub</span>
+                <span class="text-xl font-bold text-gray-900 text-white">ServiceHub</span>
               </a>
             </div>
 
@@ -227,7 +227,8 @@ defmodule ServicesWeb.Layouts do
               <ul class="hidden md:flex items-center space-x-8">
                 <%= if @current_scope do %>
                   <%= if @current_scope.user.role in ["admin", "super_admin"] do %>
-                    <button class="btn" popovertarget="popover-1" style="anchor-name:--anchor-1">
+                  <div class="dropdown dropdown-bottom dropdown-end">
+                    <button  tabindex="0" class="btn" popovertarget="popover-1" style="anchor-name:--anchor-1">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         height="24px"
@@ -241,7 +242,8 @@ defmodule ServicesWeb.Layouts do
                       Manage
                     </button>
                     <ul
-                      class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm mt-4"
+                      tabindex="0"
+                      class="dropdown-content menu w-52 rounded-box bg-base-100 shadow-sm mt-4"
                       popover
                       id="popover-1"
                       style="position-anchor:--anchor-1"
@@ -250,14 +252,16 @@ defmodule ServicesWeb.Layouts do
                       <li><.link href={~p"/manage/categories"}>Categories</.link></li>
                       <li><.link href={~p"/manage/services"}>Services</.link></li>
                       <li><.link href={~p"/manage/bookings"}>Bookings</.link></li>
+                      <li><.link href={~p"/manage/ratings"}>Reviews</.link></li>
                     </ul>
+                    </div>
                   <% end %>
 
                   <div class="dropdown dropdown-bottom dropdown-center">
                     <div tabindex="0" role="button">
                       <div
                         id="profile-avatar"
-                        class="bg-[#121e30] w-12 h-12 rounded-full border-3 hover:border-[#121e30] text-center text-white font-bold flex flex-col justify-center cursor-pointer"
+                        class="bg-[#121e30] w-12 h-12 rounded-full border-2 hover:border-[#121e30] text-center text-white font-bold flex flex-col justify-center cursor-pointer"
                         phx-click={JS.toggle(to: "#profile-card")}
                       >
                         {String.slice(@current_scope.user.username, 0, 1) |> String.upcase()}
@@ -274,7 +278,7 @@ defmodule ServicesWeb.Layouts do
                   <li>
                     <.link
                       href={~p"/users/register"}
-                      class="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                      class={nav_link_class(@conn, ~p"/users/register")}
                     >
                       Register
                     </.link>
@@ -282,7 +286,7 @@ defmodule ServicesWeb.Layouts do
                   <li>
                     <.link
                       href={~p"/users/log-in"}
-                      class="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                      class={nav_link_class(@conn, ~p"/users/log-in")}
                     >
                       Log in
                     </.link>
@@ -432,7 +436,7 @@ defmodule ServicesWeb.Layouts do
       </div>
       <div class="mt-10 px-4 py-2">
         <ul class="flex flex-col">
-            <p class="font-semibold">{@current_scope.user.username}</p>
+            <p class="font-semibold text-gray-600 dark:text-gray-200">{@current_scope.user.username}</p>
             <p class="font-normal text-gray-600 dark:text-gray-200">{@current_scope.user.email}</p>
             <div class="divider" />
             <div class="flex items-center space-x-2 py-2">
