@@ -169,7 +169,7 @@ defmodule ServicesWeb.BookingLive.Form do
 
             <.input  type="datetime-local" placeholder={@local_time} name="initiated_at" value={@local_time}  hidden/>
             <.input type="text" hidden name="booking_status" value="initiated"/>
-            <.input type="text" hidden name="to_id" value={@provider_service.service_providers.users.id} hidden/>
+            <.input type="text" hidden name="to_id" value={@provider_service.service_providers.users.id}/>
                   <.input
                     required
                     placeholder="enter brief discussion about the service you are trying to avail."

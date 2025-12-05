@@ -273,7 +273,7 @@ defmodule ServicesWeb.CoreComponents do
     ~H"""
     <div class="fieldset mb-2">
       <label>
-        <span :if={@label} class="label mb-1 text-gray-900 dark:text-[#121e30] text-sm">
+        <span :if={@label} class="label mb-1 text-gray-900 dark:text-white text-sm">
           {@label}
         </span>
         <input
@@ -283,7 +283,7 @@ defmodule ServicesWeb.CoreComponents do
           value={Phoenix.HTML.Form.normalize_value(@type, @value)}
           class={[
             @class ||
-              "text-sm w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-400 focus:ring-2 dark:ring-gray-500 focus:border-transparent outline-none transition-all duration-200",
+              "text-sm  w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-400 focus:ring-2 dark:ring-gray-500 focus:border-transparent outline-none transition-all duration-200",
             @errors != [] && (@error_class || "input-error")
           ]}
           {@rest}
