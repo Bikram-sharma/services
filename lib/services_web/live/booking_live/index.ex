@@ -80,7 +80,6 @@ defmodule ServicesWeb.BookingLive.Index do
         |> put_flash(:info, "the booking have been cancelled and now somebody might be sad.")}
  end
 
-  @impl_true
   defp cancel_booking(socket, booking, id) do
     local_time = NaiveDateTime.utc_now() |> DateTime.from_naive!("Etc/UTC") |> DateTime.shift_zone!("Asia/Thimphu")
     who_cancelled? = cond do

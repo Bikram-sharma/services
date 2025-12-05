@@ -5,6 +5,7 @@ defmodule ServicesWeb.ListsBookingsLive.Index do
 
   def render(assigns) do
     ~H"""
+    <Layouts.app flash={@flash}>
     <div class="py-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 min-h-[60vh]">
       <div class="grid grid-cols-6 gap-5 mb-10">
          <div class="bg-[#121e30] border border-gray-200 rounded-lg text-lg text-white font-bold p-4 space-y-2">
@@ -74,7 +75,7 @@ defmodule ServicesWeb.ListsBookingsLive.Index do
         </:col>
         <:action :let={booking} label="Cancel">
             <.link
-               phx-click={JS.push("delete", value: %{id: booking.id}) |> hide("##{booking.id}")}
+               phx-click={JS.push("cancel", value: %{id: booking.id}) |> hide("##{booking.id}")}
                data-confirm="Are you sure you want to cancel this action?"
                class="text-red-600 hover:underline"
             >
@@ -89,6 +90,7 @@ defmodule ServicesWeb.ListsBookingsLive.Index do
       <% end %>
 
     </div>
+    </Layouts.app>
     """
   end
 
@@ -110,5 +112,32 @@ defmodule ServicesWeb.ListsBookingsLive.Index do
 
       {:noreply, stream_delete(socket, :bookings, booking)}
    end
+
+   def handle_event("cancel", %{"id" => id}, socket) do
+    booking = Bookings.get_booking!(socket.assigns.current_scope, id)
+    list =[booking.user_id, booking.providers_service.service_providers.user_id]
+    Enum.map(list, fn x -> cancel_booking(socket, booking, x) end)
+
+        {:noreply,
+        socket
+        |> put_flash(:info, "the booking have been cancelled and now somebody might be sad.")}
+ end
+
+  defp cancel_booking(socket, booking, id) do
+    local_time = NaiveDateTime.utc_now() |> DateTime.from_naive!("Etc/UTC") |> DateTime.shift_zone!("Asia/Thimphu")
+    who_cancelled? = cond do
+      socket.assigns.current_scope.user.id == booking.user_id -> "client"
+      socket.assigns.current_scope.user.id == booking.providers_service.service_providers.user_id -> "provider"
+      true -> "higher authority."
+      end
+
+    cancel_form = %{
+      "booking_status" => "cancelled",
+      "cancelled_at" => local_time,
+      "description" => "the booking was cancelled by " <> who_cancelled?,
+      "to_id" => id
+    }
+    Bookings.book_service(socket.assigns.current_scope, booking, cancel_form)
+  end
 
 end
