@@ -23,6 +23,7 @@ defmodule ServicesWeb.RatingLive.Index do
       >
         <:col :let={{_id, rating}} label="Rating">{rating.rating}</:col>
         <:col :let={{_id, rating}} label="Comment">{rating.comment}</:col>
+        <:col :let={{_id, rating}} label="Rated_by">{rating.users.username}</:col>
         <:action :let={{_id, rating}}>
           <div class="sr-only">
             <.link navigate={~p"/ratings/#{rating}"}>Show</.link>
@@ -51,7 +52,7 @@ defmodule ServicesWeb.RatingLive.Index do
     {:ok,
      socket
      |> assign(:page_title, "Listing Ratings")
-     |> stream(:ratings, list_ratings(socket.assigns.current_scope))}
+     |> stream(:ratings, list_ratings())}
   end
 
   @impl true
@@ -65,10 +66,10 @@ defmodule ServicesWeb.RatingLive.Index do
   @impl true
   def handle_info({type, %Services.Ratings.Rating{}}, socket)
       when type in [:created, :updated, :deleted] do
-    {:noreply, stream(socket, :ratings, list_ratings(socket.assigns.current_scope), reset: true)}
+    {:noreply, stream(socket, :ratings, list_ratings(), reset: true)}
   end
 
-  defp list_ratings(current_scope) do
-    Ratings.list_ratings(current_scope)
+  defp list_ratings() do
+    Ratings.list_ratings()
   end
 end

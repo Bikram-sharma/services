@@ -257,7 +257,6 @@ defmodule ServicesWeb.BookingLive.Form do
   def mount(%{"id" => id}, _session, %{assigns: %{live_action: :form}} = socket) do
     is_hidden = Services.Servicing.is_hidden(socket.assigns.current_scope)
     provider_service = Services.ProviderService.get_providers_service_by_id(id)
-
     current_time =
       NaiveDateTime.utc_now()
       |> DateTime.from_naive!("Etc/UTC")

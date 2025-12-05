@@ -7,8 +7,10 @@ defmodule Services.Ratings.Rating do
   schema "ratings" do
     field :rating, :integer
     field :comment, :string
-    field :rated_user_id, :binary_id
-    field :rated_service_id, :binary_id
+
+    belongs_to :users, Services.Accounts.User,
+        foreign_key: :rated_user_id,
+        type: :binary_id
 
     timestamps(type: :utc_datetime)
   end
