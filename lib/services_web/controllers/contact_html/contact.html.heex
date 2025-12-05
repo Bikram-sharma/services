@@ -1,96 +1,74 @@
 <Layouts.flash_group flash={@flash} />
 <section>
-    <div class="h-[65vh] bg-[#121e30] flex flex-col justify-center">
+    <div class="h-[55vh] bg-[#121e30] flex flex-col justify-center">
         <div class="max-w-4xl mx-auto text-center space-y-10 relative">
-            <p class="text-4xl text-white font-bold relative after:absolute after:left-0 after:right-0 after:-bottom-5 after:h-0.5 after:w-full after:bg-gray-500">Contact Us</p>
+            <h2 class="text-4xl text-white font-bold relative after:absolute after:left-0 after:right-0 after:-bottom-5 after:h-0.5 after:w-full after:bg-gray-500">Contact Us</h2>
             <p class="text-xl font-normal text-white">Welcome to ServiceHub, the all-in-one digital platform where people can discover, compare, and book services Have questions about our services, bookings, or becoming a service provider? Our team is here to help. Feel free to reach out — we usually respond within 24 hours</p>
         </div>
-        <div class="w-full absolute bottom-[25%] grid grid-cols-4 gap-5 px-[10%]">
-            <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-300 hover:shadow-xl">
-                <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 bg-blue-200 rounded-xl flex items-center justify-center">
-                        <.icon name="hero-map-pin" class="size-7"/>
-                    </div>
-                    <div class="flex-1">
-                        <h4 class="text-xl font-semibold mb-3">Visit Us</h4>
-                        <div class="space-y-1">
-                            <p class="text-lg text-gray-600">Somewhere Headquarters</p>
-                            <p class="text-lg text-gray-600">123 Waka Waka Aie Aie</p>
-                            <p class="text-lg text-gray-600">Jama laune Street 500</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    </div>
+    
+    <div class="max-w-[70%] mx-auto bg-white rounded-lg shadow-md  grid sm:grid-cols-1 md:grid-cols-2 gap-10 my-20 md:p-10">
+        
+        <div class="bg-[#121e30] rounded-lg space-y-15 p-5">
             
-            <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-300 hover:shadow-xl">
-                <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 bg-blue-200 rounded-xl flex items-center justify-center">
-                        <.icon name="hero-phone" class="size-7"/>
-                    </div>
-                    <div class="flex-1">
-                        <h4 class="text-xl font-semibold mb-3">Call Us</h4>
-                        <div class="space-y-1">
-                            <p class="text-lg text-gray-600">+957 12345678</p>
-                            <p class="text-lg text-gray-600">+957 12345678</p>
-                            <p class="text-lg text-gray-600">+957 12345678</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="relative after:absolute after:left-0 after:right-0 after:-bottom-2 after:h-0.5 after:w-full after:bg-gray-500">
+                <h2 class="text-2xl text-white font-bold">Contact Information</h2>
+                <p class="text-lg font-normal text-white">Any questions or remarks? Just write us a message!</p>
             </div>
 
-            <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-300 hover:shadow-xl">
-                <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 bg-blue-200 rounded-xl flex items-center justify-center">
-                        <.icon name="hero-envelope" class="size-7"/>
-                    </div>
-                    <div class="flex-1">
-                        <h4 class="text-xl font-semibold mb-3">Email Us</h4>
-                        <div class="space-y-1">
-                            <p class="text-lg text-gray-600">info@servicehub.com</p>
-                            <p class="text-lg text-gray-600">service@servicehub.com</p>
-                            <p class="text-lg text-gray-600">support@servicehub.com</p>
-                        </div>
+            <div class="max-w-[80%] mx-auto space-y-10">
+                <div class="flex space-x-6">
+                    <.icon name="hero-map-pin" class="size-8 text-white"/>
+                    <div class="relative after:absolute after:left-0 after:right-0 after:bottom-0 after:h-full after:w-0.5 after:bg-gray-500">
+                        <p class="text-md text-white ml-3">Somewhere Headquarters</p>
+                        <p class="text-md text-white ml-3">123 Waka Waka Aie Aie</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-300 hover:shadow-xl">
-                <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 bg-blue-200 rounded-xl flex items-center justify-center">
-                        <.icon name="hero-clock" class="size-7"/>
+                
+                <div class="flex space-x-6">
+                    <.icon name="hero-phone" class="size-8 text-white"/>
+                    <div class="relative after:absolute after:left-0 after:right-0 after:bottom-0 after:h-full after:w-0.5 after:bg-gray-500">
+                        <p class="text-md text-white ml-3">+957 12345678</p>
+                        <p class="text-md text-white ml-3">+957 12345678</p>
                     </div>
-                    <div class="flex-1">
-                        <h4 class="text-xl font-semibold mb-3">Business Hours</h4>
-                        <div class="space-y-1">
-                            <p class="text-lg text-gray-600">Monday - Friday</p>
-                            <p class="text-lg text-gray-600">8:00 AM - 6:00 PM EST</p>
-                            <p class="text-lg text-gray-600">Weekend: By Appointment</p>
-                        </div>
+                </div>
+    
+                <div class="flex space-x-6">
+                    <.icon name="hero-envelope" class="size-8 text-white"/>
+                    <div class="relative after:absolute after:left-0 after:right-0 after:bottom-0 after:h-full after:w-0.5 after:bg-gray-500">
+                        <p class="text-md text-white ml-3">info@servicehub.com</p>
+                        <p class="text-md text-white ml-3">service@servicehub.com</p>
+                        <p class="text-md text-white ml-3">support@servicehub.com</p>
+                    </div>
+                </div>
+    
+                <div class="flex space-x-6">
+                    <.icon name="hero-clock" class="size-8 text-white"/>
+                    <div class="relative after:absolute after:left-0 after:right-0 after:bottom-0 after:h-full after:w-0.5 after:bg-gray-500">
+                        <p class="text-md text-white ml-3">Monday - Friday</p>
+                        <p class="text-md text-white ml-3">8:00 AM - 6:00 PM EST</p>
+                        <p class="text-md text-white ml-3">Weekend: By Appointment</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-
-    <div class="max-w-5xl mx-auto px-[10%] py-50">
-        
-        <form class="bg-white border-2 border-gray-300 rounded-2xl shadow-lg p-5 space-y-6">
+        <form class="md:p-5 space-y-6">
             <div class="grid md:grid-cols-2 gap-6">
                 <div>
                     <label class="text-[#121e30] mb-2">Full Name *</label>
-                    <input type="text" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none" placeholder="John Doe">
+                    <input type="text" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none" placeholder="Con Doe">
                 </div>
                 <div>
                     <label for="email" class="text-[#121e30] mb-2">Email Address *</label>
-                    <input type="email" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none" placeholder="john@company.com">
+                    <input type="email" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none" placeholder="condoe@chak.com">
                 </div>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div>
                     <label for="phone" class="text-[#121e30] mb-2">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none" placeholder="+1 (555) 000-0000">
+                    <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none" placeholder="+975 00 000 000">
                 </div>
                 <div>
                     <label for="company" class="text-[#121e30] mb-2">Company Name</label>
