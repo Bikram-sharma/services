@@ -30,7 +30,7 @@ defmodule ServicesWeb.BookingLive.Index do
             <:col :let={{_id, booking}} label="Status">{booking.booking_status}</:col>
             <:action :let={{id, booking}} label="Cancel">
               <.link
-                phx-click={JS.push("delete", value: %{id: booking.id}) |> hide("##{id}")}
+                phx-click={JS.push("cancel", value: %{id: booking.id}) |> hide("##{id}")}
                 data-confirm="Are you sure?"
                 class="text-red-600 hover:underline"
               >
@@ -70,11 +70,32 @@ defmodule ServicesWeb.BookingLive.Index do
   end
 
   @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
+  def handle_event("cancel", %{"id" => id}, socket) do
     booking = Bookings.get_booking!(socket.assigns.current_scope, id)
-    {:ok, _} = Bookings.delete_booking(socket.assigns.current_scope, booking)
+    list =[booking.user_id, booking.providers_service.service_providers.user_id]
+    Enum.map(list, fn x -> cancel_booking(socket, booking, x) end)
 
-    {:noreply, stream_delete(socket, :bookings, booking)}
+        {:noreply,
+        socket
+        |> put_flash(:info, "the booking have been cancelled and now somebody might be sad.")}
+ end
+
+  @impl_true
+  defp cancel_booking(socket, booking, id) do
+    local_time = NaiveDateTime.utc_now() |> DateTime.from_naive!("Etc/UTC") |> DateTime.shift_zone!("Asia/Thimphu")
+    who_cancelled? = cond do
+      socket.assigns.current_scope.user.id == booking.user_id -> "client"
+      socket.assigns.current_scope.user.id == booking.providers_service.service_providers.user_id -> "provider"
+      true -> "higher authority."
+      end
+
+    cancel_form = %{
+      "booking_status" => "cancelled",
+      "cancelled_at" => local_time,
+      "description" => "the booking was cancelled by " <> who_cancelled?,
+      "to_id" => id
+    }
+    Bookings.book_service(socket.assigns.current_scope, booking, cancel_form)
   end
 
   @impl true
