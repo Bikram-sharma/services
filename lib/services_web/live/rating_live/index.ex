@@ -19,7 +19,6 @@ defmodule ServicesWeb.RatingLive.Index do
       <.table
         id="ratings"
         rows={@streams.ratings}
-        row_click={fn {_id, rating} -> JS.navigate(~p"/ratings/#{rating}") end}
       >
         <:col :let={{_id, rating}} label="Rating">{rating.rating}</:col>
         <:col :let={{_id, rating}} label="Comment">{rating.comment}</:col>

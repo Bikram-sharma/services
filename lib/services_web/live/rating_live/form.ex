@@ -7,67 +7,106 @@ defmodule ServicesWeb.RatingLive.Form do
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} current_scope={@current_scope}>
-      <.header>
-        {@page_title}
-        <:subtitle>Use this form to manage rating records in your database.</:subtitle>
-      </.header>
+  <Layouts.app flash={@flash} current_scope={@current_scope}>
+  <section class="py-10 px-4 md:px-10 flex justify-center">
+    <div class="w-full max-w-xl bg-white dark:bg-zinc-900
+                shadow-lg dark:shadow-xl rounded-2xl p-8
+                border border-gray-200 dark:border-zinc-700">
 
-      <.form for={@form} id="rating-form" phx-change="validate" phx-submit="save">
+      <!-- Heading -->
+      <div class="text-center mb-8">
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+          {@page_title}
+        </h1>
+        <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">
+          Share your experience with this service.
+        </p>
+      </div>
 
-    <!-- Star Rating Field -->
-        <div class="space-y-2">
-          <label class="block text-sm font-semibold leading-6 text-zinc-800">
+      <!-- FORM -->
+      <.form for={@form} id="rating-form" phx-change="validate" phx-submit="save" class="space-y-6">
+
+        <!-- Rating -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
             Rating
           </label>
 
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1">
             <%= for star_value <- 1..5 do %>
               <button
                 type="button"
                 phx-click="set_rating"
                 phx-value-rating={star_value}
-                class="text-3xl transition-all hover:scale-110 focus:outline-none"
                 aria-label={"Rate #{star_value} stars"}
+                class="text-4xl transition-all hover:scale-110 focus:outline-none"
               >
                 <%= if star_value <= (get_rating_value(@form) || 0) do %>
                   <span class="text-yellow-400">★</span>
                 <% else %>
-                  <span class="text-gray-300">☆</span>
+                  <span class="text-gray-300 dark:text-gray-600">☆</span>
                 <% end %>
               </button>
             <% end %>
-
-            <%= if get_rating_value(@form) do %>
-              <span class="ml-2 text-sm text-gray-600">
-                {get_rating_value(@form)} {if get_rating_value(@form) == 1, do: "star", else: "stars"}
-              </span>
-            <% end %>
           </div>
 
-    <!-- Hidden input to store the rating value -->
+          <%= if get_rating_value(@form) do %>
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+              {get_rating_value(@form)} {if get_rating_value(@form) == 1, do: "star", else: "stars"}
+            </p>
+          <% end %>
+
           <input type="hidden" name={@form[:rating].name} value={get_rating_value(@form) || ""} />
 
-    <!-- Display errors if any -->
           <%= if @form[:rating].errors != [] do %>
-            <p class="mt-2 text-sm text-rose-600">
+            <p class="mt-1 text-sm text-rose-600 dark:text-rose-400">
               {translate_errors(@form[:rating].errors)}
             </p>
           <% end %>
         </div>
 
-        <.input field={@form[:comment]} type="textarea" label="Comment" />
-        <.input field={@form[:rated_user_id]} type="text" value={@current_scope.user.username} label="User name" placeholder={@current_scope.user.username}/>
+        <!-- Comment -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Comment</label>
+          <textarea
+            name={@form[:comment].name}
+            class="w-full p-3 rounded-lg border border-gray-300 dark:border-zinc-700
+                   bg-white dark:bg-zinc-800 text-gray-900 dark:text-gray-200
+                   focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400
+                   transition-all"
+            rows="4"
+            placeholder="Write your experience..."
+          ><%= Phoenix.HTML.Form.input_value(@form, :comment) %></textarea>
+        </div>
 
-        <footer class="flex flex-col gap-4 w-full text-center">
-          <.button phx-disable-with="Saving..." variant="dark-blue-gray">Save Review</.button>
+        <!-- User (read-only) -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">User</label>
+          <input
+            type="text"
+            class="w-full p-3 rounded-lg border border-gray-300 dark:border-zinc-700
+                   bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-300 cursor-not-allowed"
+            readonly
+            value={@current_scope.user.username}
+          />
+        </div>
+
+        <!-- Buttons -->
+        <div class="pt-6 flex flex-col gap-3 text-center">
+          <.button phx-disable-with="Saving..." variant="dark-blue-gray">
+            Save Review
+          </.button>
+
           <.button navigate={return_path(@current_scope, @return_to, @rating)} variant="blue-gray">
             Cancel
           </.button>
-        </footer>
+        </div>
+
       </.form>
-    </Layouts.app>
-    """
+    </div>
+  </section>
+</Layouts.app>
+"""
   end
 
   # Helper function to safely get rating value
@@ -189,6 +228,6 @@ defmodule ServicesWeb.RatingLive.Form do
     end
   end
 
-  defp return_path(_scope, "index", _rating), do: ~p"/ratings"
+  defp return_path(_scope, "index", _rating), do: ~p"/"
   defp return_path(_scope, "show", rating), do: ~p"/ratings/#{rating}"
 end
