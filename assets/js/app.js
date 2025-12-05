@@ -26,6 +26,7 @@ import { hooks as colocatedHooks } from "phoenix-colocated/services";
 import topbar from "../vendor/topbar";
 import { Carousel } from "./custom_js/carousel";
 import { Sidebar } from "./custom_js/sidebar";
+import { Mailto } from "./custom_js/mailto"
 
 let Hooks = {};
 
@@ -166,4 +167,5 @@ if (process.env.NODE_ENV === "development") {
 window.addEventListener("DOMContentLoaded", () => {
   Carousel();
   Sidebar();
+  Mailto();
 });
